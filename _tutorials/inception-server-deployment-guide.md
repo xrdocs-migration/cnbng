@@ -144,7 +144,7 @@ drwxrwxr-x 2 cloud-user cloud-user       4096 Apr 12 21:50 .
 </pre>
 </div>
   
-**Note1:** Sometimes there could a disk space problem if files are kept in /var/tmp folder. In that case temporary folder, to keep install files, can be created in user directory itself i.e. /home/cloud-user/
+**Note:** Sometimes there could a disk space problem if files are kept in /var/tmp folder. In that case temporary folder, to keep install files, can be created in user directory itself i.e. /home/cloud-user/
 {: .notice--info}
   
 - Untar the tarball using tar xvf
