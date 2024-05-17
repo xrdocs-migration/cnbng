@@ -17,7 +17,7 @@ excerpt: >-
 {% include toc %}
 
 ## Introduction
-Inception Server is used to deploy the SMI cluster. It packages Ansible Playbooks which makes the deployment of SMI with all addons as a one click operation. The server also has a confD, which offers a user and machine friendly interfaces for SMI deployment. The main interfaces offered are Netconf, Restconf and CLI. In this tutorial we will deploy Inception Server in VMWare ESXi environment. The VMware vSphere Hypervisor (ESXi) 6.5 and 6.7 has been fully tested and meets performance benchmarks.
+Inception Server is used to deploy the SMI cluster. It packages Ansible Playbooks which makes the deployment of SMI with all addons as a one click operation. The server also has a confD, which offers a user and machine friendly interfaces for SMI deployment. The main interfaces offered are Netconf, Restconf and CLI. In this tutorial we will deploy Inception Server in VMWare ESXi environment. The VMware vSphere Hypervisor (ESXi) >=6.5 has been fully tested and meets performance benchmarks.
 
 ![inception1.png]({{site.baseurl}}/images/inception1.png)
 
@@ -25,8 +25,8 @@ Inception Server is used to deploy the SMI cluster. It packages Ansible Playbook
 
 We need following softwares for deployment of Inception Server:
 
-- Customized Base Ubuntu ISO Image File (provided by SMI)
-- Cluster Deployer Tarball
+- Customized Base Ubuntu ISO Image File (provided by SMI) e.g. smi-install-disk.iso
+- Cluster Deployer Tarball e.g. cluster-deployer-2024.02.1.14.tar
 
 ## Summary Steps for Installation of Inception Server
 
@@ -143,6 +143,9 @@ drwxrwxr-x 2 cloud-user cloud-user       4096 Apr 12 21:50 .
 </code>
 </pre>
 </div>
+  
+**Note1:** Sometimes there could a disk space problem if files are kept in /var/tmp folder. In that case temporary folder, to keep install files, can be created in user directory itself i.e. /home/cloud-user/
+{: .notice--info}
   
 - Untar the tarball using tar xvf
 
