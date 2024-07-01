@@ -14,7 +14,7 @@ position: hidden
 ---
 ## Overview
 
-cnBNG Control Plane can be categorised based on Kubernetes cluster as either single node cluster deployment or as multi node cluster deployment. The node here can refer to as:
+cnBNG Control Plane cluster deployment can be categorised as a single node cluster deployment, or as a multi node cluster deployment. The node here can refer to as:
 	- VM, or
 	- A Baremetal Server (often UCS)
 
