@@ -2,7 +2,7 @@
 published: true
 date: '2024-07-01 14:30 +0530'
 title: Understanding 3 UCS Server Geo-Red Control Plane Deployment
-author: Gurpreet Singh
+author: Gurpreet Dhaliwal
 excerpt: >-
   This tutorial explains the concepts related to three server Geo Redundant
   Control Plane Baremetal/CNDP cluster Deployment. 
@@ -25,6 +25,9 @@ In this tutorial we will learn about Geo Redundant Control Plane multi node clus
 ## Layered Control Plane Architecture
 
 We all know that Cisco Cloud Native BNG Control Plane is designed as a layered architecture for better resiliency and scalability. Fig.1. below shows the layered control plane architecture. The layered architecture works on Kuberenetes node labelling mechanism. Which allows to spawn containers/ PODs to respective servers/nodes based on the labels. Efficient and careful labelling can provide protection against POD, server and link failure.
+
+![]({{site.baseurl}}images/cp_architecture.png)![cp_architecture.png]({{site.baseurl}}/images/cp_architecture.png)
+
 
 We use following K8s labels in a typical multi-node cluster deployment of control plane. These can be categorised into four layers: OAM, Protocol, Service and Session. 
 
