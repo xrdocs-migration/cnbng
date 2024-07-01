@@ -15,8 +15,8 @@ position: hidden
 ## Overview
 
 cnBNG Control Plane cluster deployment can be categorised as a single node cluster deployment, or as a multi node cluster deployment. The node here can refer to as:
-	- VM, or
-	- A Baremetal Server (often UCS)
+- VM, or
+- A Baremetal Server (often UCS)
 
 Deploying Control Plane in Baremetal form is beneficial and can save upto 30% of CPU because resources are not required to be reserved for Hypervisor. Another advantage of running Control Plane on baremetal servers is that SMI (Cisco Ultra Cloud Core) can monitor server performance along with Control Plane performance. 
 
