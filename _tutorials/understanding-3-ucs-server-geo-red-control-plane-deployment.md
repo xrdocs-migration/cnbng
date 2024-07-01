@@ -30,7 +30,9 @@ With the help of Subscriber Edge deployment tool (https://github.com/xrdocs/subs
 
 We all know that Cisco Cloud Native BNG Control Plane is designed as a layered architecture for better resiliency and scalability. Fig.1. below shows the layered control plane architecture. The layered architecture works on Kuberenetes node labelling mechanism. Which allows to spawn containers/ PODs to respective servers/nodes based on the labels. Efficient and careful labelling can provide protection against POD, server and link failure.
 
-![cp_architecture.png]({{site.baseurl}}/images/cp_architecture.png)
+![cp_architecture.png]({{site.baseurl}}/images/cp_architecture.png){: .align-center}{:height="60%" width="60%"}
+Fig.1. Layered Control Plane Architecture
+{: .text-center}
 
 
 We use following K8s labels in a typical multi-node cluster deployment of control plane. These can be categorised into four layers: OAM, Protocol, Service and Session. 
@@ -47,7 +49,9 @@ k8s node-labels smi.cisco.com/sess-type cdl-node
 
 In Fig.2. below, you can see different networks and logical connectivity between servers. Also notice that how servers are categorized into four layers of Control Plane architecture.
 
-![3svr_logical_topo.png]({{site.baseurl}}/images/3svr_logical_topo.png)
+![3svr_logical_topo.png]({{site.baseurl}}/images/3svr_logical_topo.png){: .align-center}
+Fig.2. Geo Redundant Control Plane Cluster Logical Topology
+{: .text-center}
 
 In Fig.2., service network svc-net1 (or n4) is created for communication with User Planes and AAA. cnBNG Control Plane can have a separate service network to communicate with AAA. 
 
@@ -55,13 +59,17 @@ Three networks inttcp, intudp and cdl are created for Geo Redundancy. In stand-a
 
 Fig.3. below shows interfaces (cdl and inttcp) used for synchronization between two clusters. As many nodes are involved in the cluster and different IPs are assigned including Virtual IPs, entire subnet (/28) needs to be accessible from remote end for these two interfaces. 
 
-![geored_connections.png]({{site.baseurl}}/images/geored_connections.png)
+![geored_connections.png]({{site.baseurl}}/images/geored_connections.png){: .align-center}{:height="60%" width="60%"}
+Fig.3. Interfaces for inter cluster synchronization
+{: .text-center}
 
 ## Three Server Geo Redundant Control Plane Cluster Phyical Topology
 
 Physical topology of three server baremetal cluster is shown in Fig.4. below. Every cluster can have different physical mapping based on datacenter design restrictions. Below are Cisco recommended cluster topology connections for greater resiliency.
 
-![3svr_physical_topo.png]({{site.baseurl}}/images/3svr_physical_topo.png)
+![3svr_physical_topo.png]({{site.baseurl}}/images/3svr_physical_topo.png){: .align-center}
+Fig.4. Geo Redundant Control Plane Cluster Phyical Topology
+{: .text-center}
 
 Cisco recommends creating bond interfaces to provide redundancy for link failures, especially for k8s and management networks. Here are the bond interfaces which are created in a typical three server deployment model:
 
