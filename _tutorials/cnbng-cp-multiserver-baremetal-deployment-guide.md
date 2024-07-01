@@ -138,7 +138,7 @@ Further SMI Deployer/Cluster Manager can be deployed as a VM or on a baremetal s
     <td>NA</td>
   </tr>
   <tr>
-    <td>Server-1</td>
+    <td>Server-4</td>
     <td>10.81.103.62</td>
     <td>208.208.208.14</td>
     <td>213.213.213.12</td>
