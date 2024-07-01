@@ -63,16 +63,41 @@ Physical topology of three server baremetal cluster is shown in Fig.4. below. Ev
 
 Cisco recommends creating bond interfaces to provide redundancy for link failures, especially for k8s and management networks. Here are the bond interfaces which are created in a typical three server deployment model:
 
-Bond Interface	Links
-bd0	eno5 and eno6 (MLOM Ports)
-bd1	enp94s0f1
-bd2	enp94s0f0
+<table style="width:100%" border = "2">
+  <tr bgcolor="lightblue">
+    <th>Bond Interface</th>
+    <th>Links</th>
+  </tr>
+  <tr>
+    <td>bd0</td>
+    <td>eno5 and eno6 (MLOM Ports)</td>
+  </tr>
+  <tr>
+    <td>bd1</td>
+    <td>enp94s0f1 (PCIE0 port)</td>
+  </tr>
+  <tr>
+    <td>bd2</td>
+    <td>enp94s0f0 (PCIE1 port</td>
+  </tr>
+</table>
 
 Apart from these two interfaces are used to form eBGP sessions. These are PCIE0 and PCIE1 interfaces from UCS01 and UCS02 protocol nodes. In a typical cluster deployment, it is recommended to form two EBGP sessions for redundancy. 
 
-EBGP Interface	Links
-ebgp1	enp216s0f0
-ebgp2	enp94s0f0
+<table style="width:100%" border = "2">
+  <tr bgcolor="lightblue">
+    <th>EBGP Session</th>
+    <th>Link</th>
+  </tr>
+  <tr>
+    <td>ebgp1</td>
+    <td>enp216s0f0</td>
+  </tr>
+  <tr>
+    <td>ebgp2</td>
+    <td>enp94s0f0</td>
+  </tr>
+</table>
 
 Here is the logical interface to physical port mapping and an example VLAN map:
 
