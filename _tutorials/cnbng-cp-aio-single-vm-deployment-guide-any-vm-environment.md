@@ -175,19 +175,19 @@ In the above config, change ntp server to the one available in the lab. Also net
   </div>
   
 1. cnBNG software is available as a tarball and it can be hosted on local http server for offline deployment. In this step we configure the software repository locations for tarball. We setup software cnf for both cnBNG CP and CEE. URL and SHA256 depends on the version of the image and the url location, so these two could change for your deployment
-  ```
-  software cnf bng
-   url             http://192.168.107.148/images/CP/cp_30sep21/bng/bng.2021.04.m0.i74.tar
-   allow-dev-image true
-   sha256          e36b5ff86f35508539a8c8c8614ea227e67f97cf94830a8cee44fe0d2234dc1c
-   description     bng-products
-  exit
-  software cnf cee
-   url         http://192.168.107.148/images/CP/cp_30sep21/cee-2020.02.6.i04.tar
-   sha256      b5040e9ad711ef743168bf382317a89e47138163765642c432eb5b80d7881f57
-   description cee-products
-  exit
-  ```
+```
+software cnf bng
+  url             http://192.168.107.148/images/CP/cp_30sep21/bng/bng.2021.04.m0.i74.tar
+  allow-dev-image true
+  sha256          e36b5ff86f35508539a8c8c8614ea227e67f97cf94830a8cee44fe0d2234dc1c
+  description     bng-products
+exit
+software cnf cee
+  url         http://192.168.107.148/images/CP/cp_30sep21/cee-2020.02.6.i04.tar
+  sha256      b5040e9ad711ef743168bf382317a89e47138163765642c432eb5b80d7881f57
+  description cee-products
+exit
+```
 1. Setup Ops Center configs inside cluster for cnBNG
   <div class="highlighter-rouge">
   <pre class="highlight">
