@@ -129,7 +129,7 @@ Here is the logical interface to physical port mapping and an example VLAN map:
 
 In a three server cluster deployment, virtual IP addresses (created for VRRP between nodes) helps POD/containers reach respective services. Here is the list of virtual IPs which are created for cluster operations under respective network interfaces.
 
- ```
+```
     networks:
       inttcp:
         id: 164
