@@ -20,7 +20,9 @@ cnBNG Control Plane cluster deployment can be categorised as a single node clust
 
 Deploying Control Plane in Baremetal form is beneficial and can save upto 30% of CPU, because resources are not required to be reserved for Hypervisor. Another advantage of running Control Plane on baremetal server(s) is that SMI (Cisco Ultra Cloud Core) can monitor server performance along with Control Plane performance. 
 
-In this tutorial we will learn about Geo Redundant Control Plane multi node cluster deployment. Multi-node cluster has unique requirements from networking perspective, and Geo redundancy adds additional networking overhead which could be complex to understand at first. We will try to demystify this and look at how we can leverage Subscriber Edge deployment tool (https://github.com/xrdocs/subscriber-edge) to ease the deployment process. 
+In this tutorial we will learn concepts about Geo Redundant Control Plane multi-node cluster deployment. Multi-node cluster has unique requirements from networking perspective, and Geo redundancy adds additional networking overhead which could be complex to understand at first. We will try to demystify this.
+
+With the help of Subscriber Edge deployment tool (https://github.com/xrdocs/subscriber-edge) it is easy to generate configuration for SMI Cluster Deployer and deploy the Multi Node cluster easily.
 
 ## Layered Control Plane Architecture
 
