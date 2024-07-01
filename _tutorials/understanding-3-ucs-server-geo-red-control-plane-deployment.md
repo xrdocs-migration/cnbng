@@ -2,6 +2,7 @@
 published: false
 date: '2024-07-01 14:30 +0530'
 title: Understanding 3 UCS Server Geo-Red Control Plane Deployment
+author: Gurpreet Singh
 ---
 ## Overview
 
