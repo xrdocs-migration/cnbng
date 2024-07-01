@@ -12,6 +12,8 @@ tags:
   - deployment
 position: hidden
 ---
+{% toc %}
+
 ## Overview
 
 cnBNG Control Plane cluster deployment can be categorised as a single node cluster deployment, or as a multi node cluster deployment. The node here can refer to as:
@@ -121,4 +123,34 @@ Here is the logical interface to physical port mapping and an example VLAN map:
       cdl:
         id: 165 
         intf: bd1
+```
+
+## Virtual IP Addresses
+
+In a three server cluster deployment, virtual IP addresses (created for VRRP between nodes) helps POD/containers reach respective services. Here is the list of virtual IPs which are created for cluster operations under respective network interfaces.
+
+ ```
+    networks:
+      inttcp:
+        id: 164
+        intf: bd1
+        vip1: 1.1.164.100
+        vip2: 1.1.164.101
+        broadcast: 1.1.164.255
+      intudp:
+        id: 163
+        intf: bd2
+        vip1: 1.1.163.100
+      n4:
+        id: 161
+        intf: bd2
+        vip1: 72.72.100.1 # this IP (advertised by BGP) is used to connect UPs with Instance-1 of this cluster
+        vip2: 73.73.100.2 # this IP (advertised by BGP) is used to connect UPs with Instance-2 of this cluster
+      cdl:
+        id: 165 
+        intf: bd1
+        vip1: 1.1.165.100
+        vip2: 1.1.165.101
+        vip3: 1.1.165.102
+        broadcast: 1.1.165.255
 ```
