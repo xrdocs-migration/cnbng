@@ -12,7 +12,7 @@ tags:
   - deployment
 position: hidden
 ---
-{% toc %}
+{% include toc %}
 
 ## Overview
 
