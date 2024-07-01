@@ -1,8 +1,15 @@
 ---
-published: false
+published: true
 date: '2024-07-01 14:30 +0530'
 title: Understanding 3 UCS Server Geo-Red Control Plane Deployment
 author: Gurpreet Singh
+excerpt: >-
+  This tutorial explains the concepts related to three server Geo Redundant
+  Control Plane Baremetal/CNDP cluster Deployment. 
+tags:
+  - cisco
+  - cnbng
+  - deployment
 ---
 ## Overview
 
