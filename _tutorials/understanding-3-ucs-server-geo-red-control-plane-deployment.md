@@ -106,22 +106,22 @@ Here is the logical interface to physical port mapping and an example VLAN map:
 ```
     networks:
       k8s:
-        id: 125
+        id: 125  # VLAN ID
         intf: bd0
       mgmt:
-        id: 325
+        id: 325  # VLAN ID
         intf: bd0
       inttcp:
-        id: 164
+        id: 164  # VLAN ID
         intf: bd1
       intudp:
-        id: 163
+        id: 163  # VLAN ID
         intf: bd2
       n4:
-        id: 161
+        id: 161  # VLAN ID
         intf: bd2
       cdl:
-        id: 165 
+        id: 165  # VLAN ID
         intf: bd1
 ```
 
@@ -132,25 +132,21 @@ In a three server cluster deployment, virtual IP addresses (created for VRRP bet
 ```
     networks:
       inttcp:
-        id: 164
+        id: 164  # VLAN ID
         intf: bd1
         vip1: 1.1.164.100
         vip2: 1.1.164.101
         broadcast: 1.1.164.255
       intudp:
-        id: 163
+        id: 163  # VLAN ID
         intf: bd2
         vip1: 1.1.163.100
       n4:
-        id: 161
+        id: 161  # VLAN ID
         intf: bd2
-        vip1: 72.72.100.1 # this IP (advertised by BGP) is used to connect UPs with Instance-1 of this cluster
-        vip2: 73.73.100.2 # this IP (advertised by BGP) is used to connect UPs with Instance-2 of this cluster
+        vip1: 72.72.100.1  # this IP (advertised by BGP) is used to connect UPs with Instance-1 of this cluster
+        vip2: 73.73.100.2  # this IP (advertised by BGP) is used to connect UPs with Instance-2 of this cluster
       cdl:
-        id: 165 
+        id: 165  # VLAN ID
         intf: bd1
-        vip1: 1.1.165.100
-        vip2: 1.1.165.101
-        vip3: 1.1.165.102
-        broadcast: 1.1.165.255
 ```
