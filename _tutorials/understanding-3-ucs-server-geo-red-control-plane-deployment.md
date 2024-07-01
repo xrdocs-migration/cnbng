@@ -76,15 +76,15 @@ Cisco recommends creating bond interfaces to provide redundancy for link failure
   </tr>
   <tr>
     <td>bd1</td>
-    <td>enp94s0f1 (PCIE0 port)</td>
+    <td>enp94s0f1 (PCIE1 port)</td>
   </tr>
   <tr>
     <td>bd2</td>
-    <td>enp94s0f0 (PCIE1 port</td>
+    <td>enp94s0f0 (PCIE2 port</td>
   </tr>
 </table>
 
-Apart from these two interfaces are used to form eBGP sessions. These are PCIE0 and PCIE1 interfaces from UCS01 and UCS02 protocol nodes. In a typical cluster deployment, it is recommended to form two EBGP sessions for redundancy. 
+Apart from these two interfaces are used to form eBGP sessions. These are PCIE1 and PCIE2 interfaces from UCS01 and UCS02 protocol nodes. In a typical cluster deployment, it is recommended to form two EBGP sessions for redundancy. 
 
 <table style="width:100%" border = "2">
   <tr bgcolor="lightblue">
