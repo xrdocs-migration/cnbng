@@ -157,6 +157,9 @@ In a three server cluster deployment, virtual IP addresses (created for VRRP bet
       cdl:
         id: 165  # VLAN ID
         intf: bd1
+        vip1: 1.1.165.100
+        vip2: 1.1.165.101
+        vip3: 1.1.165.102
 ```
 
 ## Cluster IP Addressing Map/ Table
@@ -166,4 +169,3 @@ Below is an IP addressing Map or Table to help decide on IP addresses within the
 ![3svr_gr_cluster_ip_address_map.png]({{site.baseurl}}/images/3svr_gr_cluster_ip_address_map.png){: .align-center}
 Table.1. Geo Redundant Control Plane Cluster IP Addressing
 {: .text-center}
-
