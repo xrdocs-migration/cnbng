@@ -115,7 +115,7 @@ Here is the logical interface to physical port mapping and an example VLAN map:
     networks:
       k8s:
         id: 125  # VLAN ID
-        intf: bd0
+        intf: bd2
       mgmt:
         id: 325  # VLAN ID
         intf: bd0
