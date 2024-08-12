@@ -10,7 +10,7 @@ tags:
   - cisco
   - cnbng
   - deployment
-position: hidden
+position: top
 ---
 {% include toc %}
 
