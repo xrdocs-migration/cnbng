@@ -1,6 +1,6 @@
 ---
 published: true
-date: '2021-12-13 08:39 +0530'
+date: '2023-12-13 08:39 +0530'
 title: cnBNG CP Multiserver (VMWare) Deployment Guide
 author: Gurpreet Dhaliwal
 position: top
