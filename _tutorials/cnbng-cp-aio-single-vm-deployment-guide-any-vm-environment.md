@@ -1,6 +1,6 @@
 ---
 published: true
-date: '2023-02-28 10:47 +0530'
+date: '2024-02-01'
 title: cnBNG CP (AIO) Single VM Deployment Guide - Any VM Environment
 position: top
 tags:
