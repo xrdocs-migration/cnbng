@@ -1,6 +1,6 @@
 ---
 published: true
-date: '2023-01-01'
+date: '2024-01-01'
 title: Inception Server (SMI Deployer) Deployment Guide
 author: Gurpreet Dhaliwal
 position: top
