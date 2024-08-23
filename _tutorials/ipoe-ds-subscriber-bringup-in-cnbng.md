@@ -1,6 +1,6 @@
 ---
 published: true
-date: '2022-04-06 19:12 +0530'
+date: '2024-03-06 19:12 +0530'
 title: IPoE DS Subscriber Bringup in cnBNG
 author: Gurpreet Dhaliwal
 profile: hidden
