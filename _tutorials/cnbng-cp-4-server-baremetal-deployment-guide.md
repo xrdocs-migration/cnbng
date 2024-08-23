@@ -1,6 +1,6 @@
 ---
 published: true
-date: '2022-01-20 15:48 +0530'
+date: '2024-03-20 15:48 +0530'
 title: cnBNG CP 4 Server UCS Baremetal/CNDP Deployment Guide
 author: Gurpreet Dhaliwal
 excerpt: >-
