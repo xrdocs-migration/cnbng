@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2022-01-20 15:48 +0530'
-title: cnBNG CP Multiserver (Baremetal) Deployment Guide
+title: cnBNG CP 4 Server UCS Baremetal/CNDP Deployment Guide
 author: Gurpreet Dhaliwal
 excerpt: >-
   Learn how to deploy cnBNG CP HA setup on baremetal UCS servers. Baremetal
