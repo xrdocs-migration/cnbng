@@ -108,6 +108,9 @@ sudo hostnamectl set-hostname cnbng-cp-lab1-aio
 ```
 	ssh cloud-user@192.168.107.166
 ```
+  
+**Note**: "ssh-copy-id" may not work in latest SMI images. This step can be skipped in that scenario. 
+{: .notice--info}  
 
 ## Step 4: SMI, CEE and cnBNG CP deployment using SMI Deployer
 
