@@ -244,8 +244,8 @@ exit
 UP Configuration has mainly four constructs for cnBNG
 
 - Association Configuration
-- DHCP Configuration
 - Access Interface
+- DHCP Configuration
 - Feature definitions: QoS, ACL
 
 ### Association Configuration
