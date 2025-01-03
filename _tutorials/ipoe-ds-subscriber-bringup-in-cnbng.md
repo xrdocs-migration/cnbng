@@ -243,18 +243,10 @@ exit
 
 UP Configuration has mainly four constructs for cnBNG
 
-- Loopback for cnBNG CP-UP association
+- Association Configuration
 - DHCP Configuration
 - Access Interface
 - Feature definitions: QoS, ACL
-
-### Loopback Creation
-We need to create a Loopback for cnBNG use.
-
-```
-interface Loopback1
- ipv6 enable
-```
 
 ### Association Configuration
 
@@ -285,6 +277,13 @@ cnbng-nal location 0/RP0/CPU0
 
 **Note**: NAL stands for Network Adaptation Layer for Cloud Native BNG in IOS-XR
 {: .notice--info}
+
+We need to create a Loopback for cnBNG use.
+
+```
+interface Loopback1
+ ipv6 enable
+```
 
 ### DHCP Configuration
 This is where we associate access interfaces with cnBNG DHCP profile. cnBNG specific DHCP profile makes sure DHCP packets are punted to cnBNG CP through CPRi/GTP-u tunnel.
