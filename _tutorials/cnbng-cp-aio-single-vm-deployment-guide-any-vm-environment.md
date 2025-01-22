@@ -109,14 +109,7 @@ sudo hostnamectl set-hostname cnbng-cp-lab1-aio
 	ssh cloud-user@192.168.107.166
 ```
   
-**Note**: "ssh-copy-id" may not work in latest SMI images. In this scenario manually copy public key to /home/cloud-user/.ssh/authorized_keys file on CP VM:
-  ```
-  cloud-user@cnbng-cp:~$ cd .ssh
-  cloud-user@cnbng-cp:~/.ssh$ ls
-  authorized_keys  known_hosts
-  cloud-user@cnbng-cp:~/.ssh$ more authorized_keys
-  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/MVr1yxik5uGsusabQ4YG5F5fakkuwzM6yAxDZjXLbIDiCSn8Bil0yK/zRqEUnBHTOZ6uTNO9LZsJMaGqA3/v5uLQC1KqQHplIxfbOqd2aMsMD7eQReR2FiggRQfQjDDqp0pc1gEaCFgyDuF14MZB7QdPs6wAQhnMwBJITrtRoPk+DJAEQJibIqW2FXfrEqJiYCSV8u7QEC9mOIBTXgmCGvaBTMMLmTy7wNNb9tg0lLBMFcDAGx+T2KJq2jmdu9AIGdErvin+HnUV7mG+0h8iyBZRH3bEQUpFDbobHlOTsN4hkFnQTSehSMUgZHl+Hiffo2FAm8ccY9UeNgqv7x7by4Z6ERSXj6DlPw9L/A3qfXfjXx+yuX9odSHVZ+joY6QYErn+Y9hfx3xAiWYDC0r9SodmIb1oxpEfNjh6q0m/dfn/qPUt8MvaV7TE8zlsW42PhM+M3u7EPzuTI/KgF05mep6HXoT8UZhQ/CKwsoziu2o+4F1rTqYQ3trzO+y6V4c= cloud-user@inception
-  ```
+**Note**: "ssh-copy-id" may not work in latest SMI images. In this scenario manually copy public key to /home/cloud-user/.ssh/authorized_keys file on CP VM.
 {: .notice--info}  
 
 ## Step 4: SMI, CEE and cnBNG CP deployment using SMI Deployer
