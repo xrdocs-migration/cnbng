@@ -253,40 +253,40 @@ exit
 ***Note: You can generate sha256 for images using sha256sum.***
 
 1. Setup Ops Center configuration inside cluster configuration and commit
-  <div class="highlighter-rouge">
-  <pre class="highlight">
-  <code>
-  clusters cnbng
-   ops-centers bng bng
-    repository-local        bng
-    sync-default-repository true
-    netconf-ip              <mark>your-cnbng-cp-vm-ip</mark>
-    netconf-port            3022
-    ssh-ip                  <mark>your-cnbng-cp-vm-ip</mark>
-    ssh-port                2024
-    ingress-hostname        <mark>your-cnbng-cp-vm-ip</mark>.nip.io
-    initial-boot-parameters use-volume-claims true
-    initial-boot-parameters first-boot-password <mark>your-password-to-connect-bng-ops-center</mark>
-    initial-boot-parameters auto-deploy false
-    initial-boot-parameters single-node true
-   exit
-   ops-centers cee global
-    repository-local        cee
-    sync-default-repository true
-    netconf-ip              <mark>your-cnbng-cp-vm-ip</mark>
-    netconf-port            3024
-    ssh-ip                  <mark>your-cnbng-cp-vm-ip</mark>
-    ssh-port                2023
-    ingress-hostname        <mark>your-cnbng-cp-vm-ip</mark>.nip.io
-    initial-boot-parameters use-volume-claims true
-    initial-boot-parameters first-boot-password <mark>your-password-to-connect-cee-ops-center</mark>
-    initial-boot-parameters auto-deploy true
-    initial-boot-parameters single-node true
-   exit
-  exit
-  </code>
-  </pre>
-  </div>
+    <div class="highlighter-rouge">
+    <pre class="highlight">
+    <code>
+    clusters cnbng
+     ops-centers bng bng
+      repository-local        bng
+      sync-default-repository true
+      netconf-ip              <mark>your-cnbng-cp-vm-ip</mark>
+      netconf-port            3022
+      ssh-ip                  <mark>your-cnbng-cp-vm-ip</mark>
+      ssh-port                2024
+      ingress-hostname        <mark>your-cnbng-cp-vm-ip</mark>.nip.io
+      initial-boot-parameters use-volume-claims true
+      initial-boot-parameters first-boot-password <mark>your-password-to-connect-bng-ops-center</mark>
+      initial-boot-parameters auto-deploy false
+      initial-boot-parameters single-node true
+     exit
+     ops-centers cee global
+      repository-local        cee
+      sync-default-repository true
+      netconf-ip              <mark>your-cnbng-cp-vm-ip</mark>
+      netconf-port            3024
+      ssh-ip                  <mark>your-cnbng-cp-vm-ip</mark>
+      ssh-port                2023
+      ingress-hostname        <mark>your-cnbng-cp-vm-ip</mark>.nip.io
+      initial-boot-parameters use-volume-claims true
+      initial-boot-parameters first-boot-password <mark>your-password-to-connect-cee-ops-center</mark>
+      initial-boot-parameters auto-deploy true
+      initial-boot-parameters single-node true
+     exit
+    exit
+    </code>
+    </pre>
+    </div>
   
 1. Deploy cnBNG CP cluster using cluster sync command:
   ```
