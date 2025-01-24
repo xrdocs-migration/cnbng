@@ -109,17 +109,17 @@ preserve_hostname: true
 ```
 	ssh-copy-id cloud-user@192.168.107.166
 ```
-
-**Note**: "ssh-copy-id" may not work in latest SMI ISO images. If ssh-copy-id doesnot work then manually copy public key from file /home/cloud-user/.ssh/id_rsa.pub to cnBNG CP VM file /home/cloud-user/.ssh/authorized_keys. Make sure you remove any line breaks from the key. 
-{: .notice--info}  
-
 	1. Make sure you can login to cnBNG CP VM from Inception VM without password. 
     
 ```
 	ssh cloud-user@192.168.107.166
 ```
 
+**Note**: "ssh-copy-id" may not work in latest SMI ISO images. If ssh-copy-id doesnot work then manually copy public key from file /home/cloud-user/.ssh/id_rsa.pub to cnBNG CP VM file /home/cloud-user/.ssh/authorized_keys. Make sure you remove any line breaks from the key. 
+{: .notice--info} 
+
 **Warning**: Proceed to next step only if passwordless access to cnBNG CP VM is working from Inception VM.
+{: .warning--info} 
 
 ## Step 3: cnBNG CP deployment using SMI Deployer
 
