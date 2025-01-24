@@ -216,6 +216,7 @@ PO1jWUJCELB2gEcbaPQ9n2fFHHZteNgzBYyfUM5MQdZQAT4FXYaWzlTG1XYwSIP0+JapK/0qgC7X06BX
 ILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= cloud-user@cl-ams-inception
 ```
 1. Create AIO Node config:
+  
   <div class="highlighter-rouge">
   <pre class="highlight">
   <code>
@@ -234,6 +235,7 @@ ILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= clo
   </code>
   </pre>
   </div>
+  
 1. cnBNG software is available as a tarball and it can be hosted on local http server for offline deployment. In this step we configure the software repository location for tarball. We setup software cnf for both cnBNG CP and CEE. URL and SHA256 depends on the version of the image and the url location, so these two could change for your deployment
 ```
 software cnf bng
