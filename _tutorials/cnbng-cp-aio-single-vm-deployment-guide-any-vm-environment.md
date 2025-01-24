@@ -134,7 +134,8 @@ ssh admin@localhost -p 2022
 		manual
 	exit
 	```
-1. Create Cluster configuration as below with your cnBNG CP VM SSH IP.
+1. Create Cluster configuration as below with your cnBNG CP VM SSH IP. Change ntp server "clock.cisco.com" to the one available in your lab.
+
     <div class="highlighter-rouge">
     <pre class="highlight">
     <code>
@@ -156,8 +157,6 @@ ssh admin@localhost -p 2022
     </pre>
     </div>
     
-**Note**: In the above config, change ntp server to the one available in the lab. 
-{: .notice--info}
 1. Configure Inception VM's ssh private key from file /home/cloud-user/.ssh/id_rsa by replace line breaks with "\n", under the cluster config using "node-defaults k8s ssh-connection-private-key". Pay special attention to how the private key is configured under cluster.
 
 ```
@@ -259,8 +258,7 @@ software cnf cee
 exit
 ```
 
-**Note**: You can generate sha256 for images using sha256sum.
-{: .notice--info}
+***Note: You can generate sha256 for images using sha256sum.***
 
 1. Setup Ops Center configuration inside cluster configuration and commit
   <div class="highlighter-rouge">
