@@ -155,10 +155,8 @@ ssh admin@localhost -p 2022
     </code>
     </pre>
     </div>
-
-In the above config, change ntp server to the one available in the lab. 
+**Note**: In the above config, change ntp server to the one available in the lab. 
 {: .notice--info}
- 
 1. Configure Inception VM's ssh private key from file /home/cloud-user/.ssh/id_rsa by replace line breaks with "\n", under the cluster config using "node-defaults k8s ssh-connection-private-key". Pay special attention to how the private key is configured under cluster.
 
 ```
@@ -210,7 +208,6 @@ zZ1UalMlKSiXBSw7tDRUGu+AzUbhUi9AIwL/Ipx7uhpEjfcjaMjffksa+PjRc5z1
 vEouTDje0Xa3BjWNKh7yntayKA==
 -----END PRIVATE KEY-----
 ```
-
 1. Configure Inception VM's public key from file /home/cloud-user/.ssh/id_rsa.pub, under cluster config using "node-defaults initial-boot default-user-ssh-public-key". Remove any line breaks (if any) in the public key because of copying method: 
 
 ```
@@ -631,4 +628,3 @@ smart-agent-bng-bng-ops-center-54bcbf5576-tc4p9        1/1     Running    1     
 udp-proxy-0                                            1/1     Running    0          2m45s
 zookeeper-0                                            1/1     Running    0          2m46s
 </code>
-
