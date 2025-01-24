@@ -109,8 +109,7 @@ preserve_hostname: true
 ```
 	ssh-copy-id cloud-user@192.168.107.166
 ```
-	1. Make sure you can login to cnBNG CP VM from Inception VM without password. 
-    
+	1. Make sure you can login to cnBNG CP VM from Inception VM without password.    
 ```
 	ssh cloud-user@192.168.107.166
 ```
