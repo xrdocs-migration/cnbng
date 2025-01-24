@@ -217,24 +217,24 @@ ILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= clo
 ```
 1. Create AIO Node config:
   
-  <div class="highlighter-rouge">
-  <pre class="highlight">
-  <code>
-  clusters cnbng
-   nodes cp-vm
-    k8s node-type master
-    k8s ssh-ip <mark>your-cnbng-cp-vm-ip</mark>
-    k8s node-labels disktype ssd
+    <div class="highlighter-rouge">
+    <pre class="highlight">
+    <code>
+    clusters cnbng
+     nodes cp-vm
+      k8s node-type master
+      k8s ssh-ip <mark>your-cnbng-cp-vm-ip</mark>
+      k8s node-labels disktype ssd
+      exit
+      k8s node-labels smi.cisco.com/node-type oam
+      exit
+      initial-boot default-user cloud-user
+      initial-boot default-user-password <mark><mark>your-cnbng-cp-vm-ssh-password</mark></mark>
+     exit
     exit
-    k8s node-labels smi.cisco.com/node-type oam
-    exit
-    initial-boot default-user cloud-user
-    initial-boot default-user-password <mark><mark>your-cnbng-cp-vm-ssh-password</mark></mark>
-   exit
-  exit
-  </code>
-  </pre>
-  </div>
+    </code>
+    </pre>
+    </div>
   
 1. cnBNG software is available as a tarball and it can be hosted on local http server for offline deployment. In this step we configure the software repository location for tarball. We setup software cnf for both cnBNG CP and CEE. URL and SHA256 depends on the version of the image and the url location, so these two could change for your deployment
 ```
