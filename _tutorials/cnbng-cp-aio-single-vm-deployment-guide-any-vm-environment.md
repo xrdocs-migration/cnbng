@@ -21,25 +21,26 @@ cnBNG Control Plane deployment in single VM in any NFVI environment is called as
 This is to be noted that only SMI Ubuntu VM deployment in NFVI environment is manual, rest of the process to deploy SMI, CEE and cnBNG Control Plane is fully automated through SMI Deployer or Cluster Manager. 
 
 For AIO deployment following steps are followed:
-1. Inception Server Cluster Manager deployment
-1. Base ISO Ubuntu VM deployment for cnBNG CP
-1. cnBNG CP base ISO Ubuntu OS customizations
-1. SMI, CEE and cnBNG CP deployment using SMI Deployer
+1. Inception VM and SMI Deployer deployment
+1. cnBNG CP VM deployment using SMI base ISO and OS customization
+1. SMI (K8s), CEE and cnBNG CP deployment using SMI Deployer
 
 ## Networking
 
 ![aio-networking1.png]({{site.baseurl}}/images/aio-networking1.png)
 
 ## Prerequisites: 
-- Inception Server (SMI Deployer)
+- Inception VM running SMI Deployer
 
-## Step 1: Deploying Inception VM and Installing SMI Deployer
+## Step 1: Deploying Inception VM and installing SMI Deployer
 
-Refer to [Inception Server Deployment Guide](https://xrdocs.io/cnbng/tutorials/inception-server-deployment-guide/).
+Refer to [Inception VM and SMI Deployer deployment guide](https://xrdocs.io/cnbng/tutorials/inception-server-deployment-guide/).
 
-## Step 2: SMI Ubuntu VM Deployment (Manual)
+## Step 2: cnBNG CP VM deployment using SMI base ISO and OS customization (Manual)
 
-SMI Ubuntu VM can be deployed using any standard VM deployment procedure in a given NFVI environement. This procedure is fairly straight forward and simple. To give an idea on how the deployment of VM works following are the manual steps to deploy the VM in VMWare vCenter. Procedure to deploy the VM may differ based on the chosen NFVI environment. 
+cnBNG CP VM can be deployed using standard VM deployment procedure in a given NFVI environement using SMI base ISO file. 
+
+Following are the manual steps to deploy cnBNG CP VM in VMWare vCenter. Procedure to deploy the VM may differ based on the NFVI environment. 
 
 1. Download the SMI Base ISO file and copy the file to the VM Datastore
 1. In the vCenter, select "Create a New Virtual Machine"
@@ -54,7 +55,7 @@ SMI Ubuntu VM can be deployed using any standard VM deployment procedure in a gi
 	1. Click New CD/DVD Drive and do the following:
 		1. Select Datastore ISO file option to boot from the SMI Base .iso file. Browse to the location of the .iso file on the datastore set in Step 1.
 		1. In the Device Status field, select Connect at power on checkbox.
-1. After the VM boots up: login to the VM (user: cloud_user, password: Cisco_123). You will be prompted to change the password immediately
+1. After the VM boots up: login to the VM (user: cloud-user, password: Cisco_123). You will be prompted to change the password immediately
 1. Now setup Networking by editing /etc/netplan/50-cloud-init.yaml file. Here is a sample file config:
 ```
 	network:
@@ -78,25 +79,29 @@ SMI Ubuntu VM can be deployed using any standard VM deployment procedure in a gi
 	    version: 2
 ```
 
-**Note**: Sometimes interface is not shown as ens160, in that case it is a good idea to search for the interface using ifconfig -a command. Generally lower ens number is the first NIC attached to the VM, and higher number is the last.
+**Note**: If interface is not shown as ens160, search for the right interface using ifconfig -a command. Generally lower ens number is the first NIC attached to the VM, and higher number is the last.
 {: .notice--info}
 
-## Step 3: Base ISO Ubuntu OS customization
+### OS customization
 
-1. SSH login to cnBNG CP AIO Ubuntu VM which was deployed in Step-2
-1. Now change the hostname of the VM to: <your-cnbng-cp-cluster>-aio, using:
+1. SSH login to cnBNG CP VM which is deployed in Step-2
+1. Now, change the hostname of the VM to: cnbng-cp-vm, using:
 ```
-sudo hostnamectl set-hostname <your-cnbng-cp-cluster>-aio
-e.g.
-sudo hostnamectl set-hostname cnbng-cp-lab1-aio
+sudo hostnamectl set-hostname cnbng-cp-vm
 ```
 1. Logout of the VM and login again to see hostname changes are reflected
-1. Make the hostname persistent even after reload by adding "preserve_hostname: true" to /etc/cloud/cloud.cfg file if not added already or change the setting to true from false if already present
-1. (optional) Replace default hostname for VM with the one you set into /etc/hosts file
-1. Verify that the hostname is persistent even after reboot of the VM
+1. Make the hostname persistent even after reload by making sure that "preserve_hostname" is set as true in file /etc/cloud/cloud.cfg. If not present already in the file add below statement:
+```
+preserve_hostname: true
+```
+1. Change default VM hostname for 127.0.1.1 to "cnbng-cp-vm" in /etc/hosts file
+```
+127.0.1.1 cnbng-cp-vm cnbng-cp-vm
+```
+1. Reboot VM and verify that the hostname is persistent after reboot of cnBNG CP VM
 1. SSH Key Generation
 	1. SSH Login to Inception VM
-	1. Generate SSH key using: 
+	1. Generate SSH key using below command. Press enter for anything it asks as input:
 ```
 	ssh-keygen -t rsa
 ```
@@ -104,30 +109,32 @@ sudo hostnamectl set-hostname cnbng-cp-lab1-aio
 ```
 	ssh-copy-id cloud-user@192.168.107.166
 ```
-	1. Verify that the login using keys is working by logging to cnBNG CP AIO VM
+
+**Note**: "ssh-copy-id" may not work in latest SMI ISO images. If ssh-copy-id doesnot work then manually copy public key from file /home/cloud-user/.ssh/id_rsa.pub to cnBNG CP VM file /home/cloud-user/.ssh/authorized_keys. Make sure you remove any line breaks from the key. 
+{: .notice--info}  
+
+	1. Make sure you can login to cnBNG CP VM from Inception VM without password. 
+    
 ```
 	ssh cloud-user@192.168.107.166
 ```
-  
-**Note**: "ssh-copy-id" may not work in latest SMI images. In this scenario manually copy public key to /home/cloud-user/.ssh/authorized_keys file on CP VM.
-{: .notice--info}  
 
-## Step 4: SMI, CEE and cnBNG CP deployment using SMI Deployer
+**Warning**: Proceed to next step only if passwordless access to cnBNG CP VM is working from Inception VM.
 
-1. Login to inception VM
-1. Note down ssh keys in a file from .ssh/id_rsa (private) and ./ssh/id_rsa.pub (public)
-1. Remove line breaks from private key and replace them with string "\n"
-1. Login to SMI Cluster Deployer or Cluster Manager on inception VM:
-	```
-	ssh admin@localhost -p 2022
-	```
+## Step 4: cnBNG CP deployment using SMI Deployer
+
+1. Login to Inception VM
+1. Login to SMI Deployer running on Inception VM, using below ssh command on Inception VM:
+```
+ssh admin@localhost -p 2022
+```
 1. Create environment configs:
 	```
 	environments manual
 		manual
 	exit
 	```
-1. Create Cluster configs:
+1. Create Cluster configuration as below, by replacing IP "192.168.107.166" with your cnBNG CP VM SSH IP.
     <div class="highlighter-rouge">
     <pre class="highlight">
     <code>
@@ -140,11 +147,8 @@ sudo hostnamectl set-hostname cnbng-cp-lab1-aio
      configuration master-virtual-ip-interface ens160
      configuration pod-subnet    192.202.0.0/16
      configuration allow-insecure-registry true
-     node-defaults initial-boot default-user cisco
-     node-defaults initial-boot default-user-ssh-public-key <mark>"ssh public key from step-2"</mark>
+     node-defaults initial-boot default-user cloud-user
      node-defaults k8s ssh-username cloud-user
-     node-defaults k8s ssh-connection-private-key "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAtuZ56pW6nMf0e8ZMAjsKnj89YIpEfVyZ31GkrqObUua70egN\nOqDdWF8ToUHQrPnwDP/E4BplhtdiP2n/Dq8e9Xf8GRHX6KNXC6dhl5c6MKaBoh5A\nRDj8aVEfRfoDwpp5L0clg01EP0IIqkTIrSqScAheNfiKSptE5OleDS4I4mxfZsDR\nKnhAOtjgU/aHNGFDt1rYJ+QifAcp97ouyiNfsUsJwifLwBN3/EisbTH3rD0Z5fUO\n1UYmOLFW3vEI8voXAHk4BnNad6QGACCfENmCVZW3RBovr5wSdc22XXDTwp1gzJN3\nqlDcgQ6JfvE8i2JyL44Fb8KiZVvDgongXj9RGwIDAQABAoIBAB4Tjm7WCmbntrt3\n413miZt2OMicVCDtTlxb16HkQ5GBYddlum8urtduYxL8eK1JOIFauexESve+iWh2\nLLwkbgndnjYdKg0WdyTydGjyNF51sxGOufC+EjvbXDIsp9ujfVQZ9gA+f3+Lg1NE\nll9rhcMojR2A7nTQTab6/T1bmZhqBKcsX0DEFiv2o64/QeXSijzXMTLH1jASJKC7\ns+xyu3AmwE3LrecQah8xe+zZSefFWcPCQHNRWflVGUnKWFk58qbdv2X/MSzLvkYu\nU2A0RJX/U4ZOIWM1J8RUPv4MKFEgJ7LA1OT3UtOC+S6Bemlx6h/VWhoJnNhcwvm9\nd5vJoDECgYEA2cjmN0U/eeGlFZDLGRtQ4HVoUkQFMosHk1KQhEj3NZzIZnI9/VFf\njBkfFlP0bFajKZgCwwctb6EcJaRY6JsnKUuTHT5ZikVddFVU1hJkU/GwwHOX9cCM\nFuJi+yxc1G27pE82xWaUuiVRJ8wbQOkPMWrrvaR8eyUa6X8CRk3+JBkCgYEA1v6I\nhRtrxtiZ32hVr33X08vg2VDazgXAdOrBRimxkjjBPlHWekDZePkxKT+fTIzlLffQ\nIemn/gFJo4+YhuBzmv+k5I6Bo6I1M/VSoAFXKShwghg7KSfAQ5BH8oIr9PG4XEl4\nWs5cGb1NrCgqmQISLS1Cn5q6H+NDvdpgckryJVMCgYAQyBRFSga8I5EO+ltMEfjH\ncwSY4jjsTh5FUeVk7CJwdSZUDpWMQYr1RrJIjCuXdY2ZFOeRk6oCog2DMQjQ07PO\n0M4DQNyxdOrgnfqtjDlC5qrSCZY6D5473TH3XNHCZLpCzP/Rcjgfp+R7BpVLCSps\nimqj8FrPOmq6d1j7heMBcQKBgE+ltj/Rm8jrv32DcpL0BPwCwMbhbF38xYLK4VUz\n5wProLOMr+9UjPyDHNJSLpq2a8Tu1J1rqX+xTG2aqf/1sP5QDO9bV+2eDyWzkauT\nM44c3Cll/qzNfC3Lisvtq4kv74PI+Bxz7Kzgc6D+tGFA4ij4ZoEoWiGsGRGBkE9n\nMnPfAoGBAK9q6auE3HXkZ+VVD5LH2td7oze+7o1vrs2O/175oTzf/drcY5S59lK4\nudOjDIXNA/Lot080YONX7lbe2Eept21YektS9xpZ1Qld8NGoPFYsrYjqGYbojFbN\nYJMSEpOpbber+Mca7NenEusL5hK87sQCOP6OJ2RwjkGUVlraVpgQ\n-----END RSA PRIVATE KEY-----"
-
      node-defaults netplan template "    network:\n        version: 2\n        ethernets:\n            ens160:\n                dhcp4: false\n                addresses:\n                - {{K8S_SSH_IP}}/24\n                routes:\n                - to: 0.0.0.0/0\n                  via: 192.168.107.129\n                nameservers:\n                    addresses:\n                    - 64.104.128.236\n                    - 64.102.6.247\n                    search:\n                    - cisco.com\n\n\n"
 
      node-defaults os ntp enabled
@@ -154,9 +158,79 @@ sudo hostnamectl set-hostname cnbng-cp-lab1-aio
     </pre>
     </div>
 
+**Note**: "ssh-copy-id" may not work in latest SMI ISO images. If ssh-copy-id doesnot work then manually copy public key from file /home/cloud-user/.ssh/id_rsa.pub to cnBNG CP VM file /home/cloud-user/.ssh/authorized_keys. Make sure you remove any line breaks from the key. 
+{: .notice--info} 
+
 In the above config, change ntp server to the one available in the lab. Also netplan should be as per the netplan configured in the VM. 
 {: .notice--info}
-  
+ 
+1. Configure Inception VM's ssh private key from file /home/cloud-user/.ssh/id_rsa by replace line breaks with "\n", under the cluster config using "node-defaults k8s ssh-connection-private-key". Pay special attention to how the private key is configured under cluster.
+
+```
+clusters cnbng
+	node-defaults k8s ssh-connection-private-key "-----BEGIN PRIVATE KEY-----\n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\nvEouTDje0Xa3BjWNKh7yntayKA==\n-----END PRIVATE KEY-----"
+```
+
+<i>Here is the original Private Key from file /home/cloud-user/.ssh/id_rsa for your reference:</i>
+
+```
+-----BEGIN PRIVATE KEY-----
+MIIG/wIBADANBgkqhkiG9w0BAQEFAASCBukwggblAgEAAoIBgQDNHlGiWEPYRmcv
+wiMup3V9NHgOxSNcFMp0kmW0o1S/6Ca1hmereKP3X+GyqopZgtLoAN13db7y2BGO
+fFx4mjY+erCgYqzDJ9fTyMoMH6FnilGaATZ7n1mOrae14XzQKOW3SV0vDD21TSVR
+CFRRQqXCOHpHIcKJRCtk+VsAPUKrZYIa5x8GpQ0caf9yNLlgz0mq4WYwCmolAxxv
+VO/VRQ87kpequJz2DIyaQWpMSz4V80K/NFA2CYC4h9eK4Zl33Uj0mHJC+un1B2og
+UxPrH6jLnXX8I0wbKcveqXLnScUO7U9d9CNIo2NdKtD1rmuN05ECOOaRsuGnExPg
+vqOnjnPKBIziqjtHwNyTbbWfPF5KNkdFuyOcZYDTMznAFStGD4KvkY4iPuuQnM83
+PwOl1Ucr3TsfVHD3sduRsbv3qHcCKCkluoK6O0zynhIGuVpXlvxAo2EWMcTot0pT
+l0/4vBsfA2P6cLsAiHtR12yQeASnZqmh5afwJy+k91kXbbTZH9kCAwEAAQKCAYEA
+k2udBG8no8NF2j9PhfJ5MJmLSCJLvZx7vbiSPHe/K4Ywe/qze7vjLKHO1thXQuoR
+pwkoIvmPWX4NcDjVRSCgp9sKItuIi2KRbfc7r+bz3DS/XU5N2B+5ACCzDreXOwyJ
+vWeO/4duumVN0qWH5DdgZuyshX8wD/PctF+7Fbrxtbno/mjqFZ5+g9Ny8qQOMBQL
+QDNrfE+f5iYMQ7/p94AA6LH9K4gv129BhoRJX7gcUS5a5I02sP+3cei/82MdJ9bz
+lNTiodtOFyAYwl4NFaTl6ojOVBPml20kTj/fVKn3Dm26EmYSK4JwZsfK13DEA9wp
+gjCX7acwb52sYxE36rNimInJgNu5JiED+z6ItWlEc5cai9M6R6RWb8ubg9/ahR0j
+A8KmYm9rds8Jw6tWehs1559Sj8LiWoT3Y3KTp/4l8Kx85hmJ7En9S11Lx9g0k6ph
+UWHb0TU1OWBXiTgWO/fWMbQj+9l96AXHtXVVJPzqjOZfLiSPcOoymNOfZfRKQtnh
+AoHBAOmHRB9JcShUtWJDhOWHi8uu/pJ4dD3YwPNv94O2NKiplJKS6KCBQoEcF2Dg
+2qjzN4wfDCVr48l3cRipLKWVY+Gp5/cegE4j9L8UU7LFfkf/0jH/VD2UXElTXt7e
+pyaV5BJYgQIl5UyA5aLX6Vaj8y000lpJxbUGW+2+DFxGM1lyBk+19utyy+e/hdjn
+zS5lqBnSVX0Hbu2h9bl3wqcuFFnXVH0IsDeB6ZI3e+cRCK7TBVZY9S2xryW5oOhE
+X+cuRQKBwQDg2zPdKHHRlqxAGvmlyS7XLQTOJg0kZaof44u8DShfBVgHWVWbGMqe
+/RiGNOkJI0eWzu+0g3B8V6TSNLuLLZyWgvX/AeM0sMwQ5zyTF1QH2IdYNIVn7v3M
+DQjaFez1h43kJAchTi3wvns+va6Gcl0IukoZdhjKQWWSZaFlkUF7Bb1W4SoAC/Go
+0YepZmR0D2t1UEL25Fz3kFSrbi2K3z8UVjHGI/9BOmYp8yAIFHNeTeY1Sgjf84rk
+4rFRERcqHoUCgcEAqcjOnnCm9MuhlG/Cj56c5Nm1/IfW+6A7qMIfEoPGhVnFy0tE
+Fm3kDDqARM82Kt+p4xYvnoVyd2d/so5NB5Y1qDv/iouCfU1nBAWjVLaBuZclG3Sn
+qp3S+vzCXQdEP6l6yFvQb99dduHAE0UnQPayNovQ5BP+yj51V8R0+CGR89YTAKEr
+hMNRvIxio/DkHHeMYDmsLdrZq6u1G8MWorW91hPYOY+3jqPFTalJTBX2WiTSHJVQ
+rIgi7yqm8jfEAjCBAoHBAKiEH45zrTmCTn2MueSBrlUdLCjDY74PYzya8DJzOfpc
+quh3Dy05m0EkNaj/Jlbu1cw0Mnl6uGa32JKhapyYBm7Wnz4KUBlBFu7kHgWuyg9H
+O8fjNMf72MGAU03+eKRafwCn76AKU2vFleAjkBS6yPathrMmStXpxRG+kQLppcVp
+O8lM3olCak43GhDe6BIDLGmzSTx3USVISexgmkklnsTDBHKWr8pW1hJCX5MuoHfg
+sdLmNViB0WpQastyn4W1cQKBwAdyviJSSUhOUfRleB4GNbsddL8EHETR2P0s5pG3
+//9GRkhh0Ph9uQE7X2aRMLzylv9sD2jT2xoSb7rui1XkBikGGMLUUGPYicTSpC0P
+Ujzvoxoqqqd1LuInbos7fM8+oy4QhM0eA9GRHX3KjZP3u8opIh9h2jKb9uKEnGwY
+zZ1UalMlKSiXBSw7tDRUGu+AzUbhUi9AIwL/Ipx7uhpEjfcjaMjffksa+PjRc5z1
+vEouTDje0Xa3BjWNKh7yntayKA==
+-----END PRIVATE KEY-----
+```
+
+1. Configure Inception VM's public key from file /home/cloud-user/.ssh/id_rsa.pub, under cluster config using "node-defaults initial-boot default-user-ssh-public-key". Remove any line breaks (if any) in the public key because of copying method: 
+
+```
+clusters cnbng
+node-defaults initial-boot default-user-ssh-public-key "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQClLg/u9ApqA6/NbVUangJj6yMqOZK87/vuFfi2cvL/OOMu/NC1wfaGodlBHgkwtc3NLgvZKa83z4gj26KHzKzIABeSiN18v41bPG2cZSJB8FcHwaXKq00uFbF2tW79GET4p4Q6MoQZE4QSfqynl80WZ+Q8/Di8EgpkEQthp0EHOmMgdn+j4/dHorwwTLw9Ac9lHN+s+OPO1jWUJCELB2gEcbaPQ9n2fFHHZteNgzBYyfUM5MQdZQAT4FXYaWzlTG1XYwSIP0+JapK/0qgC7X06BXuZXpcW5stoFpjDBQatHx74IJQ3ynyMs1IWYgFIL1zurNErXqEJUKkSvFzR3AQTSdr2BgLC1QeTqjNPHzZ9AucO0rZdyy8bDRjV50yt7gRgVOK7b2NoH9B2w8Jgqr9OJcE6GqRCW94EZ2S7ZGzB0UYz0w+S5oNcILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= cloud-user@cl-ams-inception"
+```
+
+<i>Here is the original Public Key from file /home/cloud-user/.ssh/id_rsa.pub for your reference:</i>
+
+```
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQClLg/u9ApqA6/NbVUangJj6yMqOZK87/vuFfi2cvL/OOMu/NC1wfaGodlBHgkwtc3NLgvZKa83z4gj26KHzKzIABeSiN18v41bPG2cZSJB8FcHwaXKq00uFbF2tW79GET4p4Q6MoQZE4QSfqynl80WZ+Q8/Di8EgpkEQthp0EHOmMgdn+j4/dHorwwTLw9Ac9lHN+s+O
+PO1jWUJCELB2gEcbaPQ9n2fFHHZteNgzBYyfUM5MQdZQAT4FXYaWzlTG1XYwSIP0+JapK/0qgC7X06BXuZXpcW5stoFpjDBQatHx74IJQ3ynyMs1IWYgFIL1zurNErXqEJUKkSvFzR3AQTSdr2BgLC1QeTqjNPHzZ9AucO0rZdyy8bDRjV50yt7gRgVOK7b2NoH9B2w8Jgqr9OJcE6GqRCW94EZ2S7ZGzB0UYz0w+S5oNc
+ILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= cloud-user@cl-ams-inception
+```
+
 1. Create AIO Node config:
   <div class="highlighter-rouge">
   <pre class="highlight">
@@ -559,3 +633,4 @@ smart-agent-bng-bng-ops-center-54bcbf5576-tc4p9        1/1     Running    1     
 udp-proxy-0                                            1/1     Running    0          2m45s
 zookeeper-0                                            1/1     Running    0          2m46s
 </code>
+
