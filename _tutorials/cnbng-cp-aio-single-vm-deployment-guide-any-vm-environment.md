@@ -163,9 +163,7 @@ ssh admin@localhost -p 2022
 clusters cnbng
 	node-defaults k8s ssh-connection-private-key "-----BEGIN PRIVATE KEY-----\n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\nvEouTDje0Xa3BjWNKh7yntayKA==\n-----END PRIVATE KEY-----"
 ```
-
-<i>Here is the original Private Key from file /home/cloud-user/.ssh/id_rsa for your reference:</i>
-
+***Here is the original Private Key from file /home/cloud-user/.ssh/id_rsa for your reference:***
 ```
 -----BEGIN PRIVATE KEY-----
 MIIG/wIBADANBgkqhkiG9w0BAQEFAASCBukwggblAgEAAoIBgQDNHlGiWEPYRmcv
@@ -209,20 +207,16 @@ vEouTDje0Xa3BjWNKh7yntayKA==
 -----END PRIVATE KEY-----
 ```
 1. Configure Inception VM's public key from file /home/cloud-user/.ssh/id_rsa.pub, under cluster config using "node-defaults initial-boot default-user-ssh-public-key". Remove any line breaks (if any) in the public key because of copying method: 
-
 ```
 clusters cnbng
   node-defaults initial-boot default-user-ssh-public-key "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQClLg/u9ApqA6/NbVUangJj6yMqOZK87/vuFfi2cvL/OOMu/NC1wfaGodlBHgkwtc3NLgvZKa83z4gj26KHzKzIABeSiN18v41bPG2cZSJB8FcHwaXKq00uFbF2tW79GET4p4Q6MoQZE4QSfqynl80WZ+Q8/Di8EgpkEQthp0EHOmMgdn+j4/dHorwwTLw9Ac9lHN+s+OPO1jWUJCELB2gEcbaPQ9n2fFHHZteNgzBYyfUM5MQdZQAT4FXYaWzlTG1XYwSIP0+JapK/0qgC7X06BXuZXpcW5stoFpjDBQatHx74IJQ3ynyMs1IWYgFIL1zurNErXqEJUKkSvFzR3AQTSdr2BgLC1QeTqjNPHzZ9AucO0rZdyy8bDRjV50yt7gRgVOK7b2NoH9B2w8Jgqr9OJcE6GqRCW94EZ2S7ZGzB0UYz0w+S5oNcILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= cloud-user@cl-ams-inception"
 ```
-
-<i>Here is the original Public Key from file /home/cloud-user/.ssh/id_rsa.pub for your reference:</i>
-
+***Here is the original Public Key from file /home/cloud-user/.ssh/id_rsa.pub for your reference:***
 ```
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQClLg/u9ApqA6/NbVUangJj6yMqOZK87/vuFfi2cvL/OOMu/NC1wfaGodlBHgkwtc3NLgvZKa83z4gj26KHzKzIABeSiN18v41bPG2cZSJB8FcHwaXKq00uFbF2tW79GET4p4Q6MoQZE4QSfqynl80WZ+Q8/Di8EgpkEQthp0EHOmMgdn+j4/dHorwwTLw9Ac9lHN+s+O
 PO1jWUJCELB2gEcbaPQ9n2fFHHZteNgzBYyfUM5MQdZQAT4FXYaWzlTG1XYwSIP0+JapK/0qgC7X06BXuZXpcW5stoFpjDBQatHx74IJQ3ynyMs1IWYgFIL1zurNErXqEJUKkSvFzR3AQTSdr2BgLC1QeTqjNPHzZ9AucO0rZdyy8bDRjV50yt7gRgVOK7b2NoH9B2w8Jgqr9OJcE6GqRCW94EZ2S7ZGzB0UYz0w+S5oNc
 ILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= cloud-user@cl-ams-inception
 ```
-
 1. Create AIO Node config:
   <div class="highlighter-rouge">
   <pre class="highlight">
@@ -242,7 +236,6 @@ ILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= clo
   </code>
   </pre>
   </div>
-  
 1. cnBNG software is available as a tarball and it can be hosted on local http server for offline deployment. In this step we configure the software repository location for tarball. We setup software cnf for both cnBNG CP and CEE. URL and SHA256 depends on the version of the image and the url location, so these two could change for your deployment
 ```
 software cnf bng
@@ -257,7 +250,6 @@ software cnf cee
   description cee-products
 exit
 ```
-
 ***Note: You can generate sha256 for images using sha256sum.***
 
 1. Setup Ops Center configuration inside cluster configuration and commit
