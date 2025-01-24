@@ -18,9 +18,9 @@ cnBNG Control Plane deployment in single VM in any NFVI environment is called as
 - CEE application (Application Infrastructure for Monitoring and Alerting)
 - cnBNG Control Plane application (Control Plane application for Cisco CUPS BNG)
     
-This is to be noted that only SMI Ubuntu VM deployment in NFVI environment is manual, rest of the process to deploy SMI, CEE and cnBNG Control Plane is fully automated through SMI Deployer or Cluster Manager. 
+This is to be noted that only SMI Ubuntu VM deployment in NFVI environment is manual, rest of the process to deploy SMI, CEE and cnBNG Control Plane is fully automated through SMI Deployer. 
 
-For AIO deployment following steps are followed:
+For cnBNG CP deployment following steps are followed:
 1. Inception VM and SMI Deployer deployment
 1. cnBNG CP VM deployment using SMI base ISO and OS customization
 1. SMI (K8s), CEE and cnBNG CP deployment using SMI Deployer
