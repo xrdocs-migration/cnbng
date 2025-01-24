@@ -121,10 +121,10 @@ preserve_hostname: true
 
 **Warning**: Proceed to next step only if passwordless access to cnBNG CP VM is working from Inception VM.
 
-## Step 4: cnBNG CP deployment using SMI Deployer
+## Step 3: cnBNG CP deployment using SMI Deployer
 
 1. Login to Inception VM
-1. Login to SMI Deployer running on Inception VM, using below ssh command on Inception VM:
+1. Login to SMI Deployer running on Inception VM, using below ssh command:
 ```
 ssh admin@localhost -p 2022
 ```
@@ -134,23 +134,21 @@ ssh admin@localhost -p 2022
 		manual
 	exit
 	```
-1. Create Cluster configuration as below, by replacing IP "192.168.107.166" with your cnBNG CP VM SSH IP.
+1. Create Cluster configuration as below with your cnBNG CP VM SSH IP.
     <div class="highlighter-rouge">
     <pre class="highlight">
     <code>
     clusters cnbng
      environment manual
-     addons ingress bind-ip-address 192.168.107.166
+     addons ingress bind-ip-address <mark>your-cnbng-cp-vm-ip</mark>
      addons ingress enabled
      addons istio enabled
-     configuration master-virtual-ip 192.168.107.166
+     configuration master-virtual-ip <mark>your-cnbng-cp-vm-ip</mark>
      configuration master-virtual-ip-interface ens160
      configuration pod-subnet    192.202.0.0/16
      configuration allow-insecure-registry true
      node-defaults initial-boot default-user cloud-user
      node-defaults k8s ssh-username cloud-user
-     node-defaults netplan template "    network:\n        version: 2\n        ethernets:\n            ens160:\n                dhcp4: false\n                addresses:\n                - {{K8S_SSH_IP}}/24\n                routes:\n                - to: 0.0.0.0/0\n                  via: 192.168.107.129\n                nameservers:\n                    addresses:\n                    - 64.104.128.236\n                    - 64.102.6.247\n                    search:\n                    - cisco.com\n\n\n"
-
      node-defaults os ntp enabled
      node-defaults os ntp servers <mark>clock.cisco.com</mark>
     exit
@@ -158,10 +156,7 @@ ssh admin@localhost -p 2022
     </pre>
     </div>
 
-**Note**: "ssh-copy-id" may not work in latest SMI ISO images. If ssh-copy-id doesnot work then manually copy public key from file /home/cloud-user/.ssh/id_rsa.pub to cnBNG CP VM file /home/cloud-user/.ssh/authorized_keys. Make sure you remove any line breaks from the key. 
-{: .notice--info} 
-
-In the above config, change ntp server to the one available in the lab. Also netplan should be as per the netplan configured in the VM. 
+In the above config, change ntp server to the one available in the lab. 
 {: .notice--info}
  
 1. Configure Inception VM's ssh private key from file /home/cloud-user/.ssh/id_rsa by replace line breaks with "\n", under the cluster config using "node-defaults k8s ssh-connection-private-key". Pay special attention to how the private key is configured under cluster.
@@ -220,7 +215,7 @@ vEouTDje0Xa3BjWNKh7yntayKA==
 
 ```
 clusters cnbng
-node-defaults initial-boot default-user-ssh-public-key "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQClLg/u9ApqA6/NbVUangJj6yMqOZK87/vuFfi2cvL/OOMu/NC1wfaGodlBHgkwtc3NLgvZKa83z4gj26KHzKzIABeSiN18v41bPG2cZSJB8FcHwaXKq00uFbF2tW79GET4p4Q6MoQZE4QSfqynl80WZ+Q8/Di8EgpkEQthp0EHOmMgdn+j4/dHorwwTLw9Ac9lHN+s+OPO1jWUJCELB2gEcbaPQ9n2fFHHZteNgzBYyfUM5MQdZQAT4FXYaWzlTG1XYwSIP0+JapK/0qgC7X06BXuZXpcW5stoFpjDBQatHx74IJQ3ynyMs1IWYgFIL1zurNErXqEJUKkSvFzR3AQTSdr2BgLC1QeTqjNPHzZ9AucO0rZdyy8bDRjV50yt7gRgVOK7b2NoH9B2w8Jgqr9OJcE6GqRCW94EZ2S7ZGzB0UYz0w+S5oNcILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= cloud-user@cl-ams-inception"
+  node-defaults initial-boot default-user-ssh-public-key "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQClLg/u9ApqA6/NbVUangJj6yMqOZK87/vuFfi2cvL/OOMu/NC1wfaGodlBHgkwtc3NLgvZKa83z4gj26KHzKzIABeSiN18v41bPG2cZSJB8FcHwaXKq00uFbF2tW79GET4p4Q6MoQZE4QSfqynl80WZ+Q8/Di8EgpkEQthp0EHOmMgdn+j4/dHorwwTLw9Ac9lHN+s+OPO1jWUJCELB2gEcbaPQ9n2fFHHZteNgzBYyfUM5MQdZQAT4FXYaWzlTG1XYwSIP0+JapK/0qgC7X06BXuZXpcW5stoFpjDBQatHx74IJQ3ynyMs1IWYgFIL1zurNErXqEJUKkSvFzR3AQTSdr2BgLC1QeTqjNPHzZ9AucO0rZdyy8bDRjV50yt7gRgVOK7b2NoH9B2w8Jgqr9OJcE6GqRCW94EZ2S7ZGzB0UYz0w+S5oNcILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= cloud-user@cl-ams-inception"
 ```
 
 <i>Here is the original Public Key from file /home/cloud-user/.ssh/id_rsa.pub for your reference:</i>
@@ -236,22 +231,22 @@ ILKHFfFuCgH234f7LBS3NDIjXfUOUHdadAbSWvGxmXCwrxSG3zxM4vMRcx9hrtpFqCay6gAeGOU= clo
   <pre class="highlight">
   <code>
   clusters cnbng
-   nodes cp
+   nodes cp-vm
     k8s node-type master
-    k8s ssh-ip 192.168.107.166
+    k8s ssh-ip <mark>your-cnbng-cp-vm-ip</mark>
     k8s node-labels disktype ssd
     exit
     k8s node-labels smi.cisco.com/node-type oam
     exit
     initial-boot default-user cloud-user
-    initial-boot default-user-password <mark>your-password</mark>
+    initial-boot default-user-password <mark><mark>your-cnbng-cp-vm-ssh-password</mark></mark>
    exit
   exit
   </code>
   </pre>
   </div>
   
-1. cnBNG software is available as a tarball and it can be hosted on local http server for offline deployment. In this step we configure the software repository locations for tarball. We setup software cnf for both cnBNG CP and CEE. URL and SHA256 depends on the version of the image and the url location, so these two could change for your deployment
+1. cnBNG software is available as a tarball and it can be hosted on local http server for offline deployment. In this step we configure the software repository location for tarball. We setup software cnf for both cnBNG CP and CEE. URL and SHA256 depends on the version of the image and the url location, so these two could change for your deployment
 ```
 software cnf bng
   url             http://192.168.107.148/images/CP/cp_30sep21/bng/bng.2021.04.m0.i74.tar
@@ -265,11 +260,14 @@ software cnf cee
   description cee-products
 exit
 ```
-1. Setup Ops Center configs inside cluster for cnBNG
+You can generate sha256 for images using sha256sum.
+{: .notice--info}
+
+1. Setup Ops Center configuration inside cluster configuration and commit
   <div class="highlighter-rouge">
   <pre class="highlight">
   <code>
-  clusters <mark>your-cnbng-cp-cluster-name</mark>
+  clusters cnbng
    ops-centers bng bng
     repository-local        bng
     sync-default-repository true
@@ -279,7 +277,7 @@ exit
     ssh-port                2024
     ingress-hostname        <mark>your-cnbng-cp-vm-ip</mark>.nip.io
     initial-boot-parameters use-volume-claims true
-    initial-boot-parameters first-boot-password <mark>your-password1</mark>
+    initial-boot-parameters first-boot-password <mark>your-password-to-connect-bng-ops-center</mark>
     initial-boot-parameters auto-deploy false
     initial-boot-parameters single-node true
    exit
@@ -292,7 +290,7 @@ exit
     ssh-port                2023
     ingress-hostname        <mark>your-cnbng-cp-vm-ip</mark>.nip.io
     initial-boot-parameters use-volume-claims true
-    initial-boot-parameters first-boot-password <mark>your-password1</mark>
+    initial-boot-parameters first-boot-password <mark>your-password-to-connect-cee-ops-center</mark>
     initial-boot-parameters auto-deploy true
     initial-boot-parameters single-node true
    exit
@@ -303,19 +301,21 @@ exit
   
 1. Deploy cnBNG CP cluster using cluster sync command:
   ```
-  clusters cnbng-cp-lab1 actions sync run debug true 
+  clusters cnbng actions sync run
   ```	
+  
 Monitor sync using monitor command:
+
   ```
-  monitor sync-logs cnbng-cp-lab1
+  monitor sync-logs cnbng
   ```
   
 ## Verifications
 
-- Check kubernetes cluster is deployed correctly and no PODs are crashing
+- After successful deployment of the cluster, we can check kubernetes PODs running in the cluster using below command.
 
 ```
-cisco@pod1-cnbng-cp:~$ kubectl get pods -A
+cloud-user@cnbng-cp-vm:~$ kubectl get pods -A
 NAMESPACE           NAME                                                 READY   STATUS    RESTARTS   AGE
 bng-bng             documentation-95c8f45d9-8g4qd                        1/1     Running   0          5m
 bng-bng             ops-center-bng-bng-ops-center-77fb6479fc-dtvt2       5/5     Running   0          5m
@@ -374,12 +374,12 @@ smi-secure-access   secure-access-controller-k62z5                       1/1    
 smi-vips            keepalived-5l789                                     3/3     Running   0          5m
 ```
 
-- Check Grafana ingress and try logging to it (username: admin, password: <<your password as per CEE Ops Center config>>)
+- Check Grafana ingress and try logging to it (username: admin, password: your-password-to-connect-cee-ops-center)
   
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-cisco@pod1-cnbng-cp:~$ kubectl get ingress -A
+cloud-user@cnbng-cp-vm:~$ kubectl get ingress -A
 NAMESPACE    NAME                                       CLASS    HOSTS                                                          ADDRESS           PORTS     AGE
 bng-bng      cli-ingress-bng-bng-ops-center             &lt;none&gt;   cli.bng-bng-ops-center.192.168.107.150.nip.io                  192.168.107.150   80, 443   5m
 bng-bng      documentation-ingress                      &lt;none&gt;   documentation.bng-bng-ops-center.192.168.107.150.nip.io        192.168.107.150   80, 443   5m
@@ -397,14 +397,14 @@ registry     registry-ingress                           &lt;none&gt;   docker.19
 </pre>
 </div>
 
-We can login to Grafana GUI from Chrome/ Any browser @URL: https://grafana.your-cnbng-cp-vm-ip.nip.io/
+- We can login to Grafana GUI from Chrome/ any browser @URL: https://grafana.your-cnbng-cp-vm-ip.nip.io/
 
 ![grafana-login1.png]({{site.baseurl}}/images/grafana-login1.png)
 
 - SSH to cnBNG CP Ops Center at port 2024
   
 ```
-cloud-user@inception:~$ ssh admin@192.168.107.150 -p 2024
+cloud-user@inception:~$ ssh admin@your-cnbng-cp-vm-ip -p 2024
 admin@192.168.107.150's password: 
 
       Welcome to the bng CLI on pod2/bng
@@ -413,15 +413,14 @@ admin@192.168.107.150's password:
     
 User admin last logged in 2021-11-19T04:12:32.912093+00:00, to ops-center-bng-bng-ops-center-77fb6479fc-dtvt2, from 192.168.107.150 using cli-ssh
 admin connected from 192.168.107.150 using ssh on ops-center-bng-bng-ops-center-77fb6479fc-dtvt2
-[pod1/bng] bng# 
-[pod1/bng] bng# 
+[cnbng/bng] bng# 
+[cnbng/bng] bng# 
 ```
   
 - We can also test Netconf Interface availability of cnBNG Ops Center using ssh
   
 ```
-cloud-user@inception:~$ ssh admin@192.168.107.150 -p 3022 -s netconf    
-Warning: Permanently added '[192.168.107.150]:3022' (RSA) to the list of known hosts.
+cloud-user@inception:~$ ssh admin@your-cnbng-cp-vm-ip -p 3022 -s netconf    
 admin@192.168.107.150's password: 
 <?xml version="1.0" encoding="UTF-8"?>
 <hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
@@ -480,12 +479,12 @@ admin@192.168.107.150's password:
 ```
   
 ## Initial cnBNG CP Configurations
-If you have deployed cnBNG CP a fresh then most probably, initial cnBNG CP configuration is not applied on Ops Center. Follow below steps to apply initial configuratuon to cnBNG CP Ops Center
+If you have deployed cnBNG CP a fresh then most probably initial cnBNG CP configuration is not applied on Ops Center. Follow below steps to apply initial configuratuon to cnBNG CP Ops Center
 
 - SSH login to cnBNG CP Ops Center CLI
 
 ```
-cisco@pod100-cnbng-cp:~$ ssh admin@192.168.107.150 -p 2024         
+cloud-user@inception:~$ ssh admin@your-cnbng-cp-vm-ip -p 2024         
 Warning: Permanently added '[192.168.107.150]:2024' (RSA) to the list of known hosts.
 admin@192.168.107.150's password: 
 
@@ -495,18 +494,18 @@ admin@192.168.107.150's password:
     
 User admin last logged in 2021-12-01T11:42:45.247257+00:00, to ops-center-bng-bng-ops-center-5666d4cb6-dj7sv, from 192.168.107.150 using cli-ssh
 admin connected from 192.168.107.150 using ssh on ops-center-bng-bng-ops-center-5666d4cb6-dj7sv
-[pod100/bng] bng# 
+[cnbng/bng] bng# 
 ```
 
 - Change to config mode in Ops Center
 
 ```
-[pod100/bng] bng# config
+[cnbng/bng] bng# config
 Entering configuration mode terminal
-[pod100/bng] bng(config)# 
+[cnbng/bng] bng(config)# 
 ```
 
-- Apply following initial configuration. With changes to "endpoint radius" and "udp proxy" configs. Both "endpoint radius" and "udp-proxy" should use IP of cnBNG CP service network side protocol VIP or in case of AIO it should be the IP of AIO VM used for peering between cnBNG CP and UP.
+- Apply following initial configuration. With changes to "endpoint radius" and "udp proxy" configs. Both "endpoint radius" and "udp-proxy" should use IP of cnBNG CP VM.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -540,22 +539,22 @@ instance instance-id 1
  endpoint pppoe
  exit
  endpoint radius
-!! Change this IP to your AIO VM IP
-   <mark>vip-ip 192.168.107.150</mark>
+!! Change this IP to your cnBNG CP VM IP
+   <mark>vip-ip your-cnbng-cp-vm-ip</mark>
   interface coa-nas
    sla response 140000
-!! Change this IP to your AIO VM IP
-   <mark>vip-ip 192.168.107.150 vip-port 2000</mark>
+!! Change this IP to your cnBNG CP VM IP
+   <mark>vip-ip your-cnbng-cp-vm-ip vip-port 2000</mark>
   exit
  exit
  endpoint udp-proxy
-!! Change this IP to your AIO VM IP
-  <mark>vip-ip 192.168.107.150</mark>
+!! Change this IP to your cnBNG CP VM IP
+  <mark>vip-ip your-cnbng-cp-vm-ip</mark>
  exit
 exit
 deployment
  app-name     BNG
- cluster-name pod100
+ cluster-name cnbng
  dc-name      DC
  model        small
 exit
@@ -571,7 +570,7 @@ k8 bng
 exit
 instances instance 1
  system-id  DC
- cluster-id pod100
+ cluster-id cnbng
  slice-name 1
 exit
 local-instance instance 1
@@ -579,18 +578,17 @@ local-instance instance 1
 </pre>
 </div>
 
-- Put system in running mode and commit the changes
+- Configure "system mode running" and commit
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-[pod100/bng] bng(config)# <mark>system mode running </mark>   
-[pod100/bng] bng(config)# commit
+[cnbng/bng] bng(config)# <mark>system mode running </mark>   
+[cnbng/bng] bng(config)# commit
 Commit complete.
-[pod100/bng] bng(config)# 
+[cnbng/bng] bng(config)# 
 Message from confd-api-manager at 2021-12-01 12:36:05...
 Helm update is STARTING.  Trigger for update is STARTUP. 
-[pod100/bng] bng(config)# 
 Message from confd-api-manager at 2021-12-01 12:36:08...
 Helm update is SUCCESS.  Trigger for update is STARTUP.
 </code>
@@ -602,7 +600,7 @@ Helm update is SUCCESS.  Trigger for update is STARTUP.
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-cisco@pod100-cnbng-cp:~$ kubectl get pods -n bng-bng
+cloud-user@cnbng-cp-vm:~$ kubectl get pods -n bng-bng
 NAME                                                   READY   STATUS     RESTARTS   AGE
 bng-dhcp-n0-0                                          0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
 bng-n4-protocol-n0-0                                   2/2     Running    0          2m44s
