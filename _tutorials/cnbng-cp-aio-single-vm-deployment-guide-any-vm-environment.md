@@ -23,7 +23,7 @@ This is to be noted that only SMI Ubuntu VM deployment in NFVI environment is ma
 For cnBNG CP deployment following steps are followed:
 1. Inception VM and SMI Deployer deployment
 1. cnBNG CP VM deployment using SMI base ISO and OS customization
-1. SMI (K8s), CEE and cnBNG CP deployment using SMI Deployer
+1. cnBNG CP deployment using SMI Deployer
 
 ## Networking
 
