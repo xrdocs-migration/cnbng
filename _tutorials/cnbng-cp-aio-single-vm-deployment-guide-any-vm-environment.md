@@ -292,9 +292,8 @@ exit
   ```
   clusters cnbng actions sync run
   ```	
-  
-Monitor sync using monitor command:
 
+1. Monitor sync using monitor command:
   ```
   monitor sync-logs cnbng
   ```
@@ -303,88 +302,88 @@ Monitor sync using monitor command:
 
 - After successful deployment of the cluster, we can check kubernetes PODs running in the cluster using below command.
 
-```
-cloud-user@cnbng-cp-vm:~$ kubectl get pods -A
-NAMESPACE           NAME                                                 READY   STATUS    RESTARTS   AGE
-bng-bng             documentation-95c8f45d9-8g4qd                        1/1     Running   0          5m
-bng-bng             ops-center-bng-bng-ops-center-77fb6479fc-dtvt2       5/5     Running   0          5m
-bng-bng             smart-agent-bng-bng-ops-center-8d9fffbfb-5cdqm       1/1     Running   1          5m
-cee-global          alert-logger-7c6d5b6596-jrrx6                        1/1     Running   0          5m
-cee-global          alert-router-549c8fb66c-4shz6                        1/1     Running   0          5m
-cee-global          alertmanager-0                                       1/1     Running   0          5m
-cee-global          blackbox-exporter-n9mzx                              1/1     Running   0          5m
-cee-global          bulk-stats-0                                         3/3     Running   0          5m
-cee-global          cee-global-product-documentation-864c8fb66b-rm44g    2/2     Running   0          5m
-cee-global          core-retriever-bntcb                                 2/2     Running   0          5m
-cee-global          documentation-684cbb8cbc-95qvj                       1/1     Running   0          5m
-cee-global          grafana-6f54c8cc5f-xpvj5                             6/6     Running   0          5m
-cee-global          grafana-dashboard-metrics-7764c5f8f4-kgthj           1/1     Running   0          5m
-cee-global          kube-state-metrics-79bdbd9db7-jmxxx                  1/1     Running   0          5m
-cee-global          logs-retriever-b7l5v                                 1/1     Running   0          5m
-cee-global          node-exporter-rnhwr                                  1/1     Running   0          5m
-cee-global          ops-center-cee-global-ops-center-5bbdb84597-8rtk5    5/5     Running   0          5m
-cee-global          path-provisioner-l89w6                               1/1     Running   0          5m
-cee-global          pgpool-859f9d7d89-mtks5                              1/1     Running   0          5m
-cee-global          pgpool-859f9d7d89-rwsmk                              1/1     Running   0          5m
-cee-global          postgres-0                                           1/1     Running   0          5m
-cee-global          postgres-1                                           1/1     Running   0          5m
-cee-global          postgres-2                                           1/1     Running   0          5m
-cee-global          prometheus-hi-res-0                                  4/4     Running   0          5m
-cee-global          prometheus-rules-65ccd95b6c-29n6j                    1/1     Running   0          5m
-cee-global          prometheus-scrapeconfigs-synch-85fdc7ccbf-jd54g      1/1     Running   0          5m
-cee-global          pv-manager-9449fc649-h97f4                           1/1     Running   0          5m
-cee-global          pv-provisioner-6775997cc5-hjzf6                      1/1     Running   0          5m
-cee-global          restart-kubelet-75f7d                                1/1     Running   0          5m
-cee-global          show-tac-manager-5cbb8d589b-rpzv9                    2/2     Running   0          5m
-cee-global          smart-agent-cee-global-ops-center-69f7b8d9d5-ptrct   1/1     Running   1          5m
-cee-global          thanos-query-frontend-hi-res-54bbbbbcb6-phbcq        1/1     Running   0          5m
-cee-global          thanos-query-hi-res-6776585f99-bfzx9                 2/2     Running   0          5m
-istio-system        istiod-cf97f695b-6qqzp                               1/1     Running   0          5m
-kube-system         calico-kube-controllers-5c9bfb6cf-jnrc8              1/1     Running   0          5m
-kube-system         calico-node-ptnjs                                    1/1     Running   0          5m
-kube-system         cluster-cert-maintainer-7f879cf5cf-88xkn             1/1     Running   0          5m
-kube-system         coredns-558bd4d5db-kkhd2                             1/1     Running   0          5m
-kube-system         coredns-558bd4d5db-q5lct                             1/1     Running   0          5m
-kube-system         etcd-pod2-cnbng-cp                                   1/1     Running   0          5m
-kube-system         kube-apiserver-pod2-cnbng-cp                         1/1     Running   0          5m
-kube-system         kube-controller-manager-pod2-cnbng-cp                1/1     Running   0          5m
-kube-system         kube-proxy-lp68c                                     1/1     Running   0          5m
-kube-system         kube-scheduler-pod2-cnbng-cp                         1/1     Running   0          5m
-kube-system         maintainer-sgrs7                                     1/1     Running   0          5m
-nginx-ingress       nginx-ingress-controller-b5857775-slgkh              1/1     Running   0          5m
-nginx-ingress       nginx-ingress-default-backend-86496666db-5jgcz       1/1     Running   0          5m
-registry            charts-bng-2021-04-m0-i74-0                          1/1     Running   0          5m
-registry            charts-cee-2020-02-6-i04-0                           1/1     Running   0          5m
-registry            registry-bng-2021-04-m0-i74-0                        1/1     Running   0          5m
-registry            registry-cee-2020-02-6-i04-0                         1/1     Running   0          5m
-registry            software-unpacker-0                                  1/1     Running   0          5m
-smi-certs           ss-cert-provisioner-5d764d5667-27d55                 1/1     Running   0          5m
-smi-secure-access   secure-access-controller-k62z5                       1/1     Running   0          5m
-smi-vips            keepalived-5l789                                     3/3     Running   0          5m
-```
+  ```
+  cloud-user@cnbng-cp-vm:~$ kubectl get pods -A
+  NAMESPACE           NAME                                                 READY   STATUS    RESTARTS   AGE
+  bng-bng             documentation-95c8f45d9-8g4qd                        1/1     Running   0          5m
+  bng-bng             ops-center-bng-bng-ops-center-77fb6479fc-dtvt2       5/5     Running   0          5m
+  bng-bng             smart-agent-bng-bng-ops-center-8d9fffbfb-5cdqm       1/1     Running   1          5m
+  cee-global          alert-logger-7c6d5b6596-jrrx6                        1/1     Running   0          5m
+  cee-global          alert-router-549c8fb66c-4shz6                        1/1     Running   0          5m
+  cee-global          alertmanager-0                                       1/1     Running   0          5m
+  cee-global          blackbox-exporter-n9mzx                              1/1     Running   0          5m
+  cee-global          bulk-stats-0                                         3/3     Running   0          5m
+  cee-global          cee-global-product-documentation-864c8fb66b-rm44g    2/2     Running   0          5m
+  cee-global          core-retriever-bntcb                                 2/2     Running   0          5m
+  cee-global          documentation-684cbb8cbc-95qvj                       1/1     Running   0          5m
+  cee-global          grafana-6f54c8cc5f-xpvj5                             6/6     Running   0          5m
+  cee-global          grafana-dashboard-metrics-7764c5f8f4-kgthj           1/1     Running   0          5m
+  cee-global          kube-state-metrics-79bdbd9db7-jmxxx                  1/1     Running   0          5m
+  cee-global          logs-retriever-b7l5v                                 1/1     Running   0          5m
+  cee-global          node-exporter-rnhwr                                  1/1     Running   0          5m
+  cee-global          ops-center-cee-global-ops-center-5bbdb84597-8rtk5    5/5     Running   0          5m
+  cee-global          path-provisioner-l89w6                               1/1     Running   0          5m
+  cee-global          pgpool-859f9d7d89-mtks5                              1/1     Running   0          5m
+  cee-global          pgpool-859f9d7d89-rwsmk                              1/1     Running   0          5m
+  cee-global          postgres-0                                           1/1     Running   0          5m
+  cee-global          postgres-1                                           1/1     Running   0          5m
+  cee-global          postgres-2                                           1/1     Running   0          5m
+  cee-global          prometheus-hi-res-0                                  4/4     Running   0          5m
+  cee-global          prometheus-rules-65ccd95b6c-29n6j                    1/1     Running   0          5m
+  cee-global          prometheus-scrapeconfigs-synch-85fdc7ccbf-jd54g      1/1     Running   0          5m
+  cee-global          pv-manager-9449fc649-h97f4                           1/1     Running   0          5m
+  cee-global          pv-provisioner-6775997cc5-hjzf6                      1/1     Running   0          5m
+  cee-global          restart-kubelet-75f7d                                1/1     Running   0          5m
+  cee-global          show-tac-manager-5cbb8d589b-rpzv9                    2/2     Running   0          5m
+  cee-global          smart-agent-cee-global-ops-center-69f7b8d9d5-ptrct   1/1     Running   1          5m
+  cee-global          thanos-query-frontend-hi-res-54bbbbbcb6-phbcq        1/1     Running   0          5m
+  cee-global          thanos-query-hi-res-6776585f99-bfzx9                 2/2     Running   0          5m
+  istio-system        istiod-cf97f695b-6qqzp                               1/1     Running   0          5m
+  kube-system         calico-kube-controllers-5c9bfb6cf-jnrc8              1/1     Running   0          5m
+  kube-system         calico-node-ptnjs                                    1/1     Running   0          5m
+  kube-system         cluster-cert-maintainer-7f879cf5cf-88xkn             1/1     Running   0          5m
+  kube-system         coredns-558bd4d5db-kkhd2                             1/1     Running   0          5m
+  kube-system         coredns-558bd4d5db-q5lct                             1/1     Running   0          5m
+  kube-system         etcd-pod2-cnbng-cp                                   1/1     Running   0          5m
+  kube-system         kube-apiserver-pod2-cnbng-cp                         1/1     Running   0          5m
+  kube-system         kube-controller-manager-pod2-cnbng-cp                1/1     Running   0          5m
+  kube-system         kube-proxy-lp68c                                     1/1     Running   0          5m
+  kube-system         kube-scheduler-pod2-cnbng-cp                         1/1     Running   0          5m
+  kube-system         maintainer-sgrs7                                     1/1     Running   0          5m
+  nginx-ingress       nginx-ingress-controller-b5857775-slgkh              1/1     Running   0          5m
+  nginx-ingress       nginx-ingress-default-backend-86496666db-5jgcz       1/1     Running   0          5m
+  registry            charts-bng-2021-04-m0-i74-0                          1/1     Running   0          5m
+  registry            charts-cee-2020-02-6-i04-0                           1/1     Running   0          5m
+  registry            registry-bng-2021-04-m0-i74-0                        1/1     Running   0          5m
+  registry            registry-cee-2020-02-6-i04-0                         1/1     Running   0          5m
+  registry            software-unpacker-0                                  1/1     Running   0          5m
+  smi-certs           ss-cert-provisioner-5d764d5667-27d55                 1/1     Running   0          5m
+  smi-secure-access   secure-access-controller-k62z5                       1/1     Running   0          5m
+  smi-vips            keepalived-5l789                                     3/3     Running   0          5m
+  ```
 
 - Check Grafana ingress and try logging to it (username: admin, password: your-password-to-connect-cee-ops-center)
   
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-cloud-user@cnbng-cp-vm:~$ kubectl get ingress -A
-NAMESPACE    NAME                                       CLASS    HOSTS                                                          ADDRESS           PORTS     AGE
-bng-bng      cli-ingress-bng-bng-ops-center             &lt;none&gt;   cli.bng-bng-ops-center.192.168.107.150.nip.io                  192.168.107.150   80, 443   5m
-bng-bng      documentation-ingress                      &lt;none&gt;   documentation.bng-bng-ops-center.192.168.107.150.nip.io        192.168.107.150   80, 443   5m
-bng-bng      restconf-ingress-bng-bng-ops-center        &lt;none&gt;   restconf.bng-bng-ops-center.192.168.107.150.nip.io             192.168.107.150   80, 443   5m
-cee-global   cee-global-product-documentation-ingress   &lt;none&gt;   docs.cee-global-product-documentation.192.168.107.150.nip.io   192.168.107.150   80, 443   5m
-cee-global   cli-ingress-cee-global-ops-center          &lt;none&gt;   cli.cee-global-ops-center.192.168.107.150.nip.io               192.168.107.150   80, 443   5m
-cee-global   documentation-ingress                      &lt;none&gt;   documentation.cee-global-ops-center.192.168.107.150.nip.io     192.168.107.150   80, 443   5m
-cee-global   grafana-ingress                            &lt;none&gt;   <mark>grafana.192.168.107.150.nip.io</mark>                                 192.168.107.150   80, 443   5m
-cee-global   prometheus-hi-res                          &lt;none&gt;   prometheus-hi-res.192.168.107.150.nip.io                       192.168.107.150   80, 443   5m
-cee-global   restconf-ingress-cee-global-ops-center     &lt;none&gt;   restconf.cee-global-ops-center.192.168.107.150.nip.io          192.168.107.150   80, 443   5m
-cee-global   show-tac-manager-ingress                   &lt;none&gt;   show-tac-manager.192.168.107.150.nip.io                        192.168.107.150   80, 443   5m
-registry     charts-ingress                             &lt;none&gt;   charts.192.168.107.150.nip.io                                  192.168.107.150   80, 443   5m
-registry     registry-ingress                           &lt;none&gt;   docker.192.168.107.150.nip.io                                  192.168.107.150   80, 443   5m
-</code>
-</pre>
-</div>
+    <div class="highlighter-rouge">
+    <pre class="highlight">
+    <code>
+    cloud-user@cnbng-cp-vm:~$ kubectl get ingress -A
+    NAMESPACE    NAME                                       CLASS    HOSTS                                                          ADDRESS           PORTS     AGE
+    bng-bng      cli-ingress-bng-bng-ops-center             &lt;none&gt;   cli.bng-bng-ops-center.192.168.107.150.nip.io                  192.168.107.150   80, 443   5m
+    bng-bng      documentation-ingress                      &lt;none&gt;   documentation.bng-bng-ops-center.192.168.107.150.nip.io        192.168.107.150   80, 443   5m
+    bng-bng      restconf-ingress-bng-bng-ops-center        &lt;none&gt;   restconf.bng-bng-ops-center.192.168.107.150.nip.io             192.168.107.150   80, 443   5m
+    cee-global   cee-global-product-documentation-ingress   &lt;none&gt;   docs.cee-global-product-documentation.192.168.107.150.nip.io   192.168.107.150   80, 443   5m
+    cee-global   cli-ingress-cee-global-ops-center          &lt;none&gt;   cli.cee-global-ops-center.192.168.107.150.nip.io               192.168.107.150   80, 443   5m
+    cee-global   documentation-ingress                      &lt;none&gt;   documentation.cee-global-ops-center.192.168.107.150.nip.io     192.168.107.150   80, 443   5m
+    cee-global   grafana-ingress                            &lt;none&gt;   <mark>grafana.192.168.107.150.nip.io</mark>                                 192.168.107.150   80, 443   5m
+    cee-global   prometheus-hi-res                          &lt;none&gt;   prometheus-hi-res.192.168.107.150.nip.io                       192.168.107.150   80, 443   5m
+    cee-global   restconf-ingress-cee-global-ops-center     &lt;none&gt;   restconf.cee-global-ops-center.192.168.107.150.nip.io          192.168.107.150   80, 443   5m
+    cee-global   show-tac-manager-ingress                   &lt;none&gt;   show-tac-manager.192.168.107.150.nip.io                        192.168.107.150   80, 443   5m
+    registry     charts-ingress                             &lt;none&gt;   charts.192.168.107.150.nip.io                                  192.168.107.150   80, 443   5m
+    registry     registry-ingress                           &lt;none&gt;   docker.192.168.107.150.nip.io                                  192.168.107.150   80, 443   5m
+    </code>
+    </pre>
+    </div>
 
 - We can login to Grafana GUI from Chrome/ any browser @URL: https://grafana.your-cnbng-cp-vm-ip.nip.io/
 
