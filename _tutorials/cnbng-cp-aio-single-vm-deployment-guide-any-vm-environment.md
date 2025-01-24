@@ -147,6 +147,7 @@ ssh admin@localhost -p 2022
      configuration master-virtual-ip-interface ens160
      configuration pod-subnet    192.202.0.0/16
      configuration allow-insecure-registry true
+     configuration restrict-logging false
      node-defaults initial-boot default-user cloud-user
      node-defaults k8s ssh-username cloud-user
      node-defaults os ntp enabled
