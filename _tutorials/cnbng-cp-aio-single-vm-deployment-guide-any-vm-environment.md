@@ -155,6 +155,7 @@ ssh admin@localhost -p 2022
     </code>
     </pre>
     </div>
+    
 **Note**: In the above config, change ntp server to the one available in the lab. 
 {: .notice--info}
 1. Configure Inception VM's ssh private key from file /home/cloud-user/.ssh/id_rsa by replace line breaks with "\n", under the cluster config using "node-defaults k8s ssh-connection-private-key". Pay special attention to how the private key is configured under cluster.
@@ -257,7 +258,8 @@ software cnf cee
   description cee-products
 exit
 ```
-You can generate sha256 for images using sha256sum.
+
+**Note**: You can generate sha256 for images using sha256sum.
 {: .notice--info}
 
 1. Setup Ops Center configuration inside cluster configuration and commit
