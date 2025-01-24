@@ -387,235 +387,238 @@ exit
 
 - We can login to Grafana GUI from Chrome/ any browser @URL: https://grafana.your-cnbng-cp-vm-ip.nip.io/
 
-![grafana-login1.png]({{site.baseurl}}/images/grafana-login1.png)
+	![grafana-login1.png]({{site.baseurl}}/images/grafana-login1.png)
 
 - SSH to cnBNG CP Ops Center at port 2024
   
-```
-cloud-user@inception:~$ ssh admin@your-cnbng-cp-vm-ip -p 2024
-admin@192.168.107.150's password: 
+  ```
+  cloud-user@inception:~$ ssh admin@your-cnbng-cp-vm-ip -p 2024
+  admin@192.168.107.150's password: 
 
-      Welcome to the bng CLI on pod2/bng
-      Copyright © 2016-2020, Cisco Systems, Inc.
-      All rights reserved.
-    
-User admin last logged in 2021-11-19T04:12:32.912093+00:00, to ops-center-bng-bng-ops-center-77fb6479fc-dtvt2, from 192.168.107.150 using cli-ssh
-admin connected from 192.168.107.150 using ssh on ops-center-bng-bng-ops-center-77fb6479fc-dtvt2
-[cnbng/bng] bng# 
-[cnbng/bng] bng# 
-```
+        Welcome to the bng CLI on pod2/bng
+        Copyright © 2016-2020, Cisco Systems, Inc.
+        All rights reserved.
+
+  User admin last logged in 2021-11-19T04:12:32.912093+00:00, to ops-center-bng-bng-ops-center-77fb6479fc-dtvt2, from 192.168.107.150 using cli-ssh
+  admin connected from 192.168.107.150 using ssh on ops-center-bng-bng-ops-center-77fb6479fc-dtvt2
+  [cnbng/bng] bng# 
+  [cnbng/bng] bng# 
+  ```
   
 - We can also test Netconf Interface availability of cnBNG Ops Center using ssh
   
-```
-cloud-user@inception:~$ ssh admin@your-cnbng-cp-vm-ip -p 3022 -s netconf    
-admin@192.168.107.150's password: 
-<?xml version="1.0" encoding="UTF-8"?>
-<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-<capabilities>
-<capability>urn:ietf:params:netconf:base:1.0</capability>
-<capability>urn:ietf:params:netconf:base:1.1</capability>
-<capability>urn:ietf:params:netconf:capability:confirmed-commit:1.1</capability>
-<capability>urn:ietf:params:netconf:capability:confirmed-commit:1.0</capability>
-<capability>urn:ietf:params:netconf:capability:candidate:1.0</capability>
-<capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
-<capability>urn:ietf:params:netconf:capability:url:1.0?scheme=ftp,sftp,file</capability>
-<capability>urn:ietf:params:netconf:capability:validate:1.0</capability>
-<capability>urn:ietf:params:netconf:capability:validate:1.1</capability>
-<capability>urn:ietf:params:netconf:capability:xpath:1.0</capability>
-<capability>urn:ietf:params:netconf:capability:notification:1.0</capability>
-<capability>urn:ietf:params:netconf:capability:interleave:1.0</capability>
-<capability>urn:ietf:params:netconf:capability:partial-lock:1.0</capability>
-<capability>urn:ietf:params:netconf:capability:with-defaults:1.0?basic-mode=explicit&amp;also-supported=report-all-tagged,report-all</capability>
-<capability>urn:ietf:params:netconf:capability:yang-library:1.0?revision=2019-01-04&amp;module-set-id=a6803bdbd5c766b47137ad86700fff0a</capability>
-<capability>urn:ietf:params:netconf:capability:yang-library:1.1?revision=2019-01-04&amp;content-id=a6803bdbd5c766b47137ad86700fff0a</capability>
-<capability>http://tail-f.com/ns/netconf/actions/1.0</capability>
-<capability>http://cisco.com/cisco-bng-ipam?module=cisco-bng-ipam&amp;revision=2020-01-24</capability>
-<capability>http://cisco.com/cisco-cn-ipam?module=cisco-cn-ipam&amp;revision=2021-02-21</capability>
-<capability>http://cisco.com/cisco-exec-ipam?module=cisco-exec-ipam&amp;revision=2021-06-01</capability>
-<capability>http://cisco.com/cisco-mobile-nf-tls?module=cisco-mobile-nf-tls&amp;revision=2020-06-24</capability>
-<capability>http://cisco.com/cisco-smi-etcd?module=cisco-smi-etcd&amp;revision=2021-09-15</capability>
-<capability>http://tail-f.com/cisco-mobile-common?module=tailf-mobile-common&amp;revision=2019-04-25</capability>
-<capability>http://tail-f.com/cisco-mobile-product?module=tailf-cisco-mobile-product&amp;revision=2018-06-06</capability>
-<capability>http://tail-f.com/ns/aaa/1.1?module=tailf-aaa&amp;revision=2018-09-12</capability>
-<capability>http://tail-f.com/ns/common/query?module=tailf-common-query&amp;revision=2017-12-15</capability>
-<capability>http://tail-f.com/ns/confd-progress?module=tailf-confd-progress&amp;revision=2020-06-29</capability>
-<capability>http://tail-f.com/ns/kicker?module=tailf-kicker&amp;revision=2020-11-26</capability>
-<capability>http://tail-f.com/ns/netconf/query?module=tailf-netconf-query&amp;revision=2017-01-06</capability>
-<capability>http://tail-f.com/ns/webui?module=tailf-webui&amp;revision=2013-03-07</capability>
-<capability>http://tail-f.com/yang/acm?module=tailf-acm&amp;revision=2013-03-07</capability>
-<capability>http://tail-f.com/yang/common?module=tailf-common&amp;revision=2020-11-26</capability>
-<capability>http://tail-f.com/yang/common-monitoring?module=tailf-common-monitoring&amp;revision=2019-04-09</capability>
-<capability>http://tail-f.com/yang/confd-monitoring?module=tailf-confd-monitoring&amp;revision=2019-10-30</capability>
-<capability>http://tail-f.com/yang/last-login?module=tailf-last-login&amp;revision=2019-11-21</capability>
-<capability>http://tail-f.com/yang/netconf-monitoring?module=tailf-netconf-monitoring&amp;revision=2019-03-28</capability>
-<capability>http://tail-f.com/yang/xsd-types?module=tailf-xsd-types&amp;revision=2017-11-20</capability>
-<capability>urn:ietf:params:xml:ns:netconf:base:1.0?module=ietf-netconf&amp;revision=2011-06-01&amp;features=confirmed-commit,candidate,rollback-on-error,validate,xpath,url</capability>
-<capability>urn:ietf:params:xml:ns:netconf:partial-lock:1.0?module=ietf-netconf-partial-lock&amp;revision=2009-10-19</capability>
-<capability>urn:ietf:params:xml:ns:yang:iana-crypt-hash?module=iana-crypt-hash&amp;revision=2014-08-06&amp;features=crypt-hash-sha-512,crypt-hash-sha-256,crypt-hash-md5</capability>
-<capability>urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&amp;revision=2013-07-15</capability>
-<capability>urn:ietf:params:xml:ns:yang:ietf-netconf-acm?module=ietf-netconf-acm&amp;revision=2018-02-14</capability>
-<capability>urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring?module=ietf-netconf-monitoring&amp;revision=2010-10-04</capability>
-<capability>urn:ietf:params:xml:ns:yang:ietf-netconf-notifications?module=ietf-netconf-notifications&amp;revision=2012-02-06</capability>
-<capability>urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults?module=ietf-netconf-with-defaults&amp;revision=2011-06-01</capability>
-<capability>urn:ietf:params:xml:ns:yang:ietf-restconf-monitoring?module=ietf-restconf-monitoring&amp;revision=2017-01-26</capability>
-<capability>urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name?module=ietf-x509-cert-to-name&amp;revision=2014-12-10</capability>
-<capability>urn:ietf:params:xml:ns:yang:ietf-yang-metadata?module=ietf-yang-metadata&amp;revision=2016-08-05</capability>
-<capability>urn:ietf:params:xml:ns:yang:ietf-yang-types?module=ietf-yang-types&amp;revision=2013-07-15</capability>
-</capabilities>
-<session-id>171</session-id></hello>]]>]]>
-```
+  ```
+  cloud-user@inception:~$ ssh admin@your-cnbng-cp-vm-ip -p 3022 -s netconf    
+  admin@192.168.107.150's password: 
+  <?xml version="1.0" encoding="UTF-8"?>
+  <hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <capabilities>
+  <capability>urn:ietf:params:netconf:base:1.0</capability>
+  <capability>urn:ietf:params:netconf:base:1.1</capability>
+  <capability>urn:ietf:params:netconf:capability:confirmed-commit:1.1</capability>
+  <capability>urn:ietf:params:netconf:capability:confirmed-commit:1.0</capability>
+  <capability>urn:ietf:params:netconf:capability:candidate:1.0</capability>
+  <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+  <capability>urn:ietf:params:netconf:capability:url:1.0?scheme=ftp,sftp,file</capability>
+  <capability>urn:ietf:params:netconf:capability:validate:1.0</capability>
+  <capability>urn:ietf:params:netconf:capability:validate:1.1</capability>
+  <capability>urn:ietf:params:netconf:capability:xpath:1.0</capability>
+  <capability>urn:ietf:params:netconf:capability:notification:1.0</capability>
+  <capability>urn:ietf:params:netconf:capability:interleave:1.0</capability>
+  <capability>urn:ietf:params:netconf:capability:partial-lock:1.0</capability>
+  <capability>urn:ietf:params:netconf:capability:with-defaults:1.0?basic-mode=explicit&amp;also-supported=report-all-tagged,report-all</capability>
+  <capability>urn:ietf:params:netconf:capability:yang-library:1.0?revision=2019-01-04&amp;module-set-id=a6803bdbd5c766b47137ad86700fff0a</capability>
+  <capability>urn:ietf:params:netconf:capability:yang-library:1.1?revision=2019-01-04&amp;content-id=a6803bdbd5c766b47137ad86700fff0a</capability>
+  <capability>http://tail-f.com/ns/netconf/actions/1.0</capability>
+  <capability>http://cisco.com/cisco-bng-ipam?module=cisco-bng-ipam&amp;revision=2020-01-24</capability>
+  <capability>http://cisco.com/cisco-cn-ipam?module=cisco-cn-ipam&amp;revision=2021-02-21</capability>
+  <capability>http://cisco.com/cisco-exec-ipam?module=cisco-exec-ipam&amp;revision=2021-06-01</capability>
+  <capability>http://cisco.com/cisco-mobile-nf-tls?module=cisco-mobile-nf-tls&amp;revision=2020-06-24</capability>
+  <capability>http://cisco.com/cisco-smi-etcd?module=cisco-smi-etcd&amp;revision=2021-09-15</capability>
+  <capability>http://tail-f.com/cisco-mobile-common?module=tailf-mobile-common&amp;revision=2019-04-25</capability>
+  <capability>http://tail-f.com/cisco-mobile-product?module=tailf-cisco-mobile-product&amp;revision=2018-06-06</capability>
+  <capability>http://tail-f.com/ns/aaa/1.1?module=tailf-aaa&amp;revision=2018-09-12</capability>
+  <capability>http://tail-f.com/ns/common/query?module=tailf-common-query&amp;revision=2017-12-15</capability>
+  <capability>http://tail-f.com/ns/confd-progress?module=tailf-confd-progress&amp;revision=2020-06-29</capability>
+  <capability>http://tail-f.com/ns/kicker?module=tailf-kicker&amp;revision=2020-11-26</capability>
+  <capability>http://tail-f.com/ns/netconf/query?module=tailf-netconf-query&amp;revision=2017-01-06</capability>
+  <capability>http://tail-f.com/ns/webui?module=tailf-webui&amp;revision=2013-03-07</capability>
+  <capability>http://tail-f.com/yang/acm?module=tailf-acm&amp;revision=2013-03-07</capability>
+  <capability>http://tail-f.com/yang/common?module=tailf-common&amp;revision=2020-11-26</capability>
+  <capability>http://tail-f.com/yang/common-monitoring?module=tailf-common-monitoring&amp;revision=2019-04-09</capability>
+  <capability>http://tail-f.com/yang/confd-monitoring?module=tailf-confd-monitoring&amp;revision=2019-10-30</capability>
+  <capability>http://tail-f.com/yang/last-login?module=tailf-last-login&amp;revision=2019-11-21</capability>
+  <capability>http://tail-f.com/yang/netconf-monitoring?module=tailf-netconf-monitoring&amp;revision=2019-03-28</capability>
+  <capability>http://tail-f.com/yang/xsd-types?module=tailf-xsd-types&amp;revision=2017-11-20</capability>
+  <capability>urn:ietf:params:xml:ns:netconf:base:1.0?module=ietf-netconf&amp;revision=2011-06-01&amp;features=confirmed-commit,candidate,rollback-on-error,validate,xpath,url</capability>
+  <capability>urn:ietf:params:xml:ns:netconf:partial-lock:1.0?module=ietf-netconf-partial-lock&amp;revision=2009-10-19</capability>
+  <capability>urn:ietf:params:xml:ns:yang:iana-crypt-hash?module=iana-crypt-hash&amp;revision=2014-08-06&amp;features=crypt-hash-sha-512,crypt-hash-sha-256,crypt-hash-md5</capability>
+  <capability>urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&amp;revision=2013-07-15</capability>
+  <capability>urn:ietf:params:xml:ns:yang:ietf-netconf-acm?module=ietf-netconf-acm&amp;revision=2018-02-14</capability>
+  <capability>urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring?module=ietf-netconf-monitoring&amp;revision=2010-10-04</capability>
+  <capability>urn:ietf:params:xml:ns:yang:ietf-netconf-notifications?module=ietf-netconf-notifications&amp;revision=2012-02-06</capability>
+  <capability>urn:ietf:params:xml:ns:yang:ietf-netconf-with-defaults?module=ietf-netconf-with-defaults&amp;revision=2011-06-01</capability>
+  <capability>urn:ietf:params:xml:ns:yang:ietf-restconf-monitoring?module=ietf-restconf-monitoring&amp;revision=2017-01-26</capability>
+  <capability>urn:ietf:params:xml:ns:yang:ietf-x509-cert-to-name?module=ietf-x509-cert-to-name&amp;revision=2014-12-10</capability>
+  <capability>urn:ietf:params:xml:ns:yang:ietf-yang-metadata?module=ietf-yang-metadata&amp;revision=2016-08-05</capability>
+  <capability>urn:ietf:params:xml:ns:yang:ietf-yang-types?module=ietf-yang-types&amp;revision=2013-07-15</capability>
+  </capabilities>
+  <session-id>171</session-id></hello>]]>]]>
+  ```
   
 ## Initial cnBNG CP Configurations
+
 If you have deployed cnBNG CP a fresh then most probably initial cnBNG CP configuration is not applied on Ops Center. Follow below steps to apply initial configuratuon to cnBNG CP Ops Center
 
 - SSH login to cnBNG CP Ops Center CLI
 
-```
-cloud-user@inception:~$ ssh admin@your-cnbng-cp-vm-ip -p 2024         
-Warning: Permanently added '[192.168.107.150]:2024' (RSA) to the list of known hosts.
-admin@192.168.107.150's password: 
+  ```
+  cloud-user@inception:~$ ssh admin@your-cnbng-cp-vm-ip -p 2024         
+  Warning: Permanently added '[192.168.107.150]:2024' (RSA) to the list of known hosts.
+  admin@192.168.107.150's password: 
 
-      Welcome to the bng CLI on pod100/bng
-      Copyright © 2016-2020, Cisco Systems, Inc.
-      All rights reserved.
-    
-User admin last logged in 2021-12-01T11:42:45.247257+00:00, to ops-center-bng-bng-ops-center-5666d4cb6-dj7sv, from 192.168.107.150 using cli-ssh
-admin connected from 192.168.107.150 using ssh on ops-center-bng-bng-ops-center-5666d4cb6-dj7sv
-[cnbng/bng] bng# 
-```
+        Welcome to the bng CLI on pod100/bng
+        Copyright © 2016-2020, Cisco Systems, Inc.
+        All rights reserved.
+
+  User admin last logged in 2021-12-01T11:42:45.247257+00:00, to ops-center-bng-bng-ops-center-5666d4cb6-dj7sv, from 192.168.107.150 using cli-ssh
+  admin connected from 192.168.107.150 using ssh on ops-center-bng-bng-ops-center-5666d4cb6-dj7sv
+  [cnbng/bng] bng# 
+  ```
 
 - Change to config mode in Ops Center
 
-```
-[cnbng/bng] bng# config
-Entering configuration mode terminal
-[cnbng/bng] bng(config)# 
-```
+  ```
+  [cnbng/bng] bng# config
+  Entering configuration mode terminal
+  [cnbng/bng] bng(config)# 
+  ```
 
 - Apply following initial configuration. With changes to "endpoint radius" and "udp proxy" configs. Both "endpoint radius" and "udp-proxy" should use IP of cnBNG CP VM.
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-cdl node-type session
-cdl zookeeper replica 1
-cdl logging default-log-level error
-cdl datastore session
- slice-names [ 1 ]
- endpoint replica 1
- endpoint settings slot-timeout-ms 750
- index replica 1
- index map    1
- index write-factor 1
- slot replica 1
- slot map     1
- slot write-factor 1
- slot notification limit 300
-exit
-cdl kafka replica 1
-instance instance-id 1
- endpoint sm
- exit
- endpoint nodemgr
- exit
- endpoint n4-protocol
-  retransmission timeout 0 max-retry 0
- exit
- endpoint dhcp
- exit
- endpoint pppoe
- exit
- endpoint radius
-!! Change this IP to your cnBNG CP VM IP
-   <mark>vip-ip your-cnbng-cp-vm-ip</mark>
-  interface coa-nas
-   sla response 140000
-!! Change this IP to your cnBNG CP VM IP
-   <mark>vip-ip your-cnbng-cp-vm-ip vip-port 2000</mark>
+  <div class="highlighter-rouge">
+  <pre class="highlight">
+  <code>
+  cdl node-type session
+  cdl zookeeper replica 1
+  cdl logging default-log-level error
+  cdl datastore session
+   slice-names [ 1 ]
+   endpoint replica 1
+   endpoint settings slot-timeout-ms 750
+   index replica 1
+   index map    1
+   index write-factor 1
+   slot replica 1
+   slot map     1
+   slot write-factor 1
+   slot notification limit 300
   exit
- exit
- endpoint udp-proxy
-!! Change this IP to your cnBNG CP VM IP
-  <mark>vip-ip your-cnbng-cp-vm-ip</mark>
- exit
-exit
-deployment
- app-name     BNG
- cluster-name cnbng
- dc-name      DC
- model        small
-exit
-k8 bng
- etcd-endpoint      etcd:2379
- datastore-endpoint datastore-ep-session:8882
- tracing
-  enable
-  enable-trace-percent 30
-  append-messages      true
-  endpoint             jaeger-collector:9411
- exit
-exit
-instances instance 1
- system-id  DC
- cluster-id cnbng
- slice-name 1
-exit
-local-instance instance 1
-</code>
-</pre>
-</div>
+  cdl kafka replica 1
+  instance instance-id 1
+   endpoint sm
+   exit
+   endpoint nodemgr
+   exit
+   endpoint n4-protocol
+    retransmission timeout 0 max-retry 0
+   exit
+   endpoint dhcp
+   exit
+   endpoint pppoe
+   exit
+   endpoint radius
+  !! Change this IP to your cnBNG CP VM IP
+     <mark>vip-ip your-cnbng-cp-vm-ip</mark>
+    interface coa-nas
+     sla response 140000
+  !! Change this IP to your cnBNG CP VM IP
+     <mark>vip-ip your-cnbng-cp-vm-ip vip-port 2000</mark>
+    exit
+   exit
+   endpoint udp-proxy
+  !! Change this IP to your cnBNG CP VM IP
+    <mark>vip-ip your-cnbng-cp-vm-ip</mark>
+   exit
+  exit
+  deployment
+   app-name     BNG
+   cluster-name cnbng
+   dc-name      DC
+   model        small
+  exit
+  k8 bng
+   etcd-endpoint      etcd:2379
+   datastore-endpoint datastore-ep-session:8882
+   tracing
+    enable
+    enable-trace-percent 30
+    append-messages      true
+    endpoint             jaeger-collector:9411
+   exit
+  exit
+  instances instance 1
+   system-id  DC
+   cluster-id cnbng
+   slice-name 1
+  exit
+  local-instance instance 1
+  </code>
+  </pre>
+  </div>
 
 - Configure "system mode running" and commit
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-[cnbng/bng] bng(config)# <mark>system mode running </mark>   
-[cnbng/bng] bng(config)# commit
-Commit complete.
-[cnbng/bng] bng(config)# 
-Message from confd-api-manager at 2021-12-01 12:36:05...
-Helm update is STARTING.  Trigger for update is STARTUP. 
-Message from confd-api-manager at 2021-12-01 12:36:08...
-Helm update is SUCCESS.  Trigger for update is STARTUP.
-</code>
-</pre>
-</div>
+  <div class="highlighter-rouge">
+  <pre class="highlight">
+  <code>
+  [cnbng/bng] bng(config)# <mark>system mode running </mark>   
+  [cnbng/bng] bng(config)# commit
+  Commit complete.
+  [cnbng/bng] bng(config)# 
+  Message from confd-api-manager at 2021-12-01 12:36:05...
+  Helm update is STARTING.  Trigger for update is STARTUP. 
+  Message from confd-api-manager at 2021-12-01 12:36:08...
+  Helm update is SUCCESS.  Trigger for update is STARTUP.
+  </code>
+  </pre>
+  </div>
 
 - Wait for system to deploy all PODs. Verify that all PODs are deployed for cnBNG. Four PODs will be in <span style="background-color: #FDD7E4">Init</span> state at this moment, which is ok.
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-cloud-user@cnbng-cp-vm:~$ kubectl get pods -n bng-bng
-NAME                                                   READY   STATUS     RESTARTS   AGE
-bng-dhcp-n0-0                                          0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
-bng-n4-protocol-n0-0                                   2/2     Running    0          2m44s
-bng-nodemgr-n0-0                                       0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
-bng-pppoe-n0-0                                         0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
-bng-sm-n0-0                                            0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
-cache-pod-0                                            1/1     Running    0          2m44s
-cache-pod-1                                            0/1     Running    0          16s
-cdl-ep-session-c1-d0-868f578d69-8n2rw                  1/1     Running    0          2m46s
-cdl-index-session-c1-m1-0                              1/1     Running    0          2m46s
-cdl-slot-session-c1-m1-0                               1/1     Running    0          2m46s
-documentation-5857c6db9f-82lg6                         1/1     Running    0          46h
-etcd-bng-bng-etcd-cluster-0                            2/2     Running    0          2m45s
-etcd-bng-bng-etcd-cluster-1                            2/2     Running    0          2m45s
-etcd-bng-bng-etcd-cluster-2                            2/2     Running    0          2m45s
-georeplication-pod-0                                   1/1     Running    1          2m44s
-grafana-dashboard-app-infra-bng-bng-64b5f7c8b4-rsg5v   1/1     Running    0          2m45s
-grafana-dashboard-cdl-bng-bng-66947dbb96-p6c8n         1/1     Running    0          2m46s
-grafana-dashboard-cnbng-749978f9cb-txfnd               1/1     Running    0          2m45s
-grafana-dashboard-etcd-bng-bng-76b5f7b796-whlch        1/1     Running    0          2m45s
-kafka-0                                                2/2     Running    0          2m46s
-oam-pod-0                                              2/2     Running    2          2m46s
-ops-center-bng-bng-ops-center-5666d4cb6-dj7sv          5/5     Running    0          46h
-prometheus-rules-cdl-56457cfd8-tj2d4                   1/1     Running    0          2m46s
-prometheus-rules-etcd-5796974fb5-t9w6m                 1/1     Running    0          2m45s
-radius-ep-n0-0                                         2/2     Running    1          2m45s
-smart-agent-bng-bng-ops-center-54bcbf5576-tc4p9        1/1     Running    1          46h
-udp-proxy-0                                            1/1     Running    0          2m45s
-zookeeper-0                                            1/1     Running    0          2m46s
-</code>
+  <div class="highlighter-rouge">
+  <pre class="highlight">
+  <code>
+  cloud-user@cnbng-cp-vm:~$ kubectl get pods -n bng-bng
+  NAME                                                   READY   STATUS     RESTARTS   AGE
+  bng-dhcp-n0-0                                          0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
+  bng-n4-protocol-n0-0                                   2/2     Running    0          2m44s
+  bng-nodemgr-n0-0                                       0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
+  bng-pppoe-n0-0                                         0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
+  bng-sm-n0-0                                            0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
+  cache-pod-0                                            1/1     Running    0          2m44s
+  cache-pod-1                                            0/1     Running    0          16s
+  cdl-ep-session-c1-d0-868f578d69-8n2rw                  1/1     Running    0          2m46s
+  cdl-index-session-c1-m1-0                              1/1     Running    0          2m46s
+  cdl-slot-session-c1-m1-0                               1/1     Running    0          2m46s
+  documentation-5857c6db9f-82lg6                         1/1     Running    0          46h
+  etcd-bng-bng-etcd-cluster-0                            2/2     Running    0          2m45s
+  etcd-bng-bng-etcd-cluster-1                            2/2     Running    0          2m45s
+  etcd-bng-bng-etcd-cluster-2                            2/2     Running    0          2m45s
+  georeplication-pod-0                                   1/1     Running    1          2m44s
+  grafana-dashboard-app-infra-bng-bng-64b5f7c8b4-rsg5v   1/1     Running    0          2m45s
+  grafana-dashboard-cdl-bng-bng-66947dbb96-p6c8n         1/1     Running    0          2m46s
+  grafana-dashboard-cnbng-749978f9cb-txfnd               1/1     Running    0          2m45s
+  grafana-dashboard-etcd-bng-bng-76b5f7b796-whlch        1/1     Running    0          2m45s
+  kafka-0                                                2/2     Running    0          2m46s
+  oam-pod-0                                              2/2     Running    2          2m46s
+  ops-center-bng-bng-ops-center-5666d4cb6-dj7sv          5/5     Running    0          46h
+  prometheus-rules-cdl-56457cfd8-tj2d4                   1/1     Running    0          2m46s
+  prometheus-rules-etcd-5796974fb5-t9w6m                 1/1     Running    0          2m45s
+  radius-ep-n0-0                                         2/2     Running    1          2m45s
+  smart-agent-bng-bng-ops-center-54bcbf5576-tc4p9        1/1     Running    1          46h
+  udp-proxy-0                                            1/1     Running    0          2m45s
+  zookeeper-0                                            1/1     Running    0          2m46s
+  </code>
+  </pre>
+  </div>
