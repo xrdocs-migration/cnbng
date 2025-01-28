@@ -5,6 +5,5 @@ title: cnBNG Control Plane Openshift Deployment Guide
 author: gurpreets
 position: hidden
 ---
-## A New Post
+## Overview
 
-Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
