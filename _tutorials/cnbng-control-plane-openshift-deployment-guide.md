@@ -203,7 +203,7 @@ Now since we have got the helm repositories created, we can proceed to create he
 
 	![Screenshot 2025-01-29 at 3.01.18 PM.jpeg]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.01.18 PM.jpeg)
 
-### Step-3: Configuring CEE Ops Center
+### Configuring CEE Ops Center
 
 1. Click on Terminal for CEE Ops Center POD and connect to confd_cli using command ```bin/confd_cli -u admin```
 
@@ -240,7 +240,7 @@ Now since we have got the helm repositories created, we can proceed to create he
 
 With this we complete deployment of CEE application.
 
-## Deploying cnBNG Control Plane
+## Step-3: Deploying cnBNG Control Plane
 
 In this step we will deploy cnBNG Control Plane (CP) PODs by first deploying cnBNG CP Ops Center POD and then doing necessary configurations on the Ops Center to deploy rest of the PODs.
 
