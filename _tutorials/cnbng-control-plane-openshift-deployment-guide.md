@@ -384,7 +384,7 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
     commit
     ```
     
-1. Verify that the "system status percent-ready" is 83% using command "show system". This is because following four PODs are in init state and will be in Running state after Day-1 configuration.
+1. Verify that the "system status percent-ready" is 83% using command "show system". This is because following four PODs are in init state and can only be in Running state post Day-1 configuration.
 	
 	<div class="highlighter-rouge">
     <pre class="highlight">
