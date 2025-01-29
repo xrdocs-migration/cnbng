@@ -148,8 +148,51 @@ Now since we have got the helm repositories created, we can proceed to create he
 	![Screenshot 2025-01-29 at 2.36.32 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.36.32 PM.png)
     
 1. After release is created click on Ops Center POD chart for ceeocp
+	![Screenshot 2025-01-29 at 2.42.28 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.42.28 PM.png)
+    
+1. Click on Create for YAML definitions
+  ![Screenshot 2025-01-29 at 2.41.29 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.41.29 PM.png)
 
-	
+1. Replace default YAML definition with below YAML definition and change "Release name". Refer below picture for guidance.
+	```
+    global:
+      caasModel: "openshift"
+      imagePullPolicy: IfNotPresent
+      imagePullSecrets:
+        - name: cnbng-docker-repo-secret
+      ingressHostname: your-node-ip-address.nip.io
+      istio: false
+      networkPolicy:
+        enabled: false
+      pathBasedIngress: true
+      registry: your-dockerhub-url
+      singleNode: true
+      smiNfMonitoring: true
+      smiPlatformMonitoring: true
+      useVolumeClaims: true
+    ops-center:
+      product:
+        helm:
+          product: cee
+          autoDeploy: false
+          repository:
+            url: https://your-helm-chart-repo-url-for-cee
+            name: ceeocp
+            accessToken: your-helm-repo-username:your-helm-repo-access-password
+    helm-api:
+      env:
+        - name: DOWNLOAD_CHART_PROXY
+          value: "https://your-proxy-url"
+    ```
+    
+  ![Screenshot 2025-01-29 at 2.47.39 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.47.39 PM.png)
+  
+1. Once the POD is deployed successfully and is in Running state, click on the POD name "ops-center-cee-ops-center-ams1"
+
+
+
+
+
 
       
    
