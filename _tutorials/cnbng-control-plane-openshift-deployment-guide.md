@@ -39,14 +39,15 @@ In this tutorial we will use single network for management as well as to peer wi
 ### Node Labels
 
 1. Add following labels to the node. These labels are required for cnBNG POD deployment/ placement. Add labels by selecting Nodes under Compute from side panel.
-  ```
-  smi.cisco.com/node-type=oam
-  disktype=ssd
-  ```
-  
-  ![Screenshot 2025-01-28 at 3.57.02 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.02 PM.png)
-  
-  ![Screenshot 2025-01-28 at 3.57.06 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.06 PM.png)
+	
+    ```
+    smi.cisco.com/node-type=oam
+    disktype=ssd
+    ```
+
+    ![Screenshot 2025-01-28 at 3.57.02 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.02 PM.png)
+
+    ![Screenshot 2025-01-28 at 3.57.06 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.06 PM.png)
 	
 ### Creating Namespaces
 
