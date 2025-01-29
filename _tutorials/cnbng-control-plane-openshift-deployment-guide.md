@@ -116,7 +116,7 @@ Now we will create Helm repositories for CEE and cnBNG Control Plane application
           name: cnbng-helm-repo-secret
     ```
     **Note** Make sure you have selected "ceeocp" as the Project
-	{: .notice}
+	{: .notice--info}
     
 1. Similarly create Repository for "bngocp" Project using below YAML.
 	```
@@ -201,5 +201,34 @@ Now since we have got the helm repositories created, we can proceed to create he
 1. Click on Terminal for ops center POD and connect to confd_cli using command ```bin/confd_cli -u admin```
 
 	![Screenshot 2025-01-29 at 3.45.58 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.45.58 PM.png)
+    
+	**Note** It will ask to set the passoword when you connect for the first time.
+	{: .notice--info}
+	
+1. Configure following on CEE Ops Center to get all the PODs running for CEE.
+	
+    ```
+    config
+    pv-provisioner pv-path /var/data
+    k8s name cnbng
+    system mode running
+    commit
+    ```
+    
+1. Verify that the "system status percent-ready" is 100% using command "show system" before proceeding further. 
+	
+	<div class="highlighter-rouge">
+    <pre class="highlight">
+    <code>
+	[unknown] cee# show system
+    system uuid 3e2b0987-4f8b-40fa-a2c2-0cb2969e7882
+    system status deployed true
+    system status percent-ready <mark>100.0</mark>
+    sustem ons-center renosttory unknown system
+    ops-center-debug status false
+    system synch running true system synch pending
+    </code>
+    </pre>
+    </div>
 
-1. 
+With this we complete deployment of CEE application.
