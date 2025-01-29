@@ -195,3 +195,9 @@ Now since we have got the helm repositories created, we can proceed to create he
 	![Screenshot 2025-01-29 at 2.57.06 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.57.06 PM.png)
 	    
 1. Scroll down and verify that all four containers are in Running state.
+
+	![Screenshot 2025-01-29 at 3.01.18 PM.jpeg]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.01.18 PM.jpeg)
+
+1. Click on Terminal for ops center POD and connect to confd_cli using command ```bin/confd_cli -u admin```
+
+	
