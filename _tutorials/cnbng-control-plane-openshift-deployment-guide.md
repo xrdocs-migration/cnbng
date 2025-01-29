@@ -157,7 +157,10 @@ Now since we have got the helm repositories created, we can proceed to create he
 
 	![Screenshot 2025-01-29 at 2.41.29 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.41.29 PM.png)
 	
-1. Replace default YAML definition with below YAML definition and change "Release name". Refer below picture for guidance.
+1. Replace default YAML definition with YAML definition below and change "Release name". 
+	
+    ![Screenshot 2025-01-29 at 2.47.39 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.47.39 PM.png)
+    
 	```
     global:
       caasModel: "openshift"
@@ -188,8 +191,6 @@ Now since we have got the helm repositories created, we can proceed to create he
         - name: DOWNLOAD_CHART_PROXY
           value: "https://your-proxy-url"
     ```
-  	
-    ![Screenshot 2025-01-29 at 2.47.39 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.47.39 PM.png)
 	
 1. Once the POD is deployed successfully and is in Running state, click on the POD name "ops-center-cee-ops-center-ams1"
 	
@@ -235,3 +236,4 @@ Now since we have got the helm repositories created, we can proceed to create he
 With this we complete deployment of CEE application.
 
 ## Deploying cnBNG Control Plane
+### 
