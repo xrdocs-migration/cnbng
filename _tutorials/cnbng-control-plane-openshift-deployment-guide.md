@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2025-01-28 14:02 +0530'
 title: cnBNG Control Plane Openshift Deployment Guide
 author: gurpreets
@@ -38,7 +38,3 @@ disktype=ssd
 ![Screenshot 2025-01-28 at 3.57.02 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.02 PM.png)
 
 ![Screenshot 2025-01-28 at 3.57.06 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.06 PM.png)
-
-
-
-
