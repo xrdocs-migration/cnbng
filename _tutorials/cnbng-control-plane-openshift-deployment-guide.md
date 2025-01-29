@@ -206,7 +206,7 @@ Now since we have got the helm repositories created, we can proceed to create he
 
 	![Screenshot 2025-01-29 at 3.45.58 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.45.58 PM.png)
     
-	**Note** It will ask to set the passoword when you connect for the first time.
+	**Note** You will be prompted to set the passoword while connecting for first time.
 	{: .notice--info}
 	
 1. Configure following on CEE Ops Center to get all the PODs running for CEE.
@@ -249,7 +249,7 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
 	
     ![Screenshot 2025-01-29 at 4.28.51 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.28.51 PM.png)
     
-1. After release is created click on Ops Center POD chart for bngocp.
+1. After release is created click on Bng Ops Center POD chart for bngocp.
 	
     ![Screenshot 2025-01-29 at 4.30.25 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.30.25 PM.png)
 	
@@ -302,6 +302,38 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
 
 ### Configuring cnBNG Control Plane Ops Center
 
+1. Click on Terminal for BNG Ops Center POD and connect to confd_cli using command ```bin/confd_cli -u admin```
+
+	![Screenshot 2025-01-29 at 3.45.58 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.45.58 PM.png)
+    
+	**Note** You will be prompted to set the passoword while connecting for first time.
+	{: .notice--info}
+	
+1. Configure following on CEE Ops Center to get all the PODs running for CEE.
+	
+    ```
+    config
+    pv-provisioner pv-path /var/data
+    k8s name cnbng
+    system mode running
+    commit
+    ```
+    
+1. Verify that the "system status percent-ready" is 100% using command "show system" before proceeding further. 
+	
+	<div class="highlighter-rouge">
+    <pre class="highlight">
+    <code>
+	[unknown] cee# show system
+    system uuid 3e2b0987-4f8b-40fa-a2c2-0cb2969e7882
+    system status deployed true
+    system status percent-ready <mark>100.0</mark>
+    sustem ons-center renosttory unknown system
+    ops-center-debug status false
+    system synch running true system synch pending
+    </code>
+    </pre>
+    </div>
 
 
 ```
