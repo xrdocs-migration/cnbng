@@ -407,5 +407,6 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
 This completes the deployment of cnBNG CP in Redhat Openshift Container Platform (OCP).
 
 **Acknowledgements**
+
 Many thanks to Madhu for his contributions.
 
