@@ -134,6 +134,12 @@ Now we will create Helm repositories for CEE and cnBNG Control Plane application
           name: cnbng-helm-repo-secret
 	```
     
+With this we complete preparation step for OCP. 
+
+## Deploying CEE
+
+In this step we will deploy CEE PODs by first deploying CEE Ops Center POD and then doing necessary configurations on CEE Ops Center to deploy rest of CEE PODs.
+
 ### Deploying CEE Ops Center POD
 
 Now since we have got the helm repositories created, we can proceed to create helm release and deploy CEE Ops Center POD.
