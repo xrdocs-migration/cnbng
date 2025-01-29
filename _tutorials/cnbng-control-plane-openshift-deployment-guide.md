@@ -34,15 +34,19 @@ In this tutorial we will use single network for management as well as to peer wi
 
 ## Preparing OCP Environment
 
-1. Login to local OCP cluster console as admin.
+1. Login to local OCP cluster console as admin and follow below steps.
 
-1. Now, add following labels to the node. These labels are required for cnBNG POD deployment/ placement. Add labels by selecting Nodes under Compute from side panel.
+### Node Labels
+
+1. Add following labels to the node. These labels are required for cnBNG POD deployment/ placement. Add labels by selecting Nodes under Compute from side panel.
   ```
   smi.cisco.com/node-type=oam
   disktype=ssd
   ```
   ![Screenshot 2025-01-28 at 3.57.02 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.02 PM.png)
   ![Screenshot 2025-01-28 at 3.57.06 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.06 PM.png)
+
+### Creating Namespaces
 
 1. Create two namespaces "ceeocp" and "bngocp" by selecting Namespaces under Administration from side panel
 	![Screenshot 2025-01-29 at 12.02.45 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.02.45 PM.png)
@@ -53,6 +57,10 @@ In this tutorial we will use single network for management as well as to peer wi
       <td><img src="/cnbng/images/Screenshot 2025-01-29 at 12.03.45 PM.png"></td>
     </tr>
     </table>
+
+### Creating Secrets
+
+Secrets are required to pull Helm Charts and Docker Images for cnBNG Control Plane and CEE application. In this step we will create helm secret and docker image pull seceret for both namespaces "ceeocp" and "bngocp".
 
 1. Switch to the Developer mode from Administrator mode by selecting it from Side Panel
 	![Screenshot 2025-01-29 at 12.14.27 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.14.27 PM.png)
@@ -71,7 +79,7 @@ In this tutorial we will use single network for management as well as to peer wi
       password: your-helm-repo-password
   ```
 
-1. Similarly click on "Create->Image pull secret" for "ceeocp" project. Fill form data as per below information:
+1. Click again on "Create->Image pull secret" for "ceeocp" project. Fill form data as per below information:
 
     **Secret Name:** cnbng-docker-repo-secret
 
@@ -82,4 +90,16 @@ In this tutorial we will use single network for management as well as to peer wi
     **Username:** your-username-for-dockerhub
 
     **Password:** your-password-to-access-dockerhub
-1.
+
+1. Similarly create Helm secret and docker secret for bngocp project, using same yaml and form data, as was created for ceeocp project.
+
+### Creating Helm Repositories
+
+Now we will create Helm repositories for CEE and cnBNG Control Plane applications. 
+
+1. Select "Create->Repository" by following options as highlighted below.
+
+![Screenshot 2025-01-29 at 2.09.58 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.09.58 PM.png)
+
+
+    
