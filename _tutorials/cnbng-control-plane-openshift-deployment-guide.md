@@ -46,10 +46,8 @@ In this tutorial we will use single network for management as well as to peer wi
 	![Screenshot 2025-01-29 at 12.02.45 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.02.45 PM.png)
     <table style="width:100%" border = "2">
     <tr>
-      <td>![Screenshot 2025-01-29 at 12.03.17 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.03.17 PM.png)
-      </td>
-      <td>![Screenshot 2025-01-29 at 12.03.45 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.03.45 PM.png)
-      </td>
+      <td><img src="/images/Screenshot 2025-01-29 at 12.03.17 PM.png"></td>
+      <td>![Screenshot 2025-01-29 at 12.03.45 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.03.45 PM.png)</td>
     </tr>
     </table>
 1. Switch to the Developer mode from Administrator mode by selecting it from Side Panel
