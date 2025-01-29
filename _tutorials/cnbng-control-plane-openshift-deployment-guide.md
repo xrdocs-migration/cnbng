@@ -145,13 +145,16 @@ In this step we will deploy CEE PODs by first deploying CEE Ops Center POD and t
 Now since we have got the helm repositories created, we can proceed to create helm release and deploy CEE Ops Center POD.
 
 1. Click on "Create->Helm Release" to create helm release from the charts.
-	![Screenshot 2025-01-29 at 2.36.32 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.36.32 PM.png)
+	
+    ![Screenshot 2025-01-29 at 2.36.32 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.36.32 PM.png)
     
 1. After release is created click on Ops Center POD chart for ceeocp
+
 	![Screenshot 2025-01-29 at 2.42.28 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.42.28 PM.png)
     
-1. Click on Create for YAML definitions
-  ![Screenshot 2025-01-29 at 2.41.29 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.41.29 PM.png)
+1. Click on Create for YAML definitions.
+
+  	![Screenshot 2025-01-29 at 2.41.29 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.41.29 PM.png)
 
 1. Replace default YAML definition with below YAML definition and change "Release name". Refer below picture for guidance.
 	```
@@ -184,23 +187,11 @@ Now since we have got the helm repositories created, we can proceed to create he
         - name: DOWNLOAD_CHART_PROXY
           value: "https://your-proxy-url"
     ```
-    
-  	![Screenshot 2025-01-29 at 2.47.39 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.47.39 PM.png)
-  
+  	
+    ![Screenshot 2025-01-29 at 2.47.39 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.47.39 PM.png)
+
 1. Once the POD is deployed successfully and is in Running state, click on the POD name "ops-center-cee-ops-center-ams1"
+
 	![Screenshot 2025-01-29 at 2.57.06 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.57.06 PM.png)
     
 1. Scroll down and verify that all four containers are in Running state.
-
-
-	
-
-
-
-
-
-      
-   
-
-
-    
