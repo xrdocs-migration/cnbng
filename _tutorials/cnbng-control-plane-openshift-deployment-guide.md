@@ -395,8 +395,13 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
     </code>
     </pre>
     </div>
-    
-1. We can now also connect to Grafa with the URL: https://your-node-ip-address.nip.io/ceeocp/grafana/
+	    
+1. We can now also connect to Grafana Dashboards with the URL: https://your-node-ip-address.nip.io/ceeocp/grafana/
+	
+	![Screenshot 2025-01-29 at 5.03.39 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 5.03.39 PM.png)
+	
+    **Note**: To login to Grafana use Username as "admin" and Password which you configured for CEE Ops Center login.
+    {: .notice--info}
 
 
 
