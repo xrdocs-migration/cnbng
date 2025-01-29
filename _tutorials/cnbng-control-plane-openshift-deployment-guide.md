@@ -238,4 +238,8 @@ Now since we have got the helm repositories created, we can proceed to create he
 With this we complete deployment of CEE application.
 
 ## Deploying cnBNG Control Plane
-### 
+
+In this step we will deploy cnBNG Control Plane (CP) PODs by first deploying cnBNG CP Ops Center POD and then doing necessary configurations on the Ops Center to deploy rest of the PODs.
+
+### Deploying cnBNG Control Plane Ops Center
+
