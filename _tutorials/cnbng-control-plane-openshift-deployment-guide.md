@@ -39,3 +39,8 @@ In this tutorial we will use single network for management as well as to peer wi
   ```
   ![Screenshot 2025-01-28 at 3.57.02 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.02 PM.png)
   ![Screenshot 2025-01-28 at 3.57.06 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.06 PM.png)
+1. Create two namespaces "ceeocp" and "bngocp" by selecting Namespaces under Administration from side panel
+  ![Screenshot 2025-01-29 at 12.02.45 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.02.45 PM.png)
+  ![Screenshot 2025-01-29 at 12.03.17 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.03.17 PM.png)
+  ![Screenshot 2025-01-29 at 12.03.45 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.03.45 PM.png)
+1.
