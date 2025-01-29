@@ -144,7 +144,9 @@ In this step we will deploy CEE PODs by first deploying CEE Ops Center POD and t
 
 Now since we have got the helm repositories created, we can proceed to create helm release and deploy CEE Ops Center POD.
 
-1. 
+1. Click on "Create->Helm Release" to create helm release from the charts.
+
+
       
    
 
