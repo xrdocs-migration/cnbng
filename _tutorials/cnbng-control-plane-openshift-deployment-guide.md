@@ -31,7 +31,8 @@ In this tutorial we will use single network for management as well as to peer wi
 
 ## Preparing OCP Environment
 
-1. As a first step we will add labels to the node. These labels are required for cnBNG POD deployment/ placement. Add following labels to the node by clicking on Edit Compute->Nodes (see below)
+1. Login to local OCP cluster console as admin.
+1. Now, add following labels to the node. These labels are required for cnBNG POD deployment/ placement. Add labels by selecting Nodes under Compute from side panel.
 
   ```
   smi.cisco.com/node-type=oam
