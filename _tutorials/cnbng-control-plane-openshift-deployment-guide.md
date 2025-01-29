@@ -232,3 +232,5 @@ Now since we have got the helm repositories created, we can proceed to create he
     </div>
 
 With this we complete deployment of CEE application.
+
+## Deploying cnBNG Control Plane
