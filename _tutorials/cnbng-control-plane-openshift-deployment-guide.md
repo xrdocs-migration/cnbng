@@ -111,7 +111,7 @@ Now we will create Helm repositories for CEE and cnBNG Control Plane application
       name: ceeocp
       connectionConfig:
         url: >-      
-          https://engci-maven-master.cisco.com/artifactory/smi-fuse-internal-snapshot/smi-apps/smi-cee-products/2025.01.1/
+          https://your-helm-chart-repo-url-for-cee
         basicAuthConfig:
           name: cnbng-helm-repo-secret
     ```
@@ -129,7 +129,7 @@ Now we will create Helm repositories for CEE and cnBNG Control Plane application
       name: bngocp
       connectionConfig:
         url: >-
-          https://engci-maven-master.cisco.com/artifactory/smi-fuse-internal-snapshot/mobile-cnat-bng/bng-products/main/
+          https://your-helm-chart-repo-url-for-cnbng-control-plane
         basicAuthConfig:
           name: cnbng-helm-repo-secret
 	```
