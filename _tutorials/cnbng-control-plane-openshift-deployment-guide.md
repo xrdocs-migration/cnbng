@@ -14,9 +14,9 @@ cnBNG Control Plane can be deployed in Redhat Openshift environment starting fro
 
 cnBNG Control Plane can be deployed in Redhat Openshift environment in three steps:
 
-1. Preparing Openshift Container Platform (OCP)
-1. CEE application deployment for monitoring
-1. cnBNG Control Plane application deployment
+  **Step 1:** Preparing Openshift Container Platform (OCP)
+  **Step 2:** CEE application deployment for monitoring
+  **Step 3:** cnBNG Control Plane application deployment
 
 ## Prerequisite
 
