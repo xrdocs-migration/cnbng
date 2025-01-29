@@ -250,10 +250,13 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
     ![Screenshot 2025-01-29 at 4.28.51 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.28.51 PM.png)
     
 1. After release is created click on Ops Center POD chart for bngocp.
-	![Screenshot 2025-01-29 at 4.30.25 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.30.25 PM.png)
-
+	
+    ![Screenshot 2025-01-29 at 4.30.25 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.30.25 PM.png)
+	
 1. Click on Create for YAML definitions.
-	![Screenshot 2025-01-29 at 4.31.22 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.31.22 PM.png)
-
-
+	
+    ![Screenshot 2025-01-29 at 4.31.22 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.31.22 PM.png)
+    
 1. Replace default YAML definition with YAML definition below and change "Release name". 
+	
+    
