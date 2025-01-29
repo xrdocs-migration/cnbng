@@ -98,8 +98,49 @@ Secrets are required to pull Helm Charts and Docker Images for cnBNG Control Pla
 Now we will create Helm repositories for CEE and cnBNG Control Plane applications. 
 
 1. Select "Create->Repository" by following options as highlighted below.
+  ![Screenshot 2025-01-29 at 2.09.58 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.09.58 PM.png)
 
-![Screenshot 2025-01-29 at 2.09.58 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.09.58 PM.png)
+1. Select YAML view and copy paste below YAML in place of default YAML provided.
+	```
+    apiVersion: helm.openshift.io/v1beta1
+    kind: ProjectHelmChartRepository
+    metadata:
+      name: ceeocp
+      namespace: ceeocp
+    spec:
+      name: ceeocp
+      connectionConfig:
+        url: >-      
+          https://engci-maven-master.cisco.com/artifactory/smi-fuse-internal-snapshot/smi-apps/smi-cee-products/2025.01.1/
+        basicAuthConfig:
+          name: cnbng-helm-repo-secret
+    ```
+    **Note** Make sure you have selected "ceeocp" as the Project
+	{: .notice}
+    
+1. Similarly create Repository for "bngocp" Project using below YAML.
+	```
+    apiVersion: helm.openshift.io/v1beta1
+    kind: ProjectHelmChartRepository
+    metadata:
+      name: bngocp
+      namespace: bngocp
+    spec:
+      name: bngocp
+      connectionConfig:
+        url: >-
+          https://engci-maven-master.cisco.com/artifactory/smi-fuse-internal-snapshot/mobile-cnat-bng/bng-products/main/
+        basicAuthConfig:
+          name: cnbng-helm-repo-secret
+	```
+    
+### Deploying CEE Ops Center POD
+
+Now since we have got the helm repositories created, we can proceed to create helm release and deploy CEE Ops Center POD.
+
+1. 
+      
+   
 
 
     
