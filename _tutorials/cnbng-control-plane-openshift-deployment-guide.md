@@ -2,9 +2,12 @@
 published: true
 date: '2025-01-28 14:02 +0530'
 title: Deploying cnBNG Control Plane in Redhat Openshift
-author: gurpreets
+author: Gurpreet Dhaliwal
 position: hidden
 ---
+
+{% include toc %}
+
 ## Overview
 
 cnBNG Control Plane can be deployed in Redhat Openshift environment starting from release 25.01.1. Current supported Openshift Container Platform (OCP) version is v4.17.  In this tutorial we will learn to deploy cnBNG Control Plane in Single Node Openshift cluster. 
