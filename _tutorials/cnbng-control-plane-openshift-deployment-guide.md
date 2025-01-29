@@ -44,6 +44,7 @@ In this tutorial we will use single network for management as well as to peer wi
   disktype=ssd
   ```
   ![Screenshot 2025-01-28 at 3.57.02 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.02 PM.png)
+  
   ![Screenshot 2025-01-28 at 3.57.06 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.06 PM.png)
 
 ### Creating Namespaces
