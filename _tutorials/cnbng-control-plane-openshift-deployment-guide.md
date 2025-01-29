@@ -243,3 +243,14 @@ In this step we will deploy cnBNG Control Plane (CP) PODs by first deploying cnB
 
 ### Deploying cnBNG Control Plane Ops Center
 
+The procedure to deploy cnBNG Control Plane Ops Center is similar as that of deploying CEE Ops Center.
+
+1. Click on "Create->Helm Release" to create helm release from the charts.
+	
+    ![Screenshot 2025-01-29 at 4.28.51 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.28.51 PM.png)
+    
+1. After release is created click on Ops Center POD chart for bngocp.
+	
+1. Click on Create for YAML definitions.
+
+1. Replace default YAML definition with YAML definition below and change "Release name". 
