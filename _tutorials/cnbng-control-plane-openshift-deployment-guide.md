@@ -403,7 +403,8 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
     **Note**: To login to Grafana use Username as "admin" and Password which you configured for CEE Ops Center login.
     {: .notice--info}
 
+This completes the deployment of cnBNG CP in Redhat Openshift Container Platform (OCP).
 
-
-
+**Acknowledgements**
+Many thanks to Madhu for his contributions.
 
