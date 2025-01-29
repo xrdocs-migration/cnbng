@@ -297,5 +297,9 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
 	![Screenshot 2025-01-29 at 4.34.02 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.34.02 PM.png)
 	    
 1. Scroll down and verify that all four containers are in Running state.
+	
+	![Screenshot 2025-01-29 at 4.35.34 PM.jpeg]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.35.34 PM.jpeg)
 
-	 
+### Configuring cnBNG Control Plane Ops Center
+
+
