@@ -32,7 +32,7 @@ Note: We will cover Helm Chart Repository and Docker Image Repository creation i
 
 In this tutorial we will use single network for management as well as to peer with User Planes and communicate with Radius. You can also use separate networks for management,  User Plane peering and Radius communication.
 
-## Preparing OCP Environment
+## Step-1: Preparing OCP Environment
 
 1. Login to local OCP cluster console as admin and follow below steps.
 
@@ -139,7 +139,7 @@ Now we will create Helm repositories for CEE and cnBNG Control Plane application
     
 With this we complete preparation step for OCP. 
 
-## Deploying CEE
+## Step-2: Deploying CEE
 
 In this step we will deploy CEE PODs by first deploying CEE Ops Center POD and then doing necessary configurations on CEE Ops Center to deploy rest of CEE PODs.
 
@@ -202,7 +202,7 @@ Now since we have got the helm repositories created, we can proceed to create he
 
 	![Screenshot 2025-01-29 at 3.01.18 PM.jpeg]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.01.18 PM.jpeg)
 
-### Configuring CEE Ops Center
+### Step-3: Configuring CEE Ops Center
 
 1. Click on Terminal for CEE Ops Center POD and connect to confd_cli using command ```bin/confd_cli -u admin```
 
