@@ -304,103 +304,101 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
 
 1. Click on Terminal for BNG Ops Center POD and connect to confd_cli using command ```bin/confd_cli -u admin```
 
-	![Screenshot 2025-01-29 at 3.45.58 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.45.58 PM.png)
+	![Screenshot 2025-01-29 at 4.36.29 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.36.29 PM.png)
     
 	**Note** You will be prompted to set the passoword while connecting for first time.
 	{: .notice--info}
 	
-1. Configure following on CEE Ops Center to get all the PODs running for CEE.
+1. Configure following on BNG Ops Center and initialize it.
 	
     ```
     config
-    pv-provisioner pv-path /var/data
-    k8s name cnbng
+    cdl node-type session
+    cdl zookeeper replica 1
+    cdl logging default-log-level error
+    cdl datastore session
+     slice-names [ 1 ]
+     endpoint replica 1
+     endpoint settings slot-timeout-ms 750
+     index replica 1
+     index map    1
+     index write-factor 1
+     slot replica 1
+     slot map     1
+     slot write-factor 1
+     slot notification limit 300
+    exit
+    cdl kafka replica 1
+    etcd replicas 1
+    instance instance-id 1
+     endpoint sm
+     exit
+     endpoint nodemgr
+     exit
+     endpoint n4-protocol
+      retransmission timeout 0 max-retry 0
+     exit
+     endpoint dhcp
+     exit
+     endpoint pppoe
+     exit
+     endpoint radius
+      vip-ip your-node-ip-address
+      interface coa-nas
+       sla response 140000
+       vip-ip your-node-ip-address vip-port 2000
+      exit
+     exit
+     endpoint udp-proxy
+      vip-ip your-node-ip-address
+     exit
+    exit
+    deployment
+     app-name     BNG
+     cluster-name cnbng
+     dc-name      DC
+     model        small
+    exit
+    k8 bng
+     etcd-endpoint      etcd:2379
+     datastore-endpoint datastore-ep-session:8882
+     tracing
+      enable
+      enable-trace-percent 30
+      append-messages      true
+      endpoint             jaeger-collector:9411
+     exit
+    exit
+    instances instance 1
+     system-id  DC
+     cluster-id cnbng
+     slice-name 1
+    exit
+    local-instance instance 1
+    k8 label protocol-layer key disktype value ssd
+    exit
+    k8 label oam-layer key smi.cisco.com/node-type value oam
+    exit
     system mode running
     commit
     ```
     
-1. Verify that the "system status percent-ready" is 100% using command "show system" before proceeding further. 
+1. Verify that the "system status percent-ready" is 83% using command "show system". This is because following four PODs are in init state and will be in Running state after Day-1 configuration.
 	
 	<div class="highlighter-rouge">
     <pre class="highlight">
     <code>
-	[unknown] cee# show system
-    system uuid 3e2b0987-4f8b-40fa-a2c2-0cb2969e7882
-    system status deployed true
-    system status percent-ready <mark>100.0</mark>
-    sustem ons-center renosttory unknown system
-    ops-center-debug status false
-    system synch running true system synch pending
+    bng-dhcp-n0-0
+    bng-nodemgr-n0-0
+    bng-pppoe-n0-0
+    bng-sm-n0-0
     </code>
     </pre>
     </div>
+    
+1. We can now also connect to Grafa with the URL: https://your-node-ip-address.nip.io/ceeocp/grafana/
 
 
-```
-cdl node-type session
-cdl zookeeper replica 1
-cdl logging default-log-level error
-cdl datastore session
- slice-names [ 1 ]
- endpoint replica 1
- endpoint settings slot-timeout-ms 750
- index replica 1
- index map    1
- index write-factor 1
- slot replica 1
- slot map     1
- slot write-factor 1
- slot notification limit 300
-exit
-cdl kafka replica 1
-etcd replicas 1
-instance instance-id 1
- endpoint sm
- exit
- endpoint nodemgr
- exit
- endpoint n4-protocol
-  retransmission timeout 0 max-retry 0
- exit
- endpoint dhcp
- exit
- endpoint pppoe
- exit
- endpoint radius
-  vip-ip 10.78.60.122
-  interface coa-nas
-   sla response 140000
-   vip-ip 10.78.60.122 vip-port 2000
-  exit
- exit
- endpoint udp-proxy
-  vip-ip 10.78.60.122
- exit
-exit
-deployment
- app-name     BNG
- cluster-name cnbng
- dc-name      DC
- model        small
-exit
-k8 bng
- etcd-endpoint      etcd:2379
- datastore-endpoint datastore-ep-session:8882
- tracing
-  enable
-  enable-trace-percent 30
-  append-messages      true
-  endpoint             jaeger-collector:9411
- exit
-exit
-instances instance 1
- system-id  DC
- cluster-id cnbng
- slice-name 1
-exit
-local-instance instance 1
-k8 label protocol-layer key disktype value ssd
-exit
-k8 label oam-layer key smi.cisco.com/node-type value oam
-exit
-```
+
+
+
