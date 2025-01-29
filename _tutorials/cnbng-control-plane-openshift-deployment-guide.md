@@ -200,7 +200,9 @@ Now since we have got the helm repositories created, we can proceed to create he
 
 	![Screenshot 2025-01-29 at 3.01.18 PM.jpeg]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.01.18 PM.jpeg)
 
-1. Click on Terminal for ops center POD and connect to confd_cli using command ```bin/confd_cli -u admin```
+### Configuring CEE Ops Center
+
+1. Click on Terminal for CEE Ops Center POD and connect to confd_cli using command ```bin/confd_cli -u admin```
 
 	![Screenshot 2025-01-29 at 3.45.58 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.45.58 PM.png)
     
