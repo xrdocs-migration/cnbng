@@ -53,5 +53,24 @@ In this tutorial we will use single network for management as well as to peer wi
     </table>
 1. Switch to the Developer mode from Administrator mode by selecting it from Side Panel
 	![Screenshot 2025-01-29 at 12.14.27 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.14.27 PM.png)
-1. 
+1. In Developer mode, select "Secrets" from side panel. Now click on "Create->From YAML" under project ceeocp.
+	![Screenshot 2025-01-29 at 12.28.11 PM.jpeg]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.28.11 PM.jpeg)
+1. Copy paste below yaml
+	```
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: cnbng-helm-repo-secret
+    stringData:
+      username: your-helm-repo-username
+      password: your-helm-repo-password
+  	```
+ 1. Similarly click on "Create->Image pull secret" for "ceeocp" project. Fill form data as per below information:
 
+Secret Name: cnbng-docker-repo-secret
+Authentication type: Image registry credentials
+Registry server address: your-docker-hub-url
+Username: your-username-for-dockerhub
+Password: your-password-to-access-dockerhub
+
+1.
