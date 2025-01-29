@@ -200,4 +200,6 @@ Now since we have got the helm repositories created, we can proceed to create he
 
 1. Click on Terminal for ops center POD and connect to confd_cli using command ```bin/confd_cli -u admin```
 
-	
+	![Screenshot 2025-01-29 at 3.45.58 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.45.58 PM.png)
+
+1. 
