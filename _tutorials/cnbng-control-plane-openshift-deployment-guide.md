@@ -303,3 +303,72 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
 ### Configuring cnBNG Control Plane Ops Center
 
 
+
+```
+cdl node-type session
+cdl zookeeper replica 1
+cdl logging default-log-level error
+cdl datastore session
+ slice-names [ 1 ]
+ endpoint replica 1
+ endpoint settings slot-timeout-ms 750
+ index replica 1
+ index map    1
+ index write-factor 1
+ slot replica 1
+ slot map     1
+ slot write-factor 1
+ slot notification limit 300
+exit
+cdl kafka replica 1
+etcd replicas 1
+instance instance-id 1
+ endpoint sm
+ exit
+ endpoint nodemgr
+ exit
+ endpoint n4-protocol
+  retransmission timeout 0 max-retry 0
+ exit
+ endpoint dhcp
+ exit
+ endpoint pppoe
+ exit
+ endpoint radius
+  vip-ip 10.78.60.122
+  interface coa-nas
+   sla response 140000
+   vip-ip 10.78.60.122 vip-port 2000
+  exit
+ exit
+ endpoint udp-proxy
+  vip-ip 10.78.60.122
+ exit
+exit
+deployment
+ app-name     BNG
+ cluster-name cnbng
+ dc-name      DC
+ model        small
+exit
+k8 bng
+ etcd-endpoint      etcd:2379
+ datastore-endpoint datastore-ep-session:8882
+ tracing
+  enable
+  enable-trace-percent 30
+  append-messages      true
+  endpoint             jaeger-collector:9411
+ exit
+exit
+instances instance 1
+ system-id  DC
+ cluster-id cnbng
+ slice-name 1
+exit
+local-instance instance 1
+k8 label protocol-layer key disktype value ssd
+exit
+k8 label oam-layer key smi.cisco.com/node-type value oam
+exit
+```
