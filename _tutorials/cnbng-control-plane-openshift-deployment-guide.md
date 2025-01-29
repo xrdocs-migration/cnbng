@@ -157,7 +157,7 @@ Now since we have got the helm repositories created, we can proceed to create he
 
 	![Screenshot 2025-01-29 at 2.41.29 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.41.29 PM.png)
 	
-1. Replace default YAML definition with YAML definition below and change "Release name". 
+1. Replace default YAML definition with YAML definition below and change "Release name" to "cee-ops-center-ams1". 
 	
     ![Screenshot 2025-01-29 at 2.47.39 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 2.47.39 PM.png)
     
@@ -257,7 +257,7 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
 	
     ![Screenshot 2025-01-29 at 4.31.22 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.31.22 PM.png)
     
-1. Replace default YAML definition with YAML definition below and change "Release name".
+1. Replace default YAML definition with YAML definition below and change "Release name" to "bng-ops-center-ams1".
 	
     ![Screenshot 2025-01-29 at 4.32.38 PM.jpeg]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.32.38 PM.jpeg)
 
@@ -292,10 +292,10 @@ The procedure to deploy cnBNG Control Plane Ops Center is similar as that of dep
           value: "https://your-proxy-url"
     ```
     
-1. Once the POD is deployed successfully and is in Running state, click on the POD name "ops-center-cee-ops-center-ams1"
+1. Once the POD is deployed successfully and is in Running state, click on the POD name "ops-center-bng-ops-center-ams1"
 	
-	
+	![Screenshot 2025-01-29 at 4.34.02 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-29 at 4.34.02 PM.png)
 	    
 1. Scroll down and verify that all four containers are in Running state.
 
-	![Screenshot 2025-01-29 at 3.01.18 PM.jpeg]({{site.baseurl}}/images/Screenshot 2025-01-29 at 3.01.18 PM.jpeg) 
+	 
