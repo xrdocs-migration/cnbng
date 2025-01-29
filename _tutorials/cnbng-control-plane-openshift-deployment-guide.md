@@ -43,10 +43,11 @@ In this tutorial we will use single network for management as well as to peer wi
   smi.cisco.com/node-type=oam
   disktype=ssd
   ```
+  
   ![Screenshot 2025-01-28 at 3.57.02 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.02 PM.png)
   
   ![Screenshot 2025-01-28 at 3.57.06 PM.png]({{site.baseurl}}/images/Screenshot 2025-01-28 at 3.57.06 PM.png)
-
+	
 ### Creating Namespaces
 
 1. Create two namespaces "ceeocp" and "bngocp" by selecting Namespaces under Administration from side panel
