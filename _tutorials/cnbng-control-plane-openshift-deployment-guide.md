@@ -56,7 +56,7 @@ In this tutorial we will use single network for management as well as to peer wi
 1. In Developer mode, select "Secrets" from side panel. Now click on "Create->From YAML" under project ceeocp.
 	![Screenshot 2025-01-29 at 12.28.11 PM.jpeg]({{site.baseurl}}/images/Screenshot 2025-01-29 at 12.28.11 PM.jpeg)
 1. Copy paste below yaml
-	```
+	```yaml
     apiVersion: v1
     kind: Secret
     metadata:
@@ -67,10 +67,13 @@ In this tutorial we will use single network for management as well as to peer wi
   	```
  1. Similarly click on "Create->Image pull secret" for "ceeocp" project. Fill form data as per below information:
 
-Secret Name: cnbng-docker-repo-secret
-Authentication type: Image registry credentials
-Registry server address: your-docker-hub-url
-Username: your-username-for-dockerhub
-Password: your-password-to-access-dockerhub
+    **Secret Name:** cnbng-docker-repo-secret
 
+    **Authentication type:** Image registry credentials
+
+    **Registry server address:** your-docker-hub-url
+
+    **Username:** your-username-for-dockerhub
+
+    **Password:** your-password-to-access-dockerhub
 1.
