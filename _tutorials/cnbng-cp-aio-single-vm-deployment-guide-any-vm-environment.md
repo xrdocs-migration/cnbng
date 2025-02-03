@@ -598,7 +598,7 @@ If you have deployed cnBNG CP a fresh then most probably initial cnBNG CP config
   bng-pppoe-n0-0                                         0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
   bng-sm-n0-0                                            0/2     <span style="background-color: #FDD7E4">Init:0/1</span>   0          2m45s
   cache-pod-0                                            1/1     Running    0          2m44s
-  cache-pod-1                                            0/1     Running    0          16s
+  cache-pod-1                                            1/1     Running    0          30s
   cdl-ep-session-c1-d0-868f578d69-8n2rw                  1/1     Running    0          2m46s
   cdl-index-session-c1-m1-0                              1/1     Running    0          2m46s
   cdl-slot-session-c1-m1-0                               1/1     Running    0          2m46s
