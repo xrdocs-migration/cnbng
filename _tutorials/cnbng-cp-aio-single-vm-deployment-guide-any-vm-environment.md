@@ -142,7 +142,7 @@ ssh admin@localhost -p 2022
      environment manual
      addons ingress bind-ip-address <mark>your-cnbng-cp-vm-ip</mark>
      addons ingress enabled
-     addons istio enabled
+     addons istio disabled
      configuration master-virtual-ip <mark>your-cnbng-cp-vm-ip</mark>
      configuration master-virtual-ip-interface ens160
      configuration pod-subnet    192.202.0.0/16
