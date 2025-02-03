@@ -50,7 +50,7 @@ Following are the manual steps to deploy cnBNG CP VM in VMWare vCenter. Procedur
 1. Select compatibility (ESXi 6.7 or later)
 1. Select guest OS: Guest Family- Linux, Guest OS Version- Ubuntu Linux (64-bit)
 1. Customize Hardware (sizing and networking may vary on deployments):
-	1. vCPU: 8, Memory: 24GB, New Hard disk: 100Gb
+	1. vCPU: 8, Memory: 24GB, New Hard disk: 200Gb
 	1. Under Network: select management network ("VM Network" in most cases
 	1. Click New CD/DVD Drive and do the following:
 		1. Select Datastore ISO file option to boot from the SMI Base .iso file. Browse to the location of the .iso file on the datastore set in Step 1.
