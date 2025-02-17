@@ -1,9 +1,9 @@
 ---
 published: true
-date: '2025-01-28 14:02 +0530'
+date: '2025-02-17 14:02 +0530'
 title: Deploying cnBNG Control Plane in Redhat Openshift
 author: Gurpreet Dhaliwal
-position: hidden
+position: top
 ---
 
 {% include toc %}
@@ -411,4 +411,3 @@ This completes the deployment of cnBNG CP in Redhat Openshift Container Platform
 **Acknowledgements**
 
 Many thanks to Madhu for his contributions.
-
