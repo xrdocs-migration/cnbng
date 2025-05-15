@@ -26,8 +26,14 @@ We will apply below features to each session:
 - Framed Route (IPv4 + IPv6)
 
 ## Topology
-The setup used for this tutorial is shown in figure 1. This setup uses Spirent to emulate LAC and client devices. Spirent port 1/4 will be used for LAC and client emulation. 
+The setup used for this tutorial is shown in figure 1, LNS UP is ASR9k-1. This setup uses Spirent to emulate LAC and client devices. Spirent port 1/4 will be used for LAC and client emulation. 
 
+![lns-topo.png]({{site.baseurl}}/images/lns-topo.png)
+
+## Call Flow for LNS
+Following figure shows the call flow for LNS in cnBNG.
+
+![lns-call-flow.png]({{site.baseurl}}/images/lns-call-flow.png)
 
 
 ## Prerequisite
