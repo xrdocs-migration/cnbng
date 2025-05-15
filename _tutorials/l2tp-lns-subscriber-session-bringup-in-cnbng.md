@@ -166,14 +166,14 @@ exit
 ```
 
 ### Profile DHCP
-Incase of PPPoE DS PTA subscribers we will be using the DHCPv6 server to assign the IPv6 (IANA+IAPD) prefixes to CPE. For this example we will have cnBNG CP act as a DHCP server to assign IPv6 addresses to CPE/subscribers. In profile DHCP we define the DHCP server and which IPAM pool to use by default for subscriber. We can use different pools for IPv4, IPv6 (IANA) and IPv6 (IAPD). 
+Incase of L2TP LNS Dual Stack or IPv6 only subscribers we will be using DHCPv6 server to assign the IPv6 (IANA+IAPD) prefixes to LNS Client. For this example we will have cnBNG CP act as a DHCP server to assign IPv6 addresses to CPE/subscribers. In profile DHCP we define the DHCP server and which IPAM pool to use by default for subscriber. We can use different pools for IPv4, IPv6 (IANA) and IPv6 (IAPD). 
 
 ```
 profile dhcp dhcp-server1
  ipv4
   mode server
   server
-   pool-name   pool-ISP1
+   pool-name   pool-Silver
    dns-servers [ 8.8.8.8 ]
    lease days 1
   exit
@@ -181,15 +181,15 @@ profile dhcp dhcp-server1
  ipv6
   mode server
   server
-   iana-pool-name pool-ISP1
-   iapd-pool-name pool-ISP1
+   iana-pool-name pool-Silver
+   iapd-pool-name pool-Silver
    lease days 1
   exit
  exit
 exit
 ```
 
-**Note**: The definition of IPv4 server profile is not needed for PPPoE subscribers. For PPPoE subscribers IPv4 addresses will be assigned by IPCP using IPAM directly.
+**Note**: The definition of IPv4 server profile is not needed for LNS subscribers. For LNS subscribers IPv4 addresses will be assigned by IPCP using IPAM directly.
 {: .notice--info}
 
 ### Profile AAA
@@ -198,7 +198,7 @@ This profile defines the AAA parameters, like which Radius group to be used for 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-profile aaa aaa_pppoe-1
+profile aaa aaa_pppoe
  authentication
   method-order [ <mark>local</mark> ]
  exit
@@ -263,20 +263,19 @@ This profile defines subscriber feature template. This is the template which wil
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-profile feature-template pppoe-1
+profile feature-template ft-pppoe-lns-1
  vrf-name default
  ipv4
   mtu 1500
  exit
  session-accounting
   enable
-  aaa-profile       aaa_pppoe-1
-  periodic-interval 1800
+  aaa-profile       aaa_pppoe
+  periodic-interval 60
  exit
  ppp
-  authentication [ pap chap ]
-  <mark>!!! will use IPAM pool-ISP1 for IPv4 address assignment using IPCP, this is not required for LAC only profile</mark>
-  ipcp peer-address-pool <mark>pool-ISP1</mark>
+  authentication [ chap pap ]
+  ipcp peer-address-pool pool-Silver !! Pool for IPv4 address assignment using IPCP
   ipcp renegotiation ignore
   ipv6cp renegotiation ignore
   lcp renegotiation ignore
@@ -285,62 +284,35 @@ profile feature-template pppoe-1
   timeout absolute 1440
   timeout authentication 5
   timeout retry  4
-  <mark>!!! the following command will offload PPP keepalives to cnBNG UP</mark>
-  <mark>keepalive interval 30 retry 5</mark>
+  keepalive disable
  exit
 exit
 </code>
 </pre>
 </div>
 
-We can also define service profiles using feature-template, which gets applied on per subscriber session. The service profile in case of radius can be applied during authentication/authorization using service activate attribute or it can also be applied using CoA.
-
-```
-profile feature-template FT_Plan_100mbps
- qos
-  in-policy  PM_Plan_100mbps_input
-  out-policy PM_Plan_100mbps_output
- exit
-exit
-```
-
-**Note**: In above policy-map PM_Plan_100mbps_input and PM_Plan_100mbps_output are expected to be defined on userplane.
-{: .notice--info}
-
-**Note**: cnBNG currently doesnot support QoS policies for LAC sessions. These policies are expected to be applied on LNS. 
-{: .notice--info}
-
 ### Profile L2TP
-This profile defines the l2tp parameters for LAC sessions. L2TP Tunnel source and destination IPs along with authentication and other parameters are defined under this profile.
+This profile defines the l2tp parameters for LNS sessions. L2TP Tunnel source and destination IPs along with authentication and other parameters are defined under this profile.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-profile l2tp lac-1
- mode                  lac
- <mark>!!! This is hostname which will be used for tunnel authentication</mark>
- hostname              lns.cisco.com
- hello-interval        600
- retransmit initial timeout max 8
- retransmit initial timeout min 4
- retransmit initial retries 5
+profile l2tp lns-up1
+ mode           lns
+ hostname       lns.cisco.com
+ hello-interval 600
  retransmit timeout max 8
  retransmit timeout min 4
  retransmit retries 10
- receive-window        1024
- vrf                   default
+ receive-window 1024
+ vrf            default
  authentication
+ ip-tos reflect
+ tunnel session-limit 640
  tunnel timeout no-session 10
- tx-connect-speed      100000
- rx-connect-speed      100000
- tunnel-load-balancing equal
- <mark>!!! This is password which will be used for tunnel authentication</mark>
- password             cisco
+ password       your-tunnel-password
  ipv4 df-bit reflect
- <mark>!!! This is tunnel source IP, usually this is the loopback IP of ASR9k UP which is reachable from LNS</mark>
- ipv4 source 172.0.0.2
- <mark>!!! This is tunnel destination IP reachable from ASR9k UP and is the IP of LNS</mark>
- ipv4 destination 200.200.210.1
+ ipv4 source 172.0.0.2 !! User Plane Loopback 0 IP
 exit
 </code>
 </pre>
