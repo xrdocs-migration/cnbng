@@ -77,52 +77,6 @@ IPAM defines subscriber address pools for IPv4, IPv6 (NA) and IPv6 (PD). These a
 ipam
  instance 1
   source local
-  address-pool pool-Default
-   vrf-name default
-   ipv4
-    split-size
-     per-dp 1024
-    exit
-    address-range 192.169.0.1 192.169.99.254
-   exit
-   ipv6
-    address-ranges
-     split-size
-      per-dp 1024
-     exit
-     address-range 2001:192:169::1 2001:192:169::1:100
-    exit
-    prefix-ranges
-     split-size
-      per-dp 1024
-     exit
-     prefix-range 2009:: length 48
-    exit
-   exit
-  exit
-  address-pool pool-Gold
-   vrf-name default
-   ipv4
-    split-size
-     per-dp 1024
-    exit
-    address-range 192.200.0.1 192.200.99.254
-   exit
-   ipv6
-    address-ranges
-     split-size
-      per-dp 1024
-     exit
-     address-range 2001:192:200::1 2001:192:200::1:100
-    exit
-    prefix-ranges
-     split-size
-      per-dp 1024
-     exit
-     prefix-range 2010:: length 48
-    exit
-   exit
-  exit
   address-pool pool-Silver
    vrf-name default
    ipv4
