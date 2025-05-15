@@ -71,6 +71,8 @@ Let's understand each construct in step-by-step manner.
 ### IPAM
 IPAM defines subscriber address pools for IPv4, IPv6 (NA) and IPv6 (PD). These are the pools from which LNS client will get the IP addresses. IPAM assigns addresses dynamically by splitting address pools into smaller chunks and then associating each chunk with a user-plane. The pools get freed up dynamically and re-allocated to different user-planes on need basis. 
 
+Notice the static pool, which is required to assign Static IP addresses through Radius.
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
