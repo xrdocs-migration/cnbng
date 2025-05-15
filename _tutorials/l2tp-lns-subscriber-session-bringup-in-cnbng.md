@@ -319,15 +319,15 @@ exit
 </div>
 
 ### Profile Subscriber
-This profile can be attached on per access port level or per user-plane level. This profile for PPPoE defines which dhcp server profile to apply for IPv6 address assignment, along with feature-template, pppoe-profile and aaa-profile to be used for auth/acct. 
+This profile can be attached on per access port level or per user-plane level. This profile for PPPoE defines which dhcp server profile to apply for IPv6 address assignment using DHCPv6, along with feature-template, l2tp-profile and aaa-profile to be used for auth/acct. 
 
 ```
-profile subscriber subscriber-profile_pppoe-1
+profile subscriber subscriber-profile_pppoe-lns-up1
  dhcp-profile               dhcp-server1
  pppoe-profile              ppp1
  session-type               ipv4v6
- l2tp-profile               lac-1
- activate-feature-templates [ pppoe-1 ]
+ l2tp-profile               lns-up1
+ activate-feature-templates [ ft-pppoe-lns-1 ]
  event session-activate
   aaa authenticate aaa_pppoe
  exit
@@ -340,12 +340,20 @@ This construct define the association configs. Peering IP as well as subscriber 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-user-plane ASR9k-1
- <mark>!!! this should be the IP of ASR9k to which this control-plane will peer with</mark>
- peer-address ipv4 192.168.107.142
- <mark>!!! the port-id here is the ASR9k access port or interface name</mark>
- port-id <mark>Bundle-Ether1.102</mark>
-  subscriber-profile subscriber-profile_pppoe-1
+user-plane
+ instance 1
+  user-plane ASR9k-1
+   peer-address ipv4 192.168.107.142
+   port-id Bundle-Ether24
+    subscriber-profile subscriber-profile_pppoe-lns-up1
+   exit
+   port-id Bundle-Ether25
+    subscriber-profile subscriber-profile_pppoe-lns-up1
+   exit
+  exit
+  user-plane ASR9k-2
+   peer-address ipv4 192.168.107.153
+  exit
  exit
 exit
 </code>
@@ -354,7 +362,7 @@ exit
 
 ## cnBNG UP Configuration
 
-UP Configuration has mainly four constructs for cnBNG
+UP Configuration has mainly four constructs for L2TP LNS:
 
 - Association Configuration
 - DHCP Configuration
@@ -362,24 +370,21 @@ UP Configuration has mainly four constructs for cnBNG
 - Feature definitions: QoS, ACL
 
 ### Association Configuration
-This is where we define association settings between cnBNG CP and UP. The auto-loopback with "secondary-address-upadte enable" will allow dynamic IP address allocations using IPAM for PTA sessions. 
+This is where we define association settings between cnBNG CP and UP. The auto-loopback with "secondary-address-upadte enable" will allow dynamic IP address allocations using IPAM for LNS sessions. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
 cnbng-nal location 0/RSP0/CPU0
  hostidentifier ASR9k-1
- <mark>!!! cnBNG UP routable IP (may be loopback or direct interface IP) used for peering with cnBNG CP</mark>
- up-server ipv4 <mark>192.168.107.142</mark> vrf default
- <mark>!!! cnBNG CP IP (generally protocol VIP) used for peering with cnBNG UP</mark>
- cp-server primary ipv4 <mark>192.168.107.165</mark>
+ up-server ipv4 192.168.107.142 vrf default
+ cp-server primary ipv4 192.168.107.165
  auto-loopback vrf default
   interface Loopback1
-   <mark>!!! Any dummy IP</mark>
-   primary-address <mark>1.1.1.1</mark>
+   primary-address 1.1.1.1
   !
  !
- cp-association retry-count 5
+ cp-association retry-count 10
  <mark>l2tp enable</mark>
  secondary-address-update enable
 !
@@ -406,157 +411,379 @@ This is where we associate access interfaces with cnBNG DHCP profile. cnBNG spec
 dhcp ipv6
  profile cnbng_v6 cnbng
  !
- interface Bundle-Ether1.102 cnbng profile cnbng_v6
+ interface Bundle-Ether24 cnbng profile cnbng6
+ interface Bundle-Ether25 cnbng profile cnbng6
 ```
 
 ### Access Interface Configuration
 We define and associate access interface to cnBNG. This way control packets (based on configurations) get routed to the cnBNG CP. The contruct follows ASR9k Integarted BNG model, if you are familiar with.
 
 ```
-interface Bundle-Ether1.102
- ipv4 point-to-point
- ipv4 unnumbered Loopback1
- ipv6 enable
- pppoe enable
- encapsulation ambiguous dot1q 102 second-dot1q any
+interface Bundle-Ether24
+ mtu 9216
+ ipv4 address 172.24.0.2 255.255.255.0
+ ipv6 address 2001:172:24::2/64
+ load-interval 30
+ lns enable
+!
+interface Bundle-Ether25
+ mtu 9216
+ ipv4 address 172.25.0.2 255.255.255.0
+ ipv6 address 2001:172:25::2/64
+ load-interval 30
+ lns enable
 !
 ```
-
-**Note**: This example uses ambiguous VLAN for access interface which allows 1:1 VLAN model. cnBNG also supports N:1 VLAN model for subscribers.
-{: .notice--info}
 
 ## Radius Profile
 Following are Freeradius profiles used in this tutorial. Profile-1 is for PPPoE PTA session and Profile-2 is for PPPoE LAC session.
 
-**Profile-1**: PPPoE PTA
+**Profile-1**: Dynamic IP Assignment
 ```
-cisco Cleartext-Password:="cisco"
-  Framed-protocol += "PPP",
-  Service-Type += "Framed",
-  cisco-avpair += "subscriber:inacl=iACL_BNG_IPv4",
-  Cisco-AVpair += "subscriber:ipv6_inacl=iACL_BNG_IPv6",
-  cisco-avpair += "subscriber:sa=FT_Plan_100mbps",
-  cisco-avpair += "ip:primary-dns=200.45.191.45",
-  cisco-avpair += "ip:secondary-dns=8.8.8.8"
+lns-dynamic Cleartext-Password:="cisco"
+  cisco-avpair += "subscriber:inacl=myACL",
+  cisco-avpair += "subscriber:ipv6_inacl=myACL",
+  cisco-avpair += "subscriber:ipv6_outacl=myACL",
+  cisco-avpair += "subscriber:outacl=myACL",
+  cisco-avpair += "subscriber:sub-qos-policy-in=PM_Plan_100mbps_input",
+  cisco-avpair += "subscriber:sub-qos-policy-out=PM_Plan_100mbps_output",
+  Cisco-AVPair += "strict-rpf=1",
+  Cisco-AVPair += "ipv6-strict-rpf=1",
+  Framed-route += "214.5.0.0/22",
+  Framed-IPv6-route += "2001:214:5::/64"
 ```
 
-**Profile-2**: PPPoE LAC
+**Profile-2**: Static IP Assignment including Framed-route and Framed-IPv6-route
 ```
-cisco-lac Cleartext-Password:="cisco"
-    Framed-Protocol=PPP,
-    Service-Type=Outbound-User,
-    Tunnel-Type=L2TP,
-    Tunnel-Medium-Type=:1:IP,
-    Tunnel-Client-Endpoint=":1:172.0.0.2",
-    Tunnel-Server-Endpoint=":1:200.200.210.1"
+lns-static Cleartext-Password:="cisco"
+  cisco-avpair += "subscriber:inacl=myACL",
+  cisco-avpair += "subscriber:ipv6_inacl=myACL",
+  cisco-avpair += "subscriber:ipv6_outacl=myACL",
+  cisco-avpair += "subscriber:outacl=myACL",
+  cisco-avpair += "subscriber:sub-qos-policy-in=PM_Plan_100mbps_input",
+  cisco-avpair += "subscriber:sub-qos-policy-out=PM_Plan_100mbps_output",
+  Cisco-AVPair += "strict-rpf=1",
+  Cisco-AVPair += "ipv6-strict-rpf=1",
+  Framed-IP-Address += "112.0.0.3",
+  Cisco-AVPair += "addrv6=2001:112::3",
+  Delegated-IPv6-Prefix += "2001:111:0:3::/64",
+  Framed-route += "214.6.0.0/22",
+  Framed-IPv6-route += "2001:214:6::/64" 
 ```
 
 ## Verifications
-
-- Verfiy that the cnBNG CP-UP association is up and Active on cnBNG CP ops-center
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-[cnbng-tme-lab/bng] bng# show peers | tab
-Tue Jun  28 10:03:46.820 UTC+00:00
-GR                                                                                                  CONNECTED                                                INTERFACE
-INSTANCE  ENDPOINT      LOCAL ADDRESS         PEER ADDRESS          DIRECTION  POD INSTANCE   TYPE  TIME       RPC     ADDITIONAL DETAILS                    NAME
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-0         RadiusServer  -                     192.168.107.152:1812  Outbound   radius-ep-0    Udp   2 hours    Radius  Status: Active,Type: Auth             &lt;none&gt;
-0         RadiusServer  -                     192.168.107.152:1813  Outbound   radius-ep-0    Udp   2 hours    Radius  Status: Active,Type: Acct             &lt;none&gt;
-<mark>1         n4            192.168.107.165:8805  192.168.107.142:8805  Inbound    bng-nodemgr-0  Udp   2 hours    UPF     Name: ASR9k-1,Nm: 0/0,Status: ACTIVE  &lt;none&gt;</mark>
-</code>
-</pre>
-</div>
-
-- Verify that the CP-UP Association is Up and Active on cnBNG UP
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RSP0/CPU0:ASR9k-1#show cnbng-nal cp connection status
-Tue Jun 28 15:32:44.562 IST
-
-Location: 0/RSP0/CPU0
-
-
-User-Plane configurations:
--------------------------
- IP             : 192.168.107.142
- GTP Port       : 2152
- PFCP Port      : 8805
- VRF            : default
-
-
-Control-Plane configurations:
-----------------------------
- PRIMARY IP     : 192.168.107.165
- GTP Port       : 2152
- PFCP Port      : 8805
-
- Association retry count: 5
-
- Connection Status: Up
- Connection Status time stamp:  Tue Jun 28 13:10:16 2022
-
- Connection Prev Status: Down
- Connection Prev Status time stamp:  Tue Jun 28 13:06:11 2022
-
- Association status: Active
- Association status time stamp: Tue Jun 28 13:10:15 2022
-</code>
-</pre>
-</div>
 
 - Verify subscriber sessions are up on cnBNG CP ops-center
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-[cnbng-tme-lab/bng] bng# show subscriber session
-Tue Jun  28 10:06:03.878 UTC+00:00
-subscriber-details
+[cnbng-tme-lab-2024/bng] bng# show subscriber session detail 
+Fri Dec  6  09:39:17.753 UTC+00:00
+subscriber-details 
 {
   "subResponses": [
     {
-      "records": [
-        {
-          "cdl-keys": [
-            "16777229@sm",
-            "acct-sess-id:cnbng-tme-lab_DC_16777229@sm",
-            "upf:ASR9k-1",
-            "port-id:ASR9k-1/<mark>Bundle-Ether1.102"</mark>,
-            "feat-template:pppoe-1",
-            "type:sessmgr",
-            "mac:0010.9401.0001",
-            <mark>"sesstype:lac"</mark>,
-            "smupstate:smUpSessionCreated",
-            "up-subs-id:ASR9k-1/2148182752",
-            "smstate:established"
-          ]
+      "subLabel": "16777218",
+      "acct-sess-id": "cnbng-tme-lab-2024_DC_16777218",
+      "upf": "ASR9k-1",
+      "port-id": "Bundle-Ether24",
+      "up-subs-id": "2147499664",
+      "sesstype": "lns",
+      "state": "established",
+      "subCreateTime": "Fri, 06 Dec 2024 09:17:29 UTC",
+      "dhcpAuditId": 1,
+      "pppAuditId": 4,
+      "transId": "4",
+      "subsAttr": {
+        "attrs": {
+          "Authentic": "RADIUS(1)",
+          "Framed-Protocol": "PPP(1)",
+          "Interface-Id": "0x6c062813ada1085f",
+          "addr": "112.0.0.3",
+          "addrv6": "2001:112::3",
+          "authen-type": "chap(2)",
+          "challenge": "0xe9bdf835f6df262ed41d8cd98f00b204",
+          "connect-progress": "DUAL_STACK_OPEN(249)",
+          "delegated-prefix": "2001:111:0:3::/64",
+          "dhcpv6-client-id": "0x000100016752bc27001094000015",
+          "id": "1",
+          "protocol-type": "ppp(2)",
+          "response": "0xd7ad3deab0ab1ecaeaf2d3efe0af2199",
+          "service-type": "Framed(2)",
+          "string-session-id": "cnbng-tme-lab-2024_DC_16777218",
+          "tunnel-client-auth-id": "lns.cisco.com",
+          "tunnel-client-endpoint": "200.0.0.3",
+          "tunnel-connection-id": "951517185",
+          "tunnel-medium-type": "IPv4(1)",
+          "tunnel-server-auth-id": "lns.cisco.com",
+          "tunnel-server-endpoint": "172.0.0.2",
+          "tunnel-type": "L2TP(1)",
+          "username": "lns-static",
+          "vrf": "default"
         }
+      },
+      "subcfgInfo": {
+        "committedAttrs": {
+          "attrs": {
+            "accounting-list": "aaa_pppoe",
+            "acct-interval": "60",
+            "addr": "112.0.0.3",
+            "addr-pool": "pool-Silver",
+            "addrv6": "2001:112::3",
+            "delegated-prefix": "2001:111:0:3::/64",
+            "inacl": "myACL",
+            "ipv4-mtu": "1500",
+            "ipv6-route": "2001:214:6::/64",
+            "ipv6-strict-rpf": "true",
+            "ipv6_inacl": "myACL",
+            "ipv6_outacl": "myACL",
+            "outacl": "myACL",
+            "ppp-authentication": "chap,pap",
+            "ppp-ipcp-reneg-ignore": "true",
+            "ppp-ipv6cp-reneg-ignore": "true",
+            "ppp-keepalive-disable": "true",
+            "ppp-lcp-reneg-ignore": "true",
+            "ppp-max-bad-auth": "4",
+            "ppp-max-failure": "5",
+            "ppp-timeout-abs-minutes": "1440",
+            "ppp-timeout-authentication": "5",
+            "ppp-timeout-retry": "4",
+            "route": "214.6.0.0/22",
+            "session-acct-enabled": "true",
+            "strict-rpf": "true",
+            "sub-qos-policy-in": "PM_Plan_100mbps_input",
+            "sub-qos-policy-out": "PM_Plan_100mbps_output",
+            "vrf": "default"
+          }
+        },
+        "activatedServices": [
+          {
+            "serviceName": "ft-pppoe-lns-1",
+            "serviceAttrs": {
+              "attrs": {}
+            }
+          }
+        ]
+      },
+      "smupstate": "smUpSessionCreated",
+      "v4AfiState": "Up",
+      "v6AfiState": "Up",
+      "interimInterval": "60",
+      "interimSentToUp": "60",
+      "sessionAccounting": "enable",
+      "serviceAccounting": "disable",
+      "upAttr": {
+        "attrs": {
+          "Interface-Id": "0x6c062813ada1085f",
+          "addr": "112.0.0.3",
+          "addrv6": "2001:112::3",
+          "delegated-prefix": "2001:111:0:3::/64",
+          "l2tp-df-reflect": "true",
+          "ppp-local-magic-number": "2766053726",
+          "ppp-mtu": "1500",
+          "ppp-peer-magic-number": "580247585",
+          "tunnel-tos-reflect": "true"
+        }
+      },
+      "v4FramedRoute": [
+        "214.6.0.0/22"
+      ],
+      "v6FramedRoute": [
+        "2001:214:6::/64"
+      ],
+      "chargingInfo": {
+        "sessionType": "CHARGING_AF_IPv4_IPv6",
+        "sessionAccounting": {
+          "periodicInterval": 60,
+          "accountingProvision": "Enable",
+          "stateInfo": "CHARGING_STATE_START_ACK",
+          "accountingStart": {
+            "reqStartSuccess": "Fri, 06 Dec 2024 09:17:33 UTC"
+          },
+          "accountingUpdate": {
+            "reqInterimSuccess": "Fri, 06 Dec 2024 09:38:33 UTC",
+            "periodicAccountingProvision": "Enable",
+            "InterimIntervalTimeout": 60,
+            "totalInterimReq": 23,
+            "totalInterimFailure": 0
+          },
+          "accountingStop": {},
+          "sessionDataStats": {
+            "inputPkts": 2191894,
+            "outputPkts": 2191879,
+            "inputOctet": 429607952,
+            "outputOctet": 425224360
+          },
+          "acct-sess-id": "cnbng-tme-lab-2024_DC_16777218",
+          "UPFDataStats": {
+            "ASR9k-1": {
+              "inputPkts": 2191894,
+              "outputPkts": 2191879,
+              "inputOctet": 429607952,
+              "outputOctet": 425224360
+            }
+          }
+        }
+      },
+      "sess-events": [
+        "Time, Event, Status",
+        "2024-12-06 09:17:29.270320169 +0000 UTC, SessionCreate, success",
+        "2024-12-06 09:17:33.307749887 +0000 UTC, SessionActivate, success",
+        "2024-12-06 09:17:33.630390434 +0000 UTC, N4-Create:ASR9k-1, PASS",
+        "2024-12-06 09:17:33.631082571 +0000 UTC, SessionUpdate, success",
+        "2024-12-06 09:17:33.67049301 +0000 UTC, SessionUpdate, success",
+        "2024-12-06 09:35:33.303059217 +0000 UTC, SessionUpdate, success"
       ]
     },
     {
-      "records": [
-        {
-          "cdl-keys": [
-            "16777230@sm",
-            "acct-sess-id:cnbng-tme-lab_DC_16777230@sm",
-            "upf:ASR9k-1",
-            "port-id:ASR9k-1/<mark>Bundle-Ether1.102"</mark>,
-            "feat-template:pppoe-1",
-            "type:sessmgr",
-            "mac:0010.9402.0001",
-            <mark>"sesstype:ppp"</mark>,
-            "feat-template:FT_Plan_100mbps",
-            "smupstate:smUpSessionCreated",
-            "up-subs-id:ASR9k-1/2148182768",
-            "smstate:established",
-            "afi:dual"
-          ]
+      "subLabel": "16777217",
+      "acct-sess-id": "cnbng-tme-lab-2024_DC_16777217",
+      "upf": "ASR9k-1",
+      "port-id": "Bundle-Ether24",
+      "up-subs-id": "2147499648",
+      "sesstype": "lns",
+      "state": "established",
+      "subCreateTime": "Fri, 06 Dec 2024 09:17:23 UTC",
+      "dhcpAuditId": 1,
+      "pppAuditId": 4,
+      "transId": "4",
+      "subsAttr": {
+        "attrs": {
+          "Authentic": "RADIUS(1)",
+          "Framed-Protocol": "PPP(1)",
+          "Interface-Id": "0x7940d8754c682e87",
+          "addr": "192.168.4.2",
+          "addrv6": "2001:192:168::1000",
+          "authen-type": "chap(2)",
+          "challenge": "0x6ff2b3842904db56d41d8cd98f00b204",
+          "connect-progress": "DUAL_STACK_OPEN(249)",
+          "delegated-prefix": "2008::/64",
+          "dhcpv6-client-id": "0x000100016752bc21001094000014",
+          "id": "1",
+          "protocol-type": "ppp(2)",
+          "response": "0xdf494a18e4b6514b84b57b0029922da0",
+          "service-type": "Framed(2)",
+          "string-session-id": "cnbng-tme-lab-2024_DC_16777217",
+          "tunnel-client-auth-id": "lns.cisco.com",
+          "tunnel-client-endpoint": "200.0.0.2",
+          "tunnel-connection-id": "153944065",
+          "tunnel-medium-type": "IPv4(1)",
+          "tunnel-server-auth-id": "lns.cisco.com",
+          "tunnel-server-endpoint": "172.0.0.2",
+          "tunnel-type": "L2TP(1)",
+          "username": "lns-dynamic",
+          "vrf": "default"
         }
+      },
+      "subcfgInfo": {
+        "committedAttrs": {
+          "attrs": {
+            "accounting-list": "aaa_pppoe",
+            "acct-interval": "60",
+            "addr-pool": "pool-Silver",
+            "inacl": "myACL",
+            "ipv4-mtu": "1500",
+            "ipv6-route": "2001:214:5::/64",
+            "ipv6-strict-rpf": "true",
+            "ipv6_inacl": "myACL",
+            "ipv6_outacl": "myACL",
+            "outacl": "myACL",
+            "ppp-authentication": "chap,pap",
+            "ppp-ipcp-reneg-ignore": "true",
+            "ppp-ipv6cp-reneg-ignore": "true",
+            "ppp-keepalive-disable": "true",
+            "ppp-lcp-reneg-ignore": "true",
+            "ppp-max-bad-auth": "4",
+            "ppp-max-failure": "5",
+            "ppp-timeout-abs-minutes": "1440",
+            "ppp-timeout-authentication": "5",
+            "ppp-timeout-retry": "4",
+            "route": "214.5.0.0/22",
+            "session-acct-enabled": "true",
+            "strict-rpf": "true",
+            <mark>"sub-qos-policy-in": "PM_Plan_100mbps_input",</mark>
+            <mark>"sub-qos-policy-out": "PM_Plan_100mbps_output",</mark>
+            "vrf": "default"
+          }
+        },
+        "activatedServices": [
+          {
+            "serviceName": "ft-pppoe-lns-1",
+            "serviceAttrs": {
+              "attrs": {}
+            }
+          }
+        ]
+      },
+      "smupstate": "smUpSessionCreated",
+      "v4AfiState": "Up",
+      "v6AfiState": "Up",
+      "interimInterval": "60",
+      "interimSentToUp": "60",
+      "sessionAccounting": "enable",
+      "serviceAccounting": "disable",
+      "upAttr": {
+        "attrs": {
+          "Interface-Id": "0x7940d8754c682e87",
+          "addr": "192.168.4.2",
+          "addrv6": "2001:192:168::1000",
+          "delegated-prefix": "2008::/64",
+          "l2tp-df-reflect": "true",
+          "ppp-local-magic-number": "3688316752",
+          "ppp-mtu": "1500",
+          "ppp-peer-magic-number": "1813240529",
+          "tunnel-tos-reflect": "true"
+        }
+      },
+      <mark>"v4FramedRoute": [</mark>
+        "214.5.0.0/22"
+      ],
+      <mark>"v6FramedRoute": [</mark>
+        "2001:214:5::/64"
+      ],
+      "chargingInfo": {
+        "sessionType": "CHARGING_AF_IPv4_IPv6",
+        "sessionAccounting": {
+          "periodicInterval": 60,
+          "accountingProvision": "Enable",
+          "stateInfo": "CHARGING_STATE_START_ACK",
+          "accountingStart": {
+            "reqStartSuccess": "Fri, 06 Dec 2024 09:17:28 UTC"
+          },
+          "accountingUpdate": {
+            "reqInterimSuccess": "Fri, 06 Dec 2024 09:38:28 UTC",
+            "periodicAccountingProvision": "Enable",
+            "InterimIntervalTimeout": 60,
+            "totalInterimReq": 23,
+            "totalInterimFailure": 0
+          },
+          "accountingStop": {},
+          "sessionDataStats": {
+            "inputPkts": 2191877,
+            "outputPkts": 2191863,
+            "inputOctet": 429604622,
+            "outputOctet": 425221328
+          },
+          "acct-sess-id": "cnbng-tme-lab-2024_DC_16777217",
+          "UPFDataStats": {
+            "ASR9k-1": {
+              "inputPkts": 2191877,
+              "outputPkts": 2191863,
+              "inputOctet": 429604622,
+              "outputOctet": 425221328
+            }
+          }
+        }
+      },
+      "sess-events": [
+        "Time, Event, Status",
+        "2024-12-06 09:17:23.585201637 +0000 UTC, SessionCreate, success",
+        "2024-12-06 09:17:27.623952571 +0000 UTC, SessionActivate, success",
+        "2024-12-06 09:17:28.05379705 +0000 UTC, N4-Create:ASR9k-1, PASS",
+        "2024-12-06 09:17:28.054551382 +0000 UTC, SessionUpdate, success",
+        "2024-12-06 09:17:28.136872388 +0000 UTC, SessionUpdate, success",
+        "2024-12-06 09:35:27.224115757 +0000 UTC, SessionUpdate, success"
       ]
     }
   ]
