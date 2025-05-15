@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2025-05-15 13:03 +0530'
-title: Cisco Live Amsterdam - 2025
+title: Cloud Native BNG @Cisco Live Amsterdam - 2025
 author: Gurpreet Dhaliwal
 tags:
   - cnbng
