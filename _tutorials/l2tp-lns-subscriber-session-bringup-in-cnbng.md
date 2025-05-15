@@ -13,7 +13,17 @@ tags:
 
 ## Introduction
 
-In this tutorial we will learn how to bring-up L2TP LNS subscriber session in Cloud Native BNG (cnBNG). We will configure this lab to have dual stack LNS session. We will setup radius profile to authenticate LNS subscriber session, push plan policies and other attributes.
+In this tutorial we will learn how to bring-up L2TP LNS subscriber session in Cloud Native BNG (cnBNG). We will configure this lab to have dual stack LNS sessions. We will setup radius profile to authenticate LNS subscriber sessions, push plan policies and other attributes.
+
+We will bringup two types of LNS sessions:
+- Dual Stack Dynamic Session, where IP addresses (IPv4, IPv6 NA, IPv6 PD) are dynamically assigned through IPAM
+- Dual Stack Static Session, where IP addresses (IPv4, IPv6 NA, IPv6 PD) are statically assigned  through Radius
+
+We will apply below features to each session:
+- QoS
+- ACL
+- uRPF
+- Framed Route (IPv4 + IPv6)
 
 ## Topology
 The setup used for this tutorial is shown in figure 1. This setup uses Spirent to emulate LAC and client devices. Spirent port 1/4 will be used for LAC and client emulation. 
