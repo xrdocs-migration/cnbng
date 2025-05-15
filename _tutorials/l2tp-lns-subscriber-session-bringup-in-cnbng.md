@@ -813,9 +813,9 @@ tunnel-details
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-RP/0/RSP0/CPU0:ASR9k-1#show cnbng-nal subscriber all
+RP/0/RSP0/CPU0:ASR9k-1#show cnbng-nal subscriber all 
 
-Fri Dec  6 09:30:46.924 UTC
+Fri Dec  6 09:38:26.770 UTC
 
 Location: 0/RSP0/CPU0
 Codes: CN - Connecting, CD - Connected, AC - Activated,
@@ -827,8 +827,14 @@ CPID(hex)  Interface               State  Mac Address     Subscriber IP Addr / P
 ---------------------------------------------------------------------------------------------------
 1000002    BE24.lns2147499664      AC     0000.0000.0000  112.0.0.3 (default) 0x10260   
                                                           214.6.0.0/22 (Framed IPv4)
+                                                          2001:112::3 (IANA)
+                                                          2001:111:0:3::/64 (IAPD)
+                                                          2001:214:6::/64 (Framed IPv6)
 1000001    BE24.lns2147499648      AC     0000.0000.0000  192.168.4.2 (default) 0x10220   
                                                           214.5.0.0/22 (Framed IPv4)
+                                                          2001:192:168::1000 (IANA)
+                                                          2008::/64 (IAPD)
+                                                          2001:214:5::/64 (Framed IPv6)
 Session-count: 2
 
 RP/0/RSP0/CPU0:ASR9k-1#show subscriber running-config interface name BE24.lns2147499664
