@@ -500,26 +500,26 @@ subscriber-details
           "Authentic": "RADIUS(1)",
           "Framed-Protocol": "PPP(1)",
           "Interface-Id": "0x6c062813ada1085f",
-          "addr": "112.0.0.3",
-          "addrv6": "2001:112::3",
+          <mark>"addr": "112.0.0.3",</mark>
+          <mark>"addrv6": "2001:112::3",</mark>
           "authen-type": "chap(2)",
           "challenge": "0xe9bdf835f6df262ed41d8cd98f00b204",
           "connect-progress": "DUAL_STACK_OPEN(249)",
-          "delegated-prefix": "2001:111:0:3::/64",
+          <mark>"delegated-prefix": "2001:111:0:3::/64",</mark>
           "dhcpv6-client-id": "0x000100016752bc27001094000015",
           "id": "1",
           "protocol-type": "ppp(2)",
           "response": "0xd7ad3deab0ab1ecaeaf2d3efe0af2199",
           "service-type": "Framed(2)",
           "string-session-id": "cnbng-tme-lab-2024_DC_16777218",
-          "tunnel-client-auth-id": "lns.cisco.com",
-          "tunnel-client-endpoint": "200.0.0.3",
+          <mark>"tunnel-client-auth-id": "lns.cisco.com",</mark>
+          <mark>"tunnel-client-endpoint": "200.0.0.3",</mark>
           "tunnel-connection-id": "951517185",
           "tunnel-medium-type": "IPv4(1)",
           "tunnel-server-auth-id": "lns.cisco.com",
-          "tunnel-server-endpoint": "172.0.0.2",
+          <mark>"tunnel-server-endpoint": "172.0.0.2",</mark>
           "tunnel-type": "L2TP(1)",
-          "username": "lns-static",
+          <mark>"username": "lns-static",</mark>
           "vrf": "default"
         }
       },
@@ -551,9 +551,9 @@ subscriber-details
             "ppp-timeout-retry": "4",
             "route": "214.6.0.0/22",
             "session-acct-enabled": "true",
-            "strict-rpf": "true",
-            "sub-qos-policy-in": "PM_Plan_100mbps_input",
-            "sub-qos-policy-out": "PM_Plan_100mbps_output",
+            <mark>"strict-rpf": "true",</mark>
+            <mark>"sub-qos-policy-in": "PM_Plan_100mbps_input",</mark>
+            <mark>"sub-qos-policy-out": "PM_Plan_100mbps_output",</mark>
             "vrf": "default"
           }
         },
@@ -586,10 +586,10 @@ subscriber-details
           "tunnel-tos-reflect": "true"
         }
       },
-      "v4FramedRoute": [
+      <mark>"v4FramedRoute": [</mark>
         "214.6.0.0/22"
       ],
-      "v6FramedRoute": [
+      <mark>"v6FramedRoute": [</mark>
         "2001:214:6::/64"
       ],
       "chargingInfo": {
@@ -653,8 +653,8 @@ subscriber-details
           "Authentic": "RADIUS(1)",
           "Framed-Protocol": "PPP(1)",
           "Interface-Id": "0x7940d8754c682e87",
-          "addr": "192.168.4.2",
-          "addrv6": "2001:192:168::1000",
+          <mark>"addr": "192.168.4.2",</mark>
+          <mark>"addrv6": "2001:192:168::1000",</mark>
           "authen-type": "chap(2)",
           "challenge": "0x6ff2b3842904db56d41d8cd98f00b204",
           "connect-progress": "DUAL_STACK_OPEN(249)",
@@ -665,14 +665,14 @@ subscriber-details
           "response": "0xdf494a18e4b6514b84b57b0029922da0",
           "service-type": "Framed(2)",
           "string-session-id": "cnbng-tme-lab-2024_DC_16777217",
-          "tunnel-client-auth-id": "lns.cisco.com",
-          "tunnel-client-endpoint": "200.0.0.2",
+          <mark>"tunnel-client-auth-id": "lns.cisco.com",</mark>
+          <mark>"tunnel-client-endpoint": "200.0.0.2",</mark>
           "tunnel-connection-id": "153944065",
           "tunnel-medium-type": "IPv4(1)",
           "tunnel-server-auth-id": "lns.cisco.com",
-          "tunnel-server-endpoint": "172.0.0.2",
+          <mark>"tunnel-server-endpoint": "172.0.0.2",</mark>
           "tunnel-type": "L2TP(1)",
-          "username": "lns-dynamic",
+          <mark>"username": "lns-dynamic",</mark>
           "vrf": "default"
         }
       },
@@ -701,7 +701,7 @@ subscriber-details
             "ppp-timeout-retry": "4",
             "route": "214.5.0.0/22",
             "session-acct-enabled": "true",
-            "strict-rpf": "true",
+            <mark>"strict-rpf": "true",</mark>
             <mark>"sub-qos-policy-in": "PM_Plan_100mbps_input",</mark>
             <mark>"sub-qos-policy-out": "PM_Plan_100mbps_output",</mark>
             "vrf": "default"
@@ -792,53 +792,183 @@ subscriber-details
 </pre>
 </div>
 
+- Verify l2tp tunnels on cnBNG CP ops-center.
+
+```
+[cnbng-tme-lab-2024/bng] bng# show l2tp-tunnel detail 
+Fri Dec  6  09:39:30.338 UTC+00:00
+tunnel-details 
+{
+  "tunResponses": [
+    {
+      "state": "established",
+      "profileName": "lns-up1",
+      "tunnelType": "lns",
+      "sessionCount": 1,
+      "IDs Allocated": 1,
+      "routerID": "ASR9k-1",
+      "srcIP": "172.0.0.2",
+      "dstIP": "200.0.0.2",
+      "localTunnelID": 2349,
+      "remoteTunnelID": 1,
+      "tunnelClientAuthID": "lns.cisco.com",
+      "tunnelServerAuthID": "lns.cisco.com"
+    },
+    {
+      "state": "established",
+      "profileName": "lns-up1",
+      "tunnelType": "lns",
+      "sessionCount": 1,
+      "IDs Allocated": 1,
+      "routerID": "ASR9k-1",
+      "srcIP": "172.0.0.2",
+      "dstIP": "200.0.0.3",
+      "localTunnelID": 14519,
+      "remoteTunnelID": 1,
+      "tunnelClientAuthID": "lns.cisco.com",
+      "tunnelServerAuthID": "lns.cisco.com"
+    }
+  ]
+}
+```
+
 - Verify that the subscriber session is up and working on cnBNG UP
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
 RP/0/RSP0/CPU0:ASR9k-1#show cnbng-nal subscriber all
-Tue Jun 28 15:34:17.767 IST
+
+Fri Dec  6 09:30:46.924 UTC
 
 Location: 0/RSP0/CPU0
 Codes: CN - Connecting, CD - Connected, AC - Activated,
        ID - Idle, DN - Disconnecting, IN - Initializing
+       UN - Unknown
 
 
 CPID(hex)  Interface               State  Mac Address     Subscriber IP Addr / Prefix (Vrf) Ifhandle
 ---------------------------------------------------------------------------------------------------
-100000d    BE1.102.pppoe2148182752 AC     0010.9401.0001  200.200.210.1 (default) 0x2143e0
-100000e    BE1.102.pppoe2148182768 AC     0010.9402.0001  20.0.0.5 (default) 0x214420
-                                                          2001::1 (IANA)
+1000002    BE24.lns2147499664      AC     0000.0000.0000  112.0.0.3 (default) 0x10260   
+                                                          214.6.0.0/22 (Framed IPv4)
+1000001    BE24.lns2147499648      AC     0000.0000.0000  192.168.4.2 (default) 0x10220   
+                                                          214.5.0.0/22 (Framed IPv4)
 Session-count: 2
 
-RP/0/RSP0/CPU0:ASR9k-1#show subscriber running-config interface name BE1.102.pppoe2148182752
-Tue Jun 28 15:34:58.796 IST
-Building configuration...
-!! IOS XR Configuration 7.4.2
-subscriber-label 0x800aaae0
-end
+RP/0/RSP0/CPU0:ASR9k-1#show subscriber running-config interface name BE24.lns2147499664
 
-* Suffix indicates the configuration item can be added by aaa server only
-RP/0/RSP0/CPU0:ASR9k-1#show subscriber running-config interface name BE1.102.pppoe2148182768
-Tue Jun 28 15:35:18.238 IST
+Fri Dec  6 09:32:27.710 UTC
 Building configuration...
-!! IOS XR Configuration 7.4.2
-subscriber-label 0x800aaaf0
+!! IOS XR Configuration 24.4.1.07I
 dynamic-template
- type user-profile U000aaaf0
-  ipv6 access-group iACL_BNG_IPv6 ingress
+ type user-profile U00003e90
+  ipv4 access-group myACL ingress
+  ipv4 access-group myACL egress
   ipv4 mtu 1500
   ipv4 unnumbered Loopback1
-  ipv4 access-group iACL_BNG_IPv4 ingress
-  ipv6 enable
- !
- type service-profile FT_Plan_100mbps
   service-policy input PM_Plan_100mbps_input
   service-policy output PM_Plan_100mbps_output
+  ipv6 access-group myACL ingress
+  ipv6 access-group myACL egress
+  ipv6 enable
  !
 !
 end
+
+* Suffix indicates the configuration item can be added by aaa server only
+RP/0/RSP0/CPU0:ASR9k-1#show policy-map applied interface             BE24.lns2147499664
+
+Fri Dec  6 09:32:27.973 UTC
+
+Input policy-map applied to Bundle-Ether24.lns2147499664:
+
+  policy-map PM_Plan_100mbps_input
+   class class-default
+    police rate 100 mbps 
+     exceed-action drop
+    ! 
+   ! 
+
+Output policy-map applied to Bundle-Ether24.lns2147499664:
+
+  policy-map PM_Plan_100mbps_output
+   class class-default
+    service-policy PM_Plan_100mbps_Child
+    shape average 100 mbps 3 mbytes 
+   ! 
+
+Child policy-map(s) of policy-map PM_Plan_100mbps_output: 
+
+  policy-map PM_Plan_100mbps_Child
+   class DSCP-EF
+    police rate 1 mbps burst 200 bytes 
+    ! 
+    priority level 1 
+   ! 
+   class CS3
+    shape average 5 mbps 1 mbytes 
+   ! 
+   class class-default
+   ! 
+   end-policy-map
+  ! 
+RP/0/RSP0/CPU0:ASR9k-1#show subscriber running-config interface name BE24.lns2147499648
+
+Fri Dec  6 09:32:30.559 UTC
+Building configuration...
+!! IOS XR Configuration 24.4.1.07I
+dynamic-template
+ type user-profile U00003e80
+  ipv4 access-group myACL ingress
+  ipv4 access-group myACL egress
+  ipv4 mtu 1500
+  ipv4 unnumbered Loopback1
+  service-policy input PM_Plan_100mbps_input
+  service-policy output PM_Plan_100mbps_output
+  ipv6 access-group myACL ingress
+  ipv6 access-group myACL egress
+  ipv6 enable
+ !
+!
+end
+
+* Suffix indicates the configuration item can be added by aaa server only
+RP/0/RSP0/CPU0:ASR9k-1#show policy-map applied interface             BE24.lns2147499648
+
+Fri Dec  6 09:32:30.898 UTC
+
+Input policy-map applied to Bundle-Ether24.lns2147499648:
+
+  policy-map PM_Plan_100mbps_input
+   class class-default
+    police rate 100 mbps 
+     exceed-action drop
+    ! 
+   ! 
+
+Output policy-map applied to Bundle-Ether24.lns2147499648:
+
+  policy-map PM_Plan_100mbps_output
+   class class-default
+    service-policy PM_Plan_100mbps_Child
+    shape average 100 mbps 3 mbytes 
+   ! 
+
+Child policy-map(s) of policy-map PM_Plan_100mbps_output: 
+
+  policy-map PM_Plan_100mbps_Child
+   class DSCP-EF
+    police rate 1 mbps burst 200 bytes 
+    ! 
+    priority level 1 
+   ! 
+   class CS3
+    shape average 5 mbps 1 mbytes 
+   ! 
+   class class-default
+   ! 
+   end-policy-map
+  ! 
 </code>
 </pre>
 </div>
@@ -846,32 +976,4 @@ end
 **Note**: The ACL and QoS policies applied on subscriber interface must be defined on ASR9k (cnBNG UP), prior to subscriber session bring-up.
 {: .notice--info}
 
-- Let's now check l2tp tunnel status on cnBNG CP.
 
-```
-[cnbng-tme-lab/bng] bng# show l2tp-tunnel
-Tue Jun  28 10:09:22.560 UTC+00:00
-tunnel-details
-{
-  "tunResponses": [
-    {
-      "records": [
-        {
-          "cdl-keys": [
-            "ASR9k-1:r:172.0.0.2:srcip:200.200.210.1:dstip::gid@l2tp",
-            "56084:tid:ASR9k-1:r@l2tp",
-            "type:l2tp-tunnel",
-            "upf:ASR9k-1",
-            "tunnel-id:56084",
-            "srcIP:172.0.0.2",
-            "dstIP:200.200.210.1",
-            "tunnel-type:lac",
-            "l2tp-profile:lac-1",
-            "state:complete"
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
