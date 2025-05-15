@@ -1,9 +1,13 @@
 ---
-published: false
+published: true
 date: '2025-05-15 09:25 +0530'
 title: L2TP LNS Subscriber Session Bringup in cnBNG
 position: top
 author: Gurpreet Dhaliwal
+tags:
+  - cnbng
+  - l2tp
+  - lns
 ---
 {% include toc %}
 
