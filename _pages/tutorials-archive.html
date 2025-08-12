@@ -5,7 +5,7 @@ permalink: /tutorials/
 author_profile: true
 author: "Cisco Programmability Team"
 ---
-
+---
 {% include base_path %}
 {% capture written_year %}'None'{% endcapture %}
 
@@ -19,4 +19,20 @@ author: "Cisco Programmability Team"
   {% endif %}
   {% include archive-techdocs.html %}
 {% endif %}
+{% endfor %}
+---
+
+{% include base_path %}
+
+{% assign grouped_by_category = site.tutorials | group_by: "category" %}
+
+{% for category_group in grouped_by_category %}
+  <h2 id="{{ category_group.name | slugify }}" class="archive__subtitle">{{ category_group.name }}</h2>
+  <ul>
+  {% for post in category_group.items %}
+    {% if post.position == "top" %}
+      {% include archive-techdocs.html %}
+    {% endif %}
+  {% endfor %}
+  </ul>
 {% endfor %}
